@@ -69,6 +69,7 @@ export const useSettingsStore = create<SettingsState>()(
     }),
     {
       name: "skiwithcare-settings",
+      version: 1,
       // Only persist these fields (not drawer state)
       partialize: (state) => ({
         colorTheme: state.colorTheme,
@@ -77,6 +78,12 @@ export const useSettingsStore = create<SettingsState>()(
         defaultView: state.defaultView,
         defaultMaxDistance: state.defaultMaxDistance,
       }),
+      // Ensure drawer is always closed on load
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.isDrawerOpen = false;
+        }
+      },
     }
   )
 );

@@ -73,4 +73,3 @@ export function getMockResort(name: string): Resort | undefined {
 export function getMockResortsByPass(pass: string): Resort[] {
   return mockResorts.filter((r) => r.passNetwork === pass);
 }
-

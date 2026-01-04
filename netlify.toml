@@ -4,7 +4,9 @@
 
 [build]
   publish = "dist"
-  command = "pip install -r scripts/requirements.txt && python scripts/generate_data.py && npm run build"
+  # Data is pre-generated and committed to public/
+  # Run `npm run data:generate` locally to update resort/clinic data
+  command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "20"
