@@ -112,3 +112,94 @@ Each theme has light and dark variants. Always maintain this theming system.
 3. Test on mobile viewports
 4. Maintain accessibility standards
 5. Update this file if brand guidelines evolve
+
+---
+
+## Architecture (React Rebuild)
+
+**Stack:** React 18 + TypeScript + Vite + Tailwind CSS
+
+**State Management:** Zustand
+
+### Project Structure
+
+```
+├── src/
+│   ├── components/
+│   │   ├── ui/           # Button, Badge, Modal, Toast, Spinner
+│   │   ├── layout/       # Header, Sidebar, MobileNav, SettingsDrawer
+│   │   ├── cards/        # ResortCard, ClinicCard, HospitalCard
+│   │   ├── filters/      # SearchBox, StateFilter, DistanceSlider
+│   │   └── map/          # MapView, Markers, Clusters
+│   ├── hooks/            # useResorts, useClinics, useGeolocation
+│   ├── stores/           # Zustand stores (filter, selection, location, settings)
+│   ├── types/            # TypeScript interfaces
+│   ├── utils/            # haversine, formatters, analytics
+│   └── styles/           # Theme CSS variables
+├── scripts/              # Python data generators
+├── public/data/          # Generated JSON files
+└── e2e/                  # Playwright E2E tests
+```
+
+### Naming Conventions
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Components | PascalCase | `ResortCard`, `SettingsDrawer` |
+| Hooks | camelCase with `use` prefix | `useResorts`, `useGeolocation` |
+| Stores | camelCase with `Store` suffix | `filterStore`, `settingsStore` |
+| Files | kebab-case | `resort-card.tsx`, `use-resorts.ts` |
+| CSS Variables | `--category-name` | `--accent-primary`, `--bg-card` |
+| Test IDs | kebab-case | `data-testid="resort-card"` |
+
+### Data Flow
+
+```
+Python Scripts → JSON Files → React App → Zustand Stores → Components
+     ↓                            ↓
+  (build time)              (runtime fetch)
+```
+
+1. Python scripts generate JSON at build time
+2. React app fetches JSON on load
+3. Zustand stores manage client state
+4. Components subscribe to stores via hooks
+
+### Key Stores
+
+| Store | Purpose |
+|-------|---------|
+| `filterStore` | Search query, state filter, distance, pass/care type filters |
+| `selectionStore` | Current mode, selected/expanded items |
+| `locationStore` | User geolocation state |
+| `settingsStore` | Theme, dark mode, units, defaults, drawer state |
+
+### Settings Drawer
+
+All user preferences live in the Settings Drawer (gear icon in header):
+- Theme selection (Rose/Alpine/Glacier)
+- Mode (Dark/Light/Auto)
+- Distance units (Miles/Kilometers)
+- Default view and distance
+
+### Commit Conventions
+
+```
+feat: add new feature
+fix: bug fix
+chore: maintenance tasks
+docs: documentation updates
+test: test additions/updates
+refactor: code refactoring
+```
+
+Always run before committing:
+```bash
+npm run lint && npm run typecheck && npm run build
+```
+
+### Testing Strategy
+
+- **Unit tests** (Vitest): Utils, store logic
+- **Component tests** (React Testing Library): UI interactions
+- **E2E tests** (Playwright): Full user flows
