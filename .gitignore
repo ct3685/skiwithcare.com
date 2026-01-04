@@ -1,6 +1,38 @@
-__pycache__/
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+
+# Python
 venv/
-.env
+__pycache__/
+*.pyc
+.Python
+
+# Cache files
 *.log
-pid.txt
 .DS_Store
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Geocoding caches (regenerated on build)
+davita_geocoded_cache.json
+resort_geocoded_cache.json
+hospital_geocoded_cache.json

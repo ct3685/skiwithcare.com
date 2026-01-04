@@ -1,0 +1,140 @@
+/*
+ * SkiWithCare Theme System
+ * ========================
+ * 3 color themes × 2 modes = 6 variants
+ * 
+ * Themes:
+ *   - Rose (default): Pink #e879a0 + Cyan #64d9f7
+ *   - Alpine: Coral #f97316 + Ice Blue #38bdf8
+ *   - Glacier: Teal #14b8a6 + Blue #3b82f6
+ * 
+ * Modes:
+ *   - Dark (default)
+ *   - Light
+ */
+
+/* ===== ROSE THEME (Default) ===== */
+:root,
+.theme-rose {
+  /* Background */
+  --bg-primary: #0f0a12;
+  --bg-secondary: #1a1320;
+  --bg-tertiary: #241a2e;
+  --bg-card: #2a1f35;
+  --border-color: #3d2f4a;
+  
+  /* Text */
+  --text-primary: #f5f0fa;
+  --text-secondary: #b8a5c8;
+  --text-muted: #7a6888;
+  
+  /* Accents */
+  --accent-primary: #e879a0;
+  --accent-secondary: #f4a5c0;
+  --accent-tertiary: #ff6b9d;
+  --accent-clinic: #64d9f7;
+  --accent-success: #4ade80;
+  --accent-warning: #fbbf24;
+  --accent-danger: #f87171;
+  
+  /* Effects */
+  --glow-pink: 0 0 30px rgba(232, 121, 160, 0.3);
+  --glow-cyan: 0 0 30px rgba(100, 217, 247, 0.3);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Radii */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 50px;
+}
+
+.theme-rose.light-theme {
+  --bg-primary: #fdf8fc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #faf5f9;
+  --bg-card: #ffffff;
+  --border-color: #f0e5ef;
+  --text-primary: #2a1f35;
+  --text-secondary: #5a4a68;
+  --text-muted: #9a8aa8;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== ALPINE THEME ===== */
+.theme-alpine {
+  --accent-primary: #f97316;
+  --accent-secondary: #fb923c;
+  --accent-tertiary: #ea580c;
+  --accent-clinic: #38bdf8;
+  --glow-pink: 0 0 30px rgba(249, 115, 22, 0.3);
+  --glow-cyan: 0 0 30px rgba(56, 189, 248, 0.3);
+}
+
+.theme-alpine.light-theme {
+  --bg-primary: #fffbeb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #fef3c7;
+  --bg-card: #ffffff;
+  --border-color: #fde68a;
+  --text-primary: #451a03;
+  --text-secondary: #78350f;
+  --text-muted: #a16207;
+}
+
+/* ===== GLACIER THEME ===== */
+.theme-glacier {
+  --accent-primary: #14b8a6;
+  --accent-secondary: #2dd4bf;
+  --accent-tertiary: #0d9488;
+  --accent-clinic: #3b82f6;
+  --glow-pink: 0 0 30px rgba(20, 184, 166, 0.3);
+  --glow-cyan: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.theme-glacier.light-theme {
+  --bg-primary: #f0fdfa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ccfbf1;
+  --bg-card: #ffffff;
+  --border-color: #99f6e4;
+  --text-primary: #134e4a;
+  --text-secondary: #115e59;
+  --text-muted: #0f766e;
+}
+
+/* ===== LEAFLET MAP OVERRIDES ===== */
+.leaflet-container {
+  background: var(--bg-tertiary);
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-card);
+}
+
+.leaflet-popup-close-button {
+  color: var(--text-muted) !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--bg-tertiary) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(var(--bg-secondary), 0.8) !important;
+  color: var(--text-muted) !important;
+}
+
