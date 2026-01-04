@@ -56,7 +56,7 @@ Each theme has light and dark variants (6 total options). The **Rose** theme mat
 
 ```bash
 # Clone the repo
-git clone <your-repo-url>
+git clone https://github.com/ct3685/skiwithcare.git
 cd skiwithcare
 
 # First time: set up Python venv
