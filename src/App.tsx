@@ -1,8 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useCallback, useRef, useMemo } from "react";
+import type { Map as LeafletMap } from "leaflet";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { useSelectionStore } from "@/stores/selectionStore";
+import { useLocationStore } from "@/stores/locationStore";
+import { Header, Sidebar, SettingsDrawer } from "@/components/layout";
+import { MapView, ResortMarker, ClinicMarker, HospitalMarker, UserLocationMarker } from "@/components/map";
+import { ResortCard, ClinicCard, HospitalCard } from "@/components/cards";
+import { Spinner } from "@/components/ui";
+import { useData, useFilteredData } from "@/hooks";
+import { haversine } from "@/utils/haversine";
+import type { Resort, Clinic, Hospital, ClinicWithDistance, ResortWithDistance } from "@/types";
 
 function App() {
   const { colorTheme, darkMode } = useSettingsStore();
+  const { mode, selectedId, select, toggleExpand } = useSelectionStore();
+  const { userLocation } = useLocationStore();
+  const mapRef = useRef<LeafletMap | null>(null);
+
+  // Load data
+  const { resorts, clinics, hospitals, isLoading, error } = useData();
+  const filtered = useFilteredData(resorts, clinics, hospitals);
+
+  // Extract unique states for filter dropdown
+  const states = useMemo(() => {
+    const allStates = new Set<string>();
+    resorts.forEach((r) => allStates.add(r.state));
+    clinics.forEach((c) => allStates.add(c.state));
+    hospitals.forEach((h) => allStates.add(h.state));
+    return Array.from(allStates).sort();
+  }, [resorts, clinics, hospitals]);
 
   // Apply theme classes to document
   useEffect(() => {
@@ -31,100 +57,226 @@ function App() {
     }
   }, [colorTheme, darkMode]);
 
-  return (
-    <div className="min-h-screen bg-bg-primary text-text-primary">
-      {/* Header */}
-      <header className="bg-bg-secondary border-b border-border px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              src="/logo-512.png"
-              alt="SkiWithCare"
-              className="w-12 h-12 rounded-xl shadow-glow-pink"
-            />
-            <div>
-              <h1 className="text-lg font-bold">
-                <span className="text-[#e879a0]">Ski</span>
-                <span className="text-[#64d9f7]">WithCare</span>
-              </h1>
-              <span className="text-xs text-text-muted">
-                Care Near the Slopes
-              </span>
-            </div>
-          </div>
+  // Handle map ready
+  const handleMapReady = useCallback((map: LeafletMap) => {
+    mapRef.current = map;
+  }, []);
 
-          {/* Mode Toggle Placeholder */}
-          <div className="flex gap-2">
-            <button className="px-4 py-2 rounded-pill bg-accent-primary text-white font-semibold">
-              Resorts
-            </button>
-            <button className="px-4 py-2 rounded-pill bg-bg-tertiary text-text-muted font-semibold">
-              Clinics
-            </button>
-            <button className="px-4 py-2 rounded-pill bg-bg-tertiary text-text-muted font-semibold">
-              Hospitals
-            </button>
-          </div>
+  // Fly to selected item
+  const flyToItem = useCallback((lat: number, lon: number) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo([lat, lon], 10, { duration: 0.5 });
+    }
+  }, []);
 
-          {/* Settings Gear Placeholder */}
-          <button className="p-2 rounded-lg bg-bg-tertiary hover:bg-bg-card transition-colors">
-            ⚙️
-          </button>
+  // Handle item selection on map
+  const handleMapSelect = useCallback(
+    (id: string, lat: number, lon: number) => {
+      select(id);
+      toggleExpand(id);
+      flyToItem(lat, lon);
+    },
+    [select, toggleExpand, flyToItem]
+  );
+
+  // Get nearest clinics for a resort
+  const getNearestClinics = useCallback(
+    (resort: Resort, limit = 3): ClinicWithDistance[] => {
+      return clinics
+        .map((c) => ({
+          ...c,
+          distance: haversine({ lat: resort.lat, lon: resort.lon }, { lat: c.lat, lon: c.lon }),
+        }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, limit);
+    },
+    [clinics]
+  );
+
+  // Get nearest resorts for a clinic
+  const getNearestResorts = useCallback(
+    (clinic: Clinic, limit = 3): ResortWithDistance[] => {
+      return resorts
+        .map((r) => ({
+          ...r,
+          distance: haversine({ lat: clinic.lat, lon: clinic.lon }, { lat: r.lat, lon: r.lon }),
+        }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, limit);
+    },
+    [resorts]
+  );
+
+  // Get nearest resorts for a hospital
+  const getNearestResortsFromHospital = useCallback(
+    (hospital: Hospital, limit = 3): ResortWithDistance[] => {
+      return resorts
+        .map((r) => ({
+          ...r,
+          distance: haversine({ lat: hospital.lat, lon: hospital.lon }, { lat: r.lat, lon: r.lon }),
+        }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, limit);
+    },
+    [resorts]
+  );
+
+  // Handle directions click
+  const handleDirections = useCallback((
+    fromLat: number,
+    fromLon: number,
+    toLat: number,
+    toLon: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _fromName: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _toName: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _distance: number
+  ) => {
+    const url = `https://www.google.com/maps/dir/${fromLat},${fromLon}/${toLat},${toLon}`;
+    window.open(url, "_blank");
+  }, []);
+
+  // Render card list based on mode
+  const renderCards = () => {
+    if (isLoading) {
+      return (
+        <div className="flex items-center justify-center py-12">
+          <Spinner size="lg" />
         </div>
-      </header>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="text-center py-12 text-text-muted">
+          <p className="text-2xl mb-2">❌</p>
+          <p>{error}</p>
+        </div>
+      );
+    }
+
+    switch (mode) {
+      case "resorts":
+        if (filtered.resorts.length === 0) {
+          return (
+            <div className="text-center py-12 text-text-muted">
+              <p className="text-2xl mb-2">🏔️</p>
+              <p>No resorts found</p>
+            </div>
+          );
+        }
+        return filtered.resorts.map((resort) => (
+          <ResortCard
+            key={resort.id}
+            resort={resort}
+            userDistance={resort.distance}
+            nearestClinics={getNearestClinics(resort)}
+            onDirectionsClick={handleDirections}
+          />
+        ));
+
+      case "clinics":
+        if (filtered.clinics.length === 0) {
+          return (
+            <div className="text-center py-12 text-text-muted">
+              <p className="text-2xl mb-2">🏥</p>
+              <p>No clinics found</p>
+            </div>
+          );
+        }
+        return filtered.clinics.map((clinic) => (
+          <ClinicCard
+            key={clinic.ccn}
+            clinic={clinic}
+            userDistance={clinic.distance}
+            nearestResorts={getNearestResorts(clinic)}
+            onDirectionsClick={handleDirections}
+          />
+        ));
+
+      case "hospitals":
+        if (filtered.hospitals.length === 0) {
+          return (
+            <div className="text-center py-12 text-text-muted">
+              <p className="text-2xl mb-2">🚑</p>
+              <p>No hospitals found</p>
+            </div>
+          );
+        }
+        return filtered.hospitals.map((hospital) => (
+          <HospitalCard
+            key={hospital.id}
+            hospital={hospital}
+            userDistance={hospital.distance}
+            nearestResorts={getNearestResortsFromHospital(hospital)}
+            onDirectionsClick={handleDirections}
+          />
+        ));
+
+      default:
+        return null;
+    }
+  };
+
+
+  return (
+    <div className="min-h-screen bg-bg-primary text-text-primary overflow-hidden">
+      {/* Settings Drawer */}
+      <SettingsDrawer />
+
+      {/* Header */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex h-[calc(100vh-66px)]">
         {/* Sidebar */}
-        <aside className="w-96 bg-bg-secondary border-r border-border p-4 overflow-y-auto">
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Search resorts..."
-              className="w-full px-4 py-3 rounded-lg bg-bg-tertiary border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
-            />
-          </div>
+        <Sidebar states={states}>
+          <div className="space-y-3">{renderCards()}</div>
+        </Sidebar>
 
-          {/* Placeholder Cards */}
-          <div className="space-y-3">
-            {[
-              "Vail",
-              "Breckenridge",
-              "Park City",
-              "Aspen Snowmass",
-              "Jackson Hole",
-            ].map((resort) => (
-              <div
-                key={resort}
-                className="p-4 rounded-lg bg-bg-card border border-border hover:border-accent-primary cursor-pointer transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold">🏔️ {resort}</span>
-                  <span className="text-xs px-2 py-1 rounded bg-bg-tertiary text-text-muted">
-                    CO
-                  </span>
-                </div>
-                <div className="mt-2 text-sm text-text-secondary">
-                  <span className="text-accent-success">🏥 12.5 mi</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Map */}
+        <div className="flex-1 relative">
+          <MapView onMapReady={handleMapReady}>
+            {/* User Location */}
+            {userLocation && <UserLocationMarker location={userLocation} />}
 
-          <p className="mt-6 text-center text-text-muted text-sm">
-            🚧 React rebuild in progress...
-          </p>
-        </aside>
+            {/* Resort Markers */}
+            {mode === "resorts" &&
+              filtered.resorts.map((resort) => (
+                <ResortMarker
+                  key={resort.id}
+                  resort={resort}
+                  isSelected={selectedId === resort.id}
+                  userLocation={userLocation}
+                  onClick={() => handleMapSelect(resort.id, resort.lat, resort.lon)}
+                />
+              ))}
 
-        {/* Map Placeholder */}
-        <div className="flex-1 bg-bg-tertiary flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-6xl mb-4">🗺️</div>
-            <h2 className="text-xl font-semibold text-text-primary">
-              Map Coming Soon
-            </h2>
-            <p className="text-text-muted">Leaflet integration in progress</p>
-          </div>
+            {/* Clinic Markers */}
+            {mode === "clinics" &&
+              filtered.clinics.map((clinic) => (
+                <ClinicMarker
+                  key={clinic.ccn}
+                  clinic={clinic}
+                  isSelected={selectedId === clinic.ccn}
+                  userLocation={userLocation}
+                  onClick={() => handleMapSelect(clinic.ccn, clinic.lat, clinic.lon)}
+                />
+              ))}
+
+            {/* Hospital Markers */}
+            {mode === "hospitals" &&
+              filtered.hospitals.map((hospital) => (
+                <HospitalMarker
+                  key={hospital.id}
+                  hospital={hospital}
+                  isSelected={selectedId === hospital.id}
+                  onClick={() => handleMapSelect(hospital.id, hospital.lat, hospital.lon)}
+                />
+              ))}
+          </MapView>
         </div>
       </main>
     </div>
