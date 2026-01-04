@@ -81,6 +81,7 @@ export function HospitalCard({
 
   return (
     <div
+      data-hospital-id={hospital.id}
       onClick={handleClick}
       className={`
         p-4 rounded-lg

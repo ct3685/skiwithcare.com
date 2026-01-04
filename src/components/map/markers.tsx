@@ -1,8 +1,10 @@
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import type { Resort, Clinic, Hospital, UserLocation } from "@/types";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatDistance } from "@/utils/formatters";
+import { haversine } from "@/utils/haversine";
+import { useRef } from "react";
 
 // ============ Custom Icon Creation ============
 
@@ -75,19 +77,36 @@ export function ResortMarker({
   onClick,
 }: ResortMarkerProps) {
   const { distanceUnit } = useSettingsStore();
+  const markerRef = useRef<L.Marker>(null);
+  const map = useMap();
 
   const userDist = userLocation
     ? formatDistance(
-        Math.sqrt(
-          Math.pow(resort.lat - userLocation.lat, 2) +
-            Math.pow(resort.lon - userLocation.lon, 2)
-        ) * 69, // Rough conversion
+        haversine(
+          { lat: userLocation.lat, lon: userLocation.lon },
+          { lat: resort.lat, lon: resort.lon }
+        ),
         distanceUnit
       )
     : null;
 
+  const handleViewDetails = () => {
+    // Close popup
+    map.closePopup();
+    
+    // Call onClick to expand card in sidebar
+    onClick?.();
+    
+    // Scroll to card in sidebar
+    setTimeout(() => {
+      const card = document.querySelector(`[data-resort-id="${resort.id}"]`);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
   return (
     <Marker
+      ref={markerRef}
       position={[resort.lat, resort.lon]}
       icon={isSelected ? resortSelectedIcon : resortIcon}
       eventHandlers={{ click: onClick }}
@@ -102,10 +121,10 @@ export function ResortMarker({
             </div>
           )}
           <button
-            onClick={onClick}
+            onClick={handleViewDetails}
             className="w-full px-3 py-1.5 bg-pink-500 text-white text-sm font-medium rounded hover:bg-pink-600 transition-colors"
           >
-            View Details
+            View Details →
           </button>
         </div>
       </Popup>
@@ -123,8 +142,31 @@ interface ClinicMarkerProps {
 export function ClinicMarker({
   clinic,
   isSelected = false,
+  userLocation,
   onClick,
 }: ClinicMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+  const map = useMap();
+
+  const userDist = userLocation
+    ? formatDistance(
+        haversine(
+          { lat: userLocation.lat, lon: userLocation.lon },
+          { lat: clinic.lat, lon: clinic.lon }
+        ),
+        distanceUnit
+      )
+    : null;
+
+  const handleViewDetails = () => {
+    map.closePopup();
+    onClick?.();
+    setTimeout(() => {
+      const card = document.querySelector(`[data-clinic-id="${clinic.ccn}"]`);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
   return (
     <Marker
       position={[clinic.lat, clinic.lon]}
@@ -139,11 +181,16 @@ export function ClinicMarker({
             <br />
             {clinic.city}, {clinic.state} {clinic.zip}
           </div>
+          {userDist && (
+            <div className="text-sm text-blue-600 mb-2">
+              📍 {userDist} from you
+            </div>
+          )}
           <button
-            onClick={onClick}
+            onClick={handleViewDetails}
             className="w-full px-3 py-1.5 bg-cyan-500 text-white text-sm font-medium rounded hover:bg-cyan-600 transition-colors"
           >
-            View Details
+            View Details →
           </button>
         </div>
       </Popup>
@@ -154,14 +201,38 @@ export function ClinicMarker({
 interface HospitalMarkerProps {
   hospital: Hospital;
   isSelected?: boolean;
+  userLocation?: UserLocation | null;
   onClick?: () => void;
 }
 
 export function HospitalMarker({
   hospital,
   isSelected = false,
+  userLocation,
   onClick,
 }: HospitalMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+  const map = useMap();
+
+  const userDist = userLocation
+    ? formatDistance(
+        haversine(
+          { lat: userLocation.lat, lon: userLocation.lon },
+          { lat: hospital.lat, lon: hospital.lon }
+        ),
+        distanceUnit
+      )
+    : null;
+
+  const handleViewDetails = () => {
+    map.closePopup();
+    onClick?.();
+    setTimeout(() => {
+      const card = document.querySelector(`[data-hospital-id="${hospital.id}"]`);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
   return (
     <Marker
       position={[hospital.lat, hospital.lon]}
@@ -176,6 +247,11 @@ export function HospitalMarker({
             <br />
             {hospital.city}, {hospital.state} {hospital.zip}
           </div>
+          {userDist && (
+            <div className="text-sm text-blue-600 mb-2">
+              📍 {userDist} from you
+            </div>
+          )}
           {hospital.hasEmergency && (
             <div className="text-sm text-red-600 font-medium mb-1">
               ✓ Emergency Room
@@ -187,10 +263,10 @@ export function HospitalMarker({
             </div>
           )}
           <button
-            onClick={onClick}
+            onClick={handleViewDetails}
             className="w-full px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition-colors"
           >
-            View Details
+            View Details →
           </button>
         </div>
       </Popup>

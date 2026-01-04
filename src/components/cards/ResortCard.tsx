@@ -59,6 +59,7 @@ export function ResortCard({
 
   return (
     <div
+      data-resort-id={resort.id}
       onClick={handleClick}
       className={`
         p-4 rounded-lg

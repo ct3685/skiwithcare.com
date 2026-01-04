@@ -58,6 +58,7 @@ export function ClinicCard({
 
   return (
     <div
+      data-clinic-id={clinic.ccn}
       onClick={handleClick}
       className={`
         p-4 rounded-lg
