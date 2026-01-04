@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Resort, Clinic, Hospital, UserLocation } from "@/types";
+import type { Resort, Clinic, Hospital, Coordinates } from "@/types";
 import { useFilterStore } from "@/stores/filterStore";
 import { useLocationStore } from "@/stores/locationStore";
 import { haversine } from "@/utils/haversine";
@@ -8,10 +8,16 @@ interface FilteredData {
   resorts: (Resort & { distance?: number })[];
   clinics: (Clinic & { distance?: number })[];
   hospitals: (Hospital & { distance?: number })[];
+  /** Location used for distance calculations (user location or map center) */
+  sortOrigin: { type: "user" | "map"; coords: Coordinates } | null;
 }
 
 /**
- * Hook to filter and sort data based on current filters and user location
+ * Hook to filter and sort data based on current filters and location
+ * 
+ * Priority for distance sorting:
+ * 1. User location (if "Near Me" clicked)
+ * 2. Map center (as user pans around)
  */
 export function useFilteredData(
   resorts: Resort[],
@@ -20,28 +26,32 @@ export function useFilteredData(
 ): FilteredData {
   const { searchQuery, selectedState, maxDistance, passNetworks, careTypes } =
     useFilterStore();
-  const { userLocation } = useLocationStore();
+  const { userLocation, mapCenter } = useLocationStore();
 
   return useMemo(() => {
     const searchLower = searchQuery.toLowerCase().trim();
 
-    // Helper to calculate distance
+    // Determine which location to use for distance calculations
+    // User location takes priority, then map center
+    const sortOrigin: FilteredData["sortOrigin"] = userLocation
+      ? { type: "user", coords: { lat: userLocation.lat, lon: userLocation.lon } }
+      : mapCenter
+      ? { type: "map", coords: mapCenter }
+      : null;
+
+    // Helper to calculate distance from sort origin
     const withDistance = <T extends { lat: number; lon: number }>(
-      items: T[],
-      location: UserLocation | null
+      items: T[]
     ): (T & { distance?: number })[] => {
-      if (!location) return items;
+      if (!sortOrigin) return items;
       return items.map((item) => ({
         ...item,
-        distance: haversine(
-          { lat: location.lat, lon: location.lon },
-          { lat: item.lat, lon: item.lon }
-        ),
+        distance: haversine(sortOrigin.coords, { lat: item.lat, lon: item.lon }),
       }));
     };
 
     // Filter resorts
-    let filteredResorts = withDistance(resorts, userLocation);
+    let filteredResorts = withDistance(resorts);
 
     if (searchLower) {
       filteredResorts = filteredResorts.filter(
@@ -64,19 +74,20 @@ export function useFilteredData(
       );
     }
 
+    // Only filter by max distance if user location is set (not map center)
     if (userLocation && maxDistance < 200) {
       filteredResorts = filteredResorts.filter(
         (r) => r.distance !== undefined && r.distance <= maxDistance
       );
     }
 
-    // Sort by distance if location available
-    if (userLocation) {
-      filteredResorts.sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+    // Sort by distance if we have a sort origin
+    if (sortOrigin) {
+      filteredResorts.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
 
     // Filter clinics
-    let filteredClinics = withDistance(clinics, userLocation);
+    let filteredClinics = withDistance(clinics);
 
     if (searchLower) {
       filteredClinics = filteredClinics.filter(
@@ -103,12 +114,12 @@ export function useFilteredData(
       );
     }
 
-    if (userLocation) {
-      filteredClinics.sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+    if (sortOrigin) {
+      filteredClinics.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
 
     // Filter hospitals
-    let filteredHospitals = withDistance(hospitals, userLocation);
+    let filteredHospitals = withDistance(hospitals);
 
     if (searchLower) {
       filteredHospitals = filteredHospitals.filter(
@@ -134,14 +145,15 @@ export function useFilteredData(
       );
     }
 
-    if (userLocation) {
-      filteredHospitals.sort((a, b) => (a.distance ?? 0) - (b.distance ?? 0));
+    if (sortOrigin) {
+      filteredHospitals.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
 
     return {
       resorts: filteredResorts,
       clinics: filteredClinics,
       hospitals: filteredHospitals,
+      sortOrigin,
     };
   }, [
     resorts,
@@ -153,6 +165,7 @@ export function useFilteredData(
     passNetworks,
     careTypes,
     userLocation,
+    mapCenter,
   ]);
 }
 

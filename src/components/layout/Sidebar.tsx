@@ -5,13 +5,18 @@ import { Select } from "@/components/ui/Select";
 import { Slider } from "@/components/ui/Slider";
 import { Button } from "@/components/ui/Button";
 import { trackSearch, trackFilterChange, trackNearMeClick } from "@/utils/analytics";
+import type { Coordinates } from "@/types";
 
 interface SidebarProps {
   states: string[];
   children: React.ReactNode;
+  /** Number of items currently shown */
+  itemCount?: number;
+  /** Current sort origin info */
+  sortOrigin?: { type: "user" | "map"; coords: Coordinates } | null;
 }
 
-export function Sidebar({ states, children }: SidebarProps) {
+export function Sidebar({ states, children, itemCount, sortOrigin }: SidebarProps) {
   const { mode } = useSelectionStore();
   const {
     searchQuery,
@@ -74,6 +79,15 @@ export function Sidebar({ states, children }: SidebarProps) {
   };
 
   const stateOptions = states.map((s) => ({ value: s, label: s }));
+
+  // Format location label for sort indicator
+  const getSortLabel = () => {
+    if (!sortOrigin) return null;
+    if (sortOrigin.type === "user") {
+      return "your location";
+    }
+    return "map center";
+  };
 
   return (
     <aside className="w-full md:w-96 md:min-w-[340px] md:max-w-[440px] bg-bg-secondary border-r border-border flex flex-col h-full overflow-hidden">
@@ -142,6 +156,30 @@ export function Sidebar({ states, children }: SidebarProps) {
         </div>
       </div>
 
+      {/* Results Header */}
+      <div className="px-4 py-2 border-b border-border/50 bg-bg-tertiary/50">
+        <div className="flex items-center justify-between text-xs text-text-muted">
+          <span>
+            {itemCount !== undefined ? (
+              <>
+                <span className="font-semibold text-text-primary">{itemCount}</span>
+                {" "}{mode} found
+              </>
+            ) : (
+              `Loading ${mode}...`
+            )}
+          </span>
+          {sortOrigin && (
+            <span className="flex items-center gap-1">
+              <span className={sortOrigin.type === "user" ? "text-accent-clinic" : "text-text-muted"}>
+                {sortOrigin.type === "user" ? "📍" : "🗺️"}
+              </span>
+              Sorted by {getSortLabel()}
+            </span>
+          )}
+        </div>
+      </div>
+
       {/* Item List */}
       <div className="flex-1 min-h-0 overflow-y-auto p-4">
         {children}
@@ -149,4 +187,3 @@ export function Sidebar({ states, children }: SidebarProps) {
     </aside>
   );
 }
-

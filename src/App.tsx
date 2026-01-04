@@ -255,7 +255,17 @@ function App() {
       {/* Main Content */}
       <main className="flex h-[calc(100vh-66px)]">
         {/* Sidebar */}
-        <Sidebar states={states}>
+        <Sidebar
+          states={states}
+          itemCount={
+            mode === "resorts"
+              ? filtered.resorts.length
+              : mode === "clinics"
+              ? filtered.clinics.length
+              : filtered.hospitals.length
+          }
+          sortOrigin={filtered.sortOrigin}
+        >
           <div className="space-y-3">{renderCards()}</div>
         </Sidebar>
 

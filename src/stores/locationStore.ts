@@ -1,12 +1,14 @@
 import { create } from "zustand";
-import type { UserLocation, LocationSource } from "@/types";
+import type { UserLocation, LocationSource, Coordinates } from "@/types";
 
 /**
- * Location state for user's current position
+ * Location state for user's position and map center
  */
 interface LocationState {
   /** User's current location (null if not set) */
   userLocation: UserLocation | null;
+  /** Map center position (for sorting by proximity) */
+  mapCenter: Coordinates | null;
   /** Whether we're currently fetching location */
   isLoading: boolean;
   /** Error message if location fetch failed */
@@ -19,6 +21,7 @@ interface LocationState {
     label: string,
     source: LocationSource
   ) => void;
+  setMapCenter: (lat: number, lon: number) => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;
   clear: () => void;
@@ -27,6 +30,7 @@ interface LocationState {
 
 export const useLocationStore = create<LocationState>()((set, get) => ({
   userLocation: null,
+  mapCenter: null,
   isLoading: false,
   error: null,
 
@@ -35,6 +39,11 @@ export const useLocationStore = create<LocationState>()((set, get) => ({
       userLocation: { lat, lon, label, source },
       isLoading: false,
       error: null,
+    }),
+
+  setMapCenter: (lat, lon) =>
+    set({
+      mapCenter: { lat, lon },
     }),
 
   setLoading: (isLoading) => set({ isLoading }),
@@ -134,4 +143,3 @@ export async function geocodeAddress(address: string): Promise<{
     return null;
   }
 }
-

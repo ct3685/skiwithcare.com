@@ -91,7 +91,7 @@ export function ClinicCard({
       <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
         {userDistance !== undefined && (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent-clinic/20 border border-accent-clinic/30 text-accent-clinic text-xs font-semibold">
-            📍 {formatDistance(userDistance, distanceUnit)} from you
+            📍 {formatDistance(userDistance, distanceUnit)} away
           </span>
         )}
         <span className="text-text-muted">

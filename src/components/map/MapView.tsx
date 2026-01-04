@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
-import { MapContainer, useMap } from "react-leaflet";
+import { useEffect, useRef, useCallback } from "react";
+import { MapContainer, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import type { Map as LeafletMap } from "leaflet";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { useLocationStore } from "@/stores/locationStore";
 import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icon issue
@@ -28,6 +29,9 @@ const DARK_TILES =
 const LIGHT_TILES =
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
 const ATTRIBUTION = "© OpenStreetMap, © CARTO";
+
+// Debounce delay for map center updates (ms)
+const MAP_CENTER_DEBOUNCE = 300;
 
 interface MapViewProps {
   children?: React.ReactNode;
@@ -93,6 +97,51 @@ function MapReadyHandler({
   return null;
 }
 
+/**
+ * Component to track map center and update store
+ */
+function MapCenterTracker() {
+  const { setMapCenter } = useLocationStore();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const updateMapCenter = useCallback(
+    (map: LeafletMap) => {
+      // Clear any pending debounce
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+
+      // Debounce the update
+      debounceRef.current = setTimeout(() => {
+        const center = map.getCenter();
+        setMapCenter(center.lat, center.lng);
+      }, MAP_CENTER_DEBOUNCE);
+    },
+    [setMapCenter]
+  );
+
+  // Listen to map events
+  const map = useMapEvents({
+    moveend: () => updateMapCenter(map),
+    zoomend: () => updateMapCenter(map),
+    load: () => updateMapCenter(map),
+  });
+
+  // Set initial center on mount
+  useEffect(() => {
+    const center = map.getCenter();
+    setMapCenter(center.lat, center.lng);
+
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [map, setMapCenter]);
+
+  return null;
+}
+
 export function MapView({
   children,
   center = DEFAULT_CENTER,
@@ -108,6 +157,7 @@ export function MapView({
     >
       <TileLayerSync />
       <MapReadyHandler onMapReady={onMapReady} />
+      <MapCenterTracker />
       {children}
     </MapContainer>
   );
