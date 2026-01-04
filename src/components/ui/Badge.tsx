@@ -103,9 +103,11 @@ const providerColors: Record<string, string> = {
 };
 
 export function ProviderBadge({ provider, className = "" }: ProviderBadgeProps) {
-  const label = provider === "davita" ? "DaVita" : 
-                provider === "fresenius" ? "Fresenius" :
-                provider.charAt(0).toUpperCase() + provider.slice(1);
+  // Handle undefined/missing provider - default to DaVita for existing data
+  const safeProvider = provider || "davita";
+  const label = safeProvider === "davita" ? "DaVita" : 
+                safeProvider === "fresenius" ? "Fresenius" :
+                safeProvider.charAt(0).toUpperCase() + safeProvider.slice(1);
   
   return (
     <span
@@ -114,7 +116,7 @@ export function ProviderBadge({ provider, className = "" }: ProviderBadgeProps) 
         px-2 py-0.5
         text-xs font-medium
         rounded-md
-        ${providerColors[provider]}
+        ${providerColors[safeProvider] || providerColors.other}
         ${className}
       `}
     >

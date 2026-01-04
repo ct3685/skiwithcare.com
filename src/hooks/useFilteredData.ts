@@ -57,7 +57,8 @@ export function useFilteredData(
 
     if (passNetworks.size > 0) {
       filteredResorts = filteredResorts.filter((r) =>
-        passNetworks.has(r.passNetwork)
+        // If resort has no passNetwork, treat as "epic" (legacy data)
+        passNetworks.has(r.passNetwork || "epic")
       );
     }
 

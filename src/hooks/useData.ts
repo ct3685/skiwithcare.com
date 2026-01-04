@@ -37,8 +37,22 @@ export function useData(): DataState {
           throw new Error("Failed to load clinics data");
         }
 
-        const resorts: Resort[] = await resortsRes.json();
-        const clinics: Clinic[] = await clinicsRes.json();
+        const rawResorts = await resortsRes.json();
+        const rawClinics = await clinicsRes.json();
+        
+        // Normalize resort data (add missing fields for legacy data)
+        const resorts: Resort[] = rawResorts.map((r: Partial<Resort>) => ({
+          ...r,
+          id: r.id || `${r.name}|${r.state}`,
+          passNetwork: r.passNetwork || "epic",
+          region: r.region || "rockies",
+        }));
+        
+        // Normalize clinic data (add missing provider for legacy DaVita-only data)
+        const clinics: Clinic[] = rawClinics.map((c: Partial<Clinic>) => ({
+          ...c,
+          provider: c.provider || "davita",
+        }));
 
         // Try to load hospitals (may not exist yet)
         let hospitals: Hospital[] = [];
