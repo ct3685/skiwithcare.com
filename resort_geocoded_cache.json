@@ -1,0 +1,187 @@
+{
+  "Vail|CO": {
+    "lat": 39.6438028,
+    "lon": -106.3888231,
+    "query": "Vail, CO, USA"
+  },
+  "Beaver Creek|CO": {
+    "lat": 39.6048786,
+    "lon": -106.5150017,
+    "query": "Beaver Creek, CO, USA"
+  },
+  "Breckenridge|CO": {
+    "lat": 39.4829124,
+    "lon": -106.0465486,
+    "query": "Breckenridge, CO, USA"
+  },
+  "Park City|UT": {
+    "lat": 40.6460921,
+    "lon": -111.4979963,
+    "query": "Park City, UT, USA"
+  },
+  "Keystone|CO": {
+    "lat": 39.596564,
+    "lon": -105.9340342,
+    "query": "Keystone, CO, USA"
+  },
+  "Crested Butte|CO": {
+    "lat": 38.8698201,
+    "lon": -106.984043,
+    "query": "Crested Butte, CO, USA"
+  },
+  "Heavenly|CA/NV": {
+    "lat": 38.9404518,
+    "lon": -119.8974215,
+    "query": "Heavenly, CA/NV, USA"
+  },
+  "Northstar|CA": {
+    "lat": 33.6560659,
+    "lon": -117.6695109,
+    "query": "Northstar, CA, USA"
+  },
+  "Kirkwood|CA": {
+    "lat": 38.7026857,
+    "lon": -120.072685,
+    "query": "Kirkwood, CA, USA"
+  },
+  "Stevens Pass|WA": {
+    "lat": 47.7456352,
+    "lon": -121.089171,
+    "query": "Stevens Pass, WA, USA"
+  },
+  "Stowe|VT": {
+    "lat": 44.4643768,
+    "lon": -72.6856197,
+    "query": "Stowe, VT, USA"
+  },
+  "Okemo|VT": {
+    "lat": 43.3958533,
+    "lon": -72.7534796,
+    "query": "Okemo, VT, USA"
+  },
+  "Mount Snow|VT": {
+    "lat": 42.9592534,
+    "lon": -72.9237615,
+    "query": "Mount Snow, VT, USA"
+  },
+  "Hunter|NY": {
+    "lat": 42.2136987,
+    "lon": -74.2187541,
+    "query": "Hunter, NY, USA"
+  },
+  "Attitash|NH": {
+    "lat": 44.0742099,
+    "lon": -71.2446654,
+    "query": "Attitash, NH, USA"
+  },
+  "Wildcat|NH": {
+    "lat": 43.1385921,
+    "lon": -70.9394033,
+    "query": "Wildcat, NH, USA"
+  },
+  "Mount Sunapee|NH": {
+    "lat": 43.3406309,
+    "lon": -72.0709183,
+    "query": "Mount Sunapee, NH, USA"
+  },
+  "Crotched|NH": {
+    "lat": 42.9982909,
+    "lon": -71.8739065,
+    "query": "Crotched, NH, USA"
+  },
+  "Liberty Mountain|PA": {
+    "lat": 39.7606369,
+    "lon": -77.3685341,
+    "query": "Liberty Mountain, PA, USA"
+  },
+  "Roundtop|PA": {
+    "lat": 40.093129,
+    "lon": -79.6669847,
+    "query": "Roundtop, PA, USA"
+  },
+  "Whitetail|PA": {
+    "lat": 39.756046,
+    "lon": -77.9205453,
+    "query": "Whitetail, PA, USA"
+  },
+  "Jack Frost|PA": {
+    "lat": 40.1080351,
+    "lon": -75.1637411,
+    "query": "Jack Frost, PA, USA"
+  },
+  "Big Boulder|PA": {
+    "lat": 41.0466518,
+    "lon": -75.5997617,
+    "query": "Big Boulder, PA, USA"
+  },
+  "Seven Springs|PA": {
+    "lat": 40.0231304,
+    "lon": -79.2972551,
+    "query": "Seven Springs, PA, USA"
+  },
+  "Hidden Valley Resort|PA": {
+    "lat": 40.0590277,
+    "lon": -79.2528804,
+    "query": "Hidden Valley Resort, PA, USA"
+  },
+  "Laurel Mountain|PA": {
+    "lat": 40.2111844,
+    "lon": -79.1850311,
+    "query": "Laurel Mountain, PA, USA"
+  },
+  "Wilmot Mountain|WI": {
+    "lat": 42.4998467,
+    "lon": -88.1904273,
+    "query": "Wilmot Mountain, WI, USA"
+  },
+  "Afton Alps|MN": {
+    "lat": 44.8531879,
+    "lon": -92.7848027,
+    "query": "Afton Alps, MN, USA"
+  },
+  "Mt Brighton|MI": {
+    "lat": 42.5410098,
+    "lon": -83.8108072,
+    "query": "Mt Brighton, MI, USA"
+  },
+  "Alpine Valley|OH": {
+    "lat": 41.5283924,
+    "lon": -81.261449,
+    "query": "Alpine Valley, OH, USA"
+  },
+  "Boston Mills|OH": {
+    "lat": 41.2636921,
+    "lon": -81.5643259,
+    "query": "Boston Mills, OH, USA"
+  },
+  "Brandywine|OH": {
+    "lat": 40.8656127,
+    "lon": -82.9390751,
+    "query": "Brandywine, OH, USA"
+  },
+  "Mad River Mountain|OH": {
+    "lat": 40.3172389,
+    "lon": -83.6752582,
+    "query": "Mad River Mountain, OH, USA"
+  },
+  "Hidden Valley|MO": {
+    "lat": 38.535899,
+    "lon": -90.6538082,
+    "query": "Hidden Valley, MO, USA"
+  },
+  "Snow Creek|MO": {
+    "lat": 39.4656253,
+    "lon": -94.9688216,
+    "query": "Snow Creek, MO, USA"
+  },
+  "Paoli Peaks|IN": {
+    "lat": 38.5558819,
+    "lon": -86.5121803,
+    "query": "Paoli Peaks, IN, USA"
+  },
+  "Telluride Ski Resort|CO": {
+    "lat": 37.9361867,
+    "lon": -107.8451282,
+    "query": "Telluride Ski Resort, CO, USA"
+  }
+}

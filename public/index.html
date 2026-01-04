@@ -1,0 +1,3396 @@
+<!DOCTYPE html>
+<!--
+  SkiWithCare — Care Near the Slopes
+  Helping dialysis patients plan ski trips with confidence
+  Search by Resort → Find nearby clinics
+  Search by Clinic → Find nearby resorts
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>SkiWithCare — Care Near the Slopes</title>
+    <meta name="title" content="SkiWithCare — Care Near the Slopes" />
+    <meta
+      name="description"
+      content="Plan your ski trip with confidence. Find DaVita dialysis clinics near Epic Pass ski resorts. Interactive map with 37 resorts and 1,590+ nearby clinics."
+    />
+    <meta
+      name="keywords"
+      content="dialysis near ski resorts, DaVita clinics, Epic Pass dialysis, kidney care skiing, travel dialysis, ski trip planning, dialysis travel, Colorado dialysis, dialysis vacation planning"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Cameron Taylor" />
+    <meta name="theme-color" content="#0f0a12" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://skiwithcare.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://skiwithcare.com/" />
+    <meta property="og:title" content="SkiWithCare — Care Near the Slopes" />
+    <meta
+      property="og:description"
+      content="Plan your ski trip with confidence. Find dialysis clinics near ski resorts with our interactive map."
+    />
+    <meta property="og:image" content="https://skiwithcare.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="SkiWithCare" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://skiwithcare.com/" />
+    <meta name="twitter:title" content="SkiWithCare — Care Near the Slopes" />
+    <meta
+      name="twitter:description"
+      content="Plan your ski trip with confidence. Find dialysis clinics near your favorite ski resorts."
+    />
+    <meta name="twitter:image" content="https://skiwithcare.com/og-image.png" />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin
+    />
+
+    <!-- Google Analytics 4 -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-89RX01463S"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-89RX01463S");
+    </script>
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-primary: #0f0a12;
+        --bg-secondary: #1a1320;
+        --bg-tertiary: #241a2e;
+        --bg-card: #2a1f35;
+        --border-color: #3d2f4a;
+        --text-primary: #f5f0fa;
+        --text-secondary: #b8a5c8;
+        --text-muted: #7a6888;
+        --accent-primary: #e879a0;
+        --accent-secondary: #f4a5c0;
+        --accent-tertiary: #ff6b9d;
+        --accent-clinic: #64d9f7;
+        --accent-success: #4ade80;
+        --accent-warning: #fbbf24;
+        --accent-danger: #f87171;
+        --glow-pink: 0 0 30px rgba(232, 121, 160, 0.3);
+        --glow-cyan: 0 0 30px rgba(100, 217, 247, 0.3);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --radius: 16px;
+        --radius-sm: 10px;
+        --radius-pill: 50px;
+      }
+
+      .light-theme {
+        --bg-primary: #fdf8fc;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #faf5f9;
+        --bg-card: #ffffff;
+        --border-color: #f0e5ef;
+        --text-primary: #2a1f35;
+        --text-secondary: #5a4a68;
+        --text-muted: #9a8aa8;
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Theme: Alpine (Coral + Ice Blue) */
+      .theme-alpine {
+        --accent-primary: #f97316;
+        --accent-secondary: #fb923c;
+        --accent-tertiary: #ea580c;
+        --accent-clinic: #38bdf8;
+        --glow-pink: 0 0 30px rgba(249, 115, 22, 0.3);
+        --glow-cyan: 0 0 30px rgba(56, 189, 248, 0.3);
+      }
+      .theme-alpine.light-theme {
+        --bg-primary: #fffbeb;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #fef3c7;
+        --bg-card: #ffffff;
+        --border-color: #fde68a;
+        --text-primary: #451a03;
+        --text-secondary: #78350f;
+        --text-muted: #a16207;
+      }
+
+      /* Theme: Glacier (Teal + Cool Blue) */
+      .theme-glacier {
+        --accent-primary: #14b8a6;
+        --accent-secondary: #2dd4bf;
+        --accent-tertiary: #0d9488;
+        --accent-clinic: #3b82f6;
+        --glow-pink: 0 0 30px rgba(20, 184, 166, 0.3);
+        --glow-cyan: 0 0 30px rgba(59, 130, 246, 0.3);
+      }
+      .theme-glacier.light-theme {
+        --bg-primary: #f0fdfa;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #ccfbf1;
+        --bg-card: #ffffff;
+        --border-color: #99f6e4;
+        --text-primary: #134e4a;
+        --text-secondary: #115e59;
+        --text-muted: #0f766e;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Outfit", -apple-system, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      /* ====== HEADER ====== */
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--bg-secondary) 0%,
+          var(--bg-tertiary) 100%
+        );
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        position: relative;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .logo:hover {
+        opacity: 0.85;
+      }
+      .logo-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        object-fit: contain;
+        box-shadow: var(--glow-pink);
+      }
+      .logo-text h1 {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      /* Two-tone logo: Pink "Ski" + Cyan "WithCare" */
+      .logo-ski {
+        color: #e879a0;
+      }
+      .logo-care {
+        color: #64d9f7;
+      }
+      /* Darker cyan on light themes for readability */
+      .light-theme .logo-care {
+        color: #0891b2;
+      }
+      .logo-text > span {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      /* ====== MODE TOGGLE - PILL STYLE ====== */
+      .mode-toggle {
+        display: flex;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-pill);
+        padding: 4px;
+        gap: 4px;
+      }
+
+      .mode-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: var(--radius-pill);
+        background: transparent;
+        color: var(--text-muted);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .mode-btn.active {
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        color: white;
+        box-shadow: var(--glow-pink);
+      }
+
+      .mode-btn:hover:not(.active) {
+        color: var(--text-primary);
+        background: var(--bg-card);
+      }
+
+      .header-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      /* Theme Dropdown */
+      .theme-select {
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-width: 140px;
+      }
+      .theme-select:hover {
+        border-color: var(--accent-primary);
+      }
+      .theme-select:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 2px rgba(232, 121, 160, 0.2);
+      }
+
+      /* Header responsive - wrap on smaller screens */
+      @media (max-width: 900px) {
+        .header {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+        }
+        .logo {
+          flex: 0 0 auto;
+        }
+        .mode-toggle {
+          order: 2;
+        }
+        .header-controls {
+          order: 3;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .header {
+          padding: 10px 12px;
+          gap: 8px;
+        }
+        .logo-icon {
+          width: 40px;
+          height: 40px;
+        }
+        .logo-text h1 {
+          font-size: 16px;
+        }
+        .logo-text > span {
+          font-size: 10px;
+        }
+        .mode-btn {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+        .theme-select {
+          min-width: 120px;
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .logo-text {
+          display: none;
+        }
+        .mode-btn {
+          padding: 6px 8px;
+          font-size: 11px;
+        }
+        .theme-select {
+          min-width: 100px;
+          font-size: 11px;
+        }
+      }
+      .theme-select option {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        padding: 8px;
+      }
+
+      /* ====== MAIN LAYOUT ====== */
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 66px);
+      }
+
+      .sidebar {
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        height: 50vh;
+        min-height: 280px;
+        overflow: hidden;
+      }
+
+      .map-container {
+        flex: 1;
+        position: relative;
+        min-height: 200px;
+      }
+
+      @media (min-width: 768px) {
+        .main-container {
+          flex-direction: row;
+        }
+        .sidebar {
+          width: 400px;
+          min-width: 340px;
+          max-width: 440px;
+          height: auto;
+          border-bottom: none;
+          border-right: 1px solid var(--border-color);
+        }
+      }
+
+      /* ====== SIDEBAR CONTENT ====== */
+      .sidebar-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .search-box {
+        position: relative;
+        flex: 1;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 12px 14px 12px 42px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 14px;
+        transition: all 0.2s;
+      }
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px rgba(232, 121, 160, 0.15);
+      }
+      .search-box input::placeholder {
+        color: var(--text-muted);
+      }
+      .search-box::before {
+        content: "🔍";
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+      }
+
+      /* Near Me Button */
+      .near-me-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .near-me-btn:hover {
+        border-color: var(--accent-clinic);
+        background: rgba(100, 217, 247, 0.1);
+      }
+      .near-me-btn.active {
+        border-color: var(--accent-clinic);
+        background: linear-gradient(
+          135deg,
+          rgba(100, 217, 247, 0.2),
+          rgba(56, 189, 248, 0.2)
+        );
+        box-shadow: var(--glow-cyan);
+      }
+      .near-me-btn.loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+      .near-me-btn .spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid transparent;
+        border-top-color: var(--accent-clinic);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Location Banner */
+      .location-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 14px;
+        margin-bottom: 12px;
+        background: linear-gradient(
+          135deg,
+          rgba(100, 217, 247, 0.15),
+          rgba(56, 189, 248, 0.1)
+        );
+        border: 1px solid rgba(100, 217, 247, 0.3);
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+      }
+      .location-banner .location-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--accent-clinic);
+        font-weight: 500;
+      }
+      .location-banner .clear-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      .location-banner .clear-btn:hover {
+        color: var(--accent-danger);
+        background: rgba(248, 113, 113, 0.1);
+      }
+
+      /* Address Modal */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+      .modal-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        padding: 24px;
+        width: 90%;
+        max-width: 400px;
+        transform: translateY(20px);
+        transition: transform 0.3s;
+      }
+      .modal-overlay.show .modal {
+        transform: translateY(0);
+      }
+      .modal h3 {
+        margin-bottom: 8px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .modal p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      .modal input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      .modal input:focus {
+        outline: none;
+        border-color: var(--accent-clinic);
+        box-shadow: 0 0 0 3px rgba(100, 217, 247, 0.15);
+      }
+      .modal-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+      .modal-btn {
+        padding: 10px 18px;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .modal-btn.secondary {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+      }
+      .modal-btn.secondary:hover {
+        background: var(--bg-card);
+      }
+      .modal-btn.primary {
+        background: linear-gradient(135deg, var(--accent-clinic), #38bdf8);
+        border: none;
+        color: #000;
+      }
+      .modal-btn.primary:hover {
+        filter: brightness(1.1);
+      }
+
+      /* User Location Marker */
+      .user-location-marker {
+        position: relative;
+      }
+      .user-location-marker .pulse {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: rgba(100, 217, 247, 0.3);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulse-ring 2s ease-out infinite;
+      }
+      .user-location-marker .dot {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        background: linear-gradient(135deg, #64d9f7, #38bdf8);
+        border: 3px solid white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(100, 217, 247, 0.5);
+      }
+      @keyframes pulse-ring {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(2);
+          opacity: 0;
+        }
+      }
+
+      /* Distance from user badge */
+      .user-distance {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        background: linear-gradient(
+          135deg,
+          rgba(100, 217, 247, 0.2),
+          rgba(56, 189, 248, 0.15)
+        );
+        border: 1px solid rgba(100, 217, 247, 0.3);
+        border-radius: 20px;
+        font-size: 11px;
+        color: var(--accent-clinic);
+        font-weight: 600;
+      }
+
+      /* ====== FILTERS ====== */
+      .filters {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .filter-select {
+        flex: 1;
+        min-width: 100px;
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .filter-select:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+      }
+
+      /* ====== DISTANCE SLIDER ====== */
+      .slider-container {
+        flex: 2;
+        min-width: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .slider-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .slider-value {
+        color: var(--accent-primary);
+        font-weight: 600;
+      }
+
+      .distance-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--bg-tertiary);
+        outline: none;
+      }
+
+      .distance-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        cursor: pointer;
+        box-shadow: var(--glow-pink);
+        transition: transform 0.2s;
+      }
+
+      .distance-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+      }
+
+      .distance-slider::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        cursor: pointer;
+        border: none;
+      }
+
+      /* ====== ITEM LIST ====== */
+      .item-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .item-card {
+        padding: 14px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .item-card:hover {
+        border-color: var(--accent-primary);
+        transform: translateX(4px);
+      }
+      .item-card.selected {
+        border-color: var(--accent-primary);
+        background: linear-gradient(
+          135deg,
+          rgba(232, 121, 160, 0.1),
+          rgba(255, 107, 157, 0.05)
+        );
+        box-shadow: var(--glow-pink);
+      }
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 6px;
+        gap: 10px;
+      }
+      .item-name {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1.3;
+      }
+      .item-badge {
+        font-size: 10px;
+        color: var(--text-muted);
+        background: var(--bg-tertiary);
+        padding: 3px 10px;
+        border-radius: 20px;
+        flex-shrink: 0;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .item-meta {
+        display: flex;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--text-secondary);
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .item-location {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .distance-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        background: var(--bg-tertiary);
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .distance-badge.close {
+        background: rgba(74, 222, 128, 0.15);
+        color: var(--accent-success);
+      }
+      .distance-badge.medium {
+        background: rgba(251, 191, 36, 0.15);
+        color: var(--accent-warning);
+      }
+      .distance-badge.far {
+        background: rgba(248, 113, 113, 0.15);
+        color: var(--accent-danger);
+      }
+
+      /* ====== EXPANDABLE CARD ====== */
+      .item-card.expanded {
+        border-color: var(--accent-primary);
+        background: linear-gradient(
+          135deg,
+          rgba(232, 121, 160, 0.08),
+          rgba(255, 107, 157, 0.03)
+        );
+      }
+      .item-card.expanded:hover {
+        transform: none;
+      }
+
+      .card-expand-icon {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        margin-left: 6px;
+        font-size: 10px;
+        opacity: 0.6;
+      }
+      .item-card.expanded .card-expand-icon {
+        transform: rotate(180deg);
+      }
+
+      .expanded-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+      }
+      .item-card.expanded .expanded-content {
+        max-height: 400px;
+        opacity: 1;
+        padding-top: 12px;
+        margin-top: 12px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .expanded-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .expanded-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .expanded-item:hover {
+        background: var(--bg-secondary);
+        transform: translateX(4px);
+      }
+
+      .expanded-item-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex: 1;
+        min-width: 0;
+      }
+      .expanded-item-name {
+        font-weight: 500;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .expanded-item-location {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .expanded-item-distance {
+        font-weight: 600;
+        color: var(--accent-primary);
+        white-space: nowrap;
+        margin-left: 10px;
+      }
+
+      .show-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px;
+        margin-top: 8px;
+        background: transparent;
+        border: 1px dashed var(--border-color);
+        border-radius: var(--radius-sm);
+        color: var(--text-muted);
+        font-size: 11px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .show-more-btn:hover {
+        border-color: var(--accent-primary);
+        color: var(--accent-primary);
+        background: rgba(232, 121, 160, 0.05);
+      }
+
+      /* ====== MOBILE TOOLBAR (hidden by default) ====== */
+      .mobile-toolbar {
+        display: none;
+      }
+
+      /* ====== FLOATING ACTION BUTTON ====== */
+      .fab-near-me {
+        display: none; /* Hidden by default, shown on mobile */
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: auto;
+        height: 48px;
+        padding: 0 20px;
+        border-radius: 24px;
+        border: none;
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(232, 121, 160, 0.4);
+        z-index: 1000;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+      .fab-near-me:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(232, 121, 160, 0.5);
+      }
+      .fab-near-me:active {
+        transform: translateY(0);
+      }
+      .fab-label {
+        font-size: 14px;
+      }
+      .fab-near-me.has-location {
+        background: var(--accent-success);
+        box-shadow: 0 4px 20px rgba(74, 222, 128, 0.4);
+      }
+
+      /* ====== MOBILE LAYOUT ====== */
+      @media (max-width: 767px) {
+        .fab-near-me {
+          display: flex;
+        }
+        .mobile-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 16px;
+          background: var(--bg-secondary);
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-toolbar-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .mobile-toolbar-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 8px 12px;
+          background: var(--bg-tertiary);
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-sm);
+          color: var(--text-primary);
+          font-size: 12px;
+          font-family: inherit;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .mobile-toolbar-btn:hover {
+          border-color: var(--accent-primary);
+        }
+        .mobile-toolbar-btn.active {
+          background: var(--accent-primary);
+          border-color: var(--accent-primary);
+          color: white;
+        }
+
+        .mobile-toggle-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 14px;
+          background: linear-gradient(
+            135deg,
+            var(--accent-primary),
+            var(--accent-tertiary)
+          );
+          border: none;
+          border-radius: var(--radius-sm);
+          color: white;
+          font-size: 12px;
+          font-family: inherit;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .mobile-toggle-btn:hover {
+          filter: brightness(1.1);
+        }
+
+        .sidebar.collapsed .mobile-toggle-btn {
+          background: var(--bg-tertiary);
+          color: var(--text-primary);
+          border: 1px solid var(--border-color);
+        }
+
+        .sidebar {
+          position: relative;
+          height: auto;
+          min-height: 60px;
+          max-height: 55vh;
+          transition: max-height 0.4s ease, min-height 0.4s ease;
+        }
+
+        .sidebar.collapsed {
+          min-height: 60px;
+          max-height: 60px;
+          overflow: hidden;
+        }
+
+        .sidebar-content {
+          transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .sidebar-content {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .map-container {
+          min-height: 45vh;
+        }
+
+        /* Hide content on mobile collapsed */
+        .sidebar.collapsed .stats-bar,
+        .sidebar.collapsed .search-row,
+        .sidebar.collapsed .location-banner,
+        .sidebar.collapsed .filters,
+        .sidebar.collapsed .item-list,
+        .sidebar.collapsed .details-panel {
+          display: none;
+        }
+      }
+
+      /* Desktop: ensure toolbar is hidden and sidebar is visible */
+      @media (min-width: 768px) {
+        .mobile-toolbar {
+          display: none !important;
+        }
+        .sidebar {
+          height: auto !important;
+          max-height: none !important;
+        }
+        .sidebar .sidebar-content {
+          opacity: 1 !important;
+          pointer-events: auto !important;
+        }
+      }
+
+      /* ====== DETAILS PANEL ====== */
+      .details-panel {
+        background: linear-gradient(135deg, var(--bg-card), var(--bg-tertiary));
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        padding: 16px;
+        margin-top: 16px;
+      }
+
+      .details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .details-title {
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .details-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .data-table th {
+        text-align: left;
+        padding: 10px 8px;
+        background: var(--bg-tertiary);
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 6px 6px 0 0;
+      }
+      .data-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .data-table tr {
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .data-table tr:hover td {
+        background: var(--bg-tertiary);
+      }
+
+      .rank-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background: var(--accent-primary);
+        color: white;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .rank-badge.rank-1 {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #000;
+      }
+      .rank-badge.rank-2 {
+        background: linear-gradient(135deg, #94a3b8, #64748b);
+        color: #000;
+      }
+      .rank-badge.rank-3 {
+        background: linear-gradient(135deg, #cd7c32, #a05a2c);
+      }
+
+      /* ====== MAP ====== */
+      #map {
+        width: 100%;
+        height: 100%;
+        background: var(--bg-tertiary);
+      }
+
+      .resort-marker {
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        border: 3px solid white;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        box-shadow: var(--glow-pink);
+      }
+
+      .resort-marker.selected {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+      }
+
+      .clinic-marker {
+        background: linear-gradient(135deg, var(--accent-clinic), #38bdf8);
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        box-shadow: var(--glow-cyan);
+      }
+
+      .clinic-marker.selected {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        width: 28px;
+        height: 28px;
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+      }
+
+      .leaflet-popup-content-wrapper {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+      }
+      .leaflet-popup-tip {
+        background: var(--bg-card);
+      }
+      .leaflet-popup-content {
+        margin: 14px;
+        font-family: inherit;
+      }
+      .popup-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .popup-meta {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+      .popup-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .popup-user-dist {
+        font-size: 11px;
+        color: var(--accent-primary);
+        margin: 6px 0;
+        font-weight: 500;
+      }
+      .popup-highlight {
+        background: var(--accent-primary);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 8px 0;
+        text-align: center;
+      }
+      .popup-nearby-list {
+        margin: 10px 0;
+        border-top: 1px solid var(--border-color);
+        padding-top: 10px;
+      }
+      .popup-nearby-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .popup-nearby-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 8px;
+        margin: 4px 0;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        font-size: 12px;
+      }
+      .popup-nearby-item:hover {
+        background: var(--accent-primary);
+        color: white;
+      }
+      .popup-nearby-rank {
+        font-weight: 600;
+        color: var(--text-secondary);
+        min-width: 18px;
+      }
+      .popup-nearby-item:hover .popup-nearby-rank {
+        color: white;
+      }
+      .popup-nearby-name {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+      }
+      .popup-nearby-dist {
+        font-weight: 500;
+        color: var(--accent-secondary);
+        white-space: nowrap;
+      }
+      .popup-nearby-item:hover .popup-nearby-dist {
+        color: white;
+      }
+
+      /* ====== BUTTONS ====== */
+      .btn {
+        padding: 8px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn:hover {
+        background: var(--bg-card);
+        border-color: var(--accent-primary);
+      }
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--accent-primary),
+          var(--accent-tertiary)
+        );
+        border-color: transparent;
+        color: white;
+      }
+      .btn-primary:hover {
+        box-shadow: var(--glow-pink);
+        transform: translateY(-1px);
+      }
+      .btn-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      /* ====== STATES ====== */
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-muted);
+      }
+      .empty-state-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+      .empty-state h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: var(--text-secondary);
+      }
+      .empty-state p {
+        font-size: 13px;
+        margin-bottom: 16px;
+        line-height: 1.6;
+      }
+      .empty-state code {
+        background: var(--bg-tertiary);
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+      }
+
+      .loading-state {
+        text-align: center;
+        padding: 50px 20px;
+      }
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border-color);
+        border-top-color: var(--accent-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        padding: 12px 20px;
+        box-shadow: var(--shadow);
+        z-index: 10000;
+        animation: slideUp 0.3s ease;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .toast.success {
+        border-color: var(--accent-success);
+      }
+      .toast.error {
+        border-color: var(--accent-danger);
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(20px);
+        }
+      }
+
+      /* Stats bar */
+      .stats-bar {
+        display: flex;
+        gap: 16px;
+        padding: 10px 0;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .stat-value {
+        font-weight: 700;
+        color: var(--accent-primary);
+      }
+
+      /* Marker clusters - styled like regular markers */
+      .cluster-marker {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cluster-marker .cluster-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 3px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+
+      .cluster-marker.resort .cluster-icon {
+        background: linear-gradient(135deg, #e879a0, #ff6b9d);
+        box-shadow: 0 0 20px rgba(232, 121, 160, 0.4);
+      }
+
+      .cluster-marker.clinic .cluster-icon {
+        background: linear-gradient(135deg, #64d9f7, #38bdf8);
+        box-shadow: 0 0 20px rgba(100, 217, 247, 0.4);
+      }
+
+      .cluster-marker .cluster-count {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 5px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+      }
+
+      .cluster-marker.resort .cluster-count {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #000;
+      }
+
+      .cluster-marker.clinic .cluster-count {
+        background: linear-gradient(135deg, #22d3ee, #06b6d4);
+        color: #000;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-primary);
+      }
+    </style>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SkiWithCare",
+        "alternateName": "Ski With Care",
+        "description": "Care Near the Slopes — Plan your ski trip with confidence. Find dialysis clinics near ski resorts.",
+        "url": "https://skiwithcare.com/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Find nearby dialysis clinics from ski resorts",
+          "Discover ski resorts near your dialysis clinic",
+          "Interactive map with 37 Epic Pass resorts",
+          "1,590+ DaVita clinic locations",
+          "Distance filtering up to 200 miles",
+          "GPS and address-based location support",
+          "Get directions to nearby care"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="header">
+      <a href="/" class="logo" onclick="resetApp(event)">
+        <img src="logo-512.png" alt="SkiWithCare" class="logo-icon" />
+        <div class="logo-text">
+          <h1>
+            <span class="logo-ski">Ski</span
+            ><span class="logo-care">WithCare</span>
+          </h1>
+          <span>Care Near the Slopes</span>
+        </div>
+      </a>
+
+      <div class="mode-toggle">
+        <button
+          class="mode-btn active"
+          data-mode="resorts"
+          onclick="setMode('resorts')"
+        >
+          🏔️ Resorts
+        </button>
+        <button
+          class="mode-btn"
+          data-mode="clinics"
+          onclick="setMode('clinics')"
+        >
+          🏥 Clinics
+        </button>
+      </div>
+
+      <div class="header-controls">
+        <select
+          id="themeSelect"
+          class="theme-select"
+          onchange="setTheme(this.value)"
+          aria-label="Choose theme"
+        >
+          <option value="rose-dark">🌸 Rose Dark</option>
+          <option value="rose-light">🌸 Rose Light</option>
+          <option value="alpine-dark">🏔️ Alpine Dark</option>
+          <option value="alpine-light">🏔️ Alpine Light</option>
+          <option value="glacier-dark">🧊 Glacier Dark</option>
+          <option value="glacier-light">🧊 Glacier Light</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar" id="sidebar">
+        <!-- Mobile Toolbar -->
+        <div class="mobile-toolbar">
+          <div class="mobile-toolbar-left">
+            <button
+              class="mobile-toolbar-btn"
+              onclick="requestUserLocation()"
+              id="mobileNearMeBtn"
+            >
+              📍 Near Me
+            </button>
+            <span
+              class="mobile-location-label"
+              id="mobileLocationLabel"
+              style="
+                font-size: 11px;
+                color: var(--text-muted);
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            ></span>
+          </div>
+          <button
+            class="mobile-toggle-btn"
+            onclick="toggleMobileSidebar()"
+            id="mobileToggleBtn"
+          >
+            <span id="mobileToggleIcon">📋</span>
+            <span id="mobileToggleText">Show List</span>
+          </button>
+        </div>
+
+        <div class="sidebar-content">
+          <div id="loadingState" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading data...</p>
+          </div>
+
+          <div id="errorState" class="empty-state" style="display: none">
+            <div class="empty-state-icon">⚠️</div>
+            <h3>Could not load data</h3>
+            <p>
+              Run this in the project folder:<br /><code
+                >python3 -m http.server</code
+              ><br />Then open
+              <a
+                href="http://localhost:8000"
+                style="color: var(--accent-primary)"
+                >localhost:8000</a
+              >
+            </p>
+          </div>
+
+          <div id="mainContent" style="display: none">
+            <div class="stats-bar">
+              <div class="stat-item">
+                <span>🏔️</span>
+                <span id="resortCount" class="stat-value">0</span>
+                <span>Resorts</span>
+              </div>
+              <div class="stat-item">
+                <span>🏥</span>
+                <span id="clinicCount" class="stat-value">0</span>
+                <span>Clinics</span>
+              </div>
+            </div>
+
+            <div class="search-row">
+              <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search..." />
+              </div>
+              <button
+                class="near-me-btn"
+                id="nearMeBtn"
+                onclick="requestUserLocation()"
+              >
+                <span class="btn-content">📍 Near Me</span>
+              </button>
+            </div>
+
+            <div
+              id="locationBanner"
+              class="location-banner"
+              style="display: none"
+            >
+              <div class="location-info">
+                <span>📍</span>
+                <span id="locationText">Your location</span>
+              </div>
+              <button
+                class="clear-btn"
+                onclick="clearUserLocation()"
+                title="Clear location"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div class="filters">
+              <select class="filter-select" id="stateFilter">
+                <option value="">All States</option>
+              </select>
+              <div class="slider-container">
+                <div class="slider-label">
+                  <span>Max Distance</span>
+                  <span class="slider-value" id="distanceValue">200 mi</span>
+                </div>
+                <input
+                  type="range"
+                  class="distance-slider"
+                  id="distanceSlider"
+                  min="10"
+                  max="200"
+                  value="200"
+                  step="5"
+                />
+              </div>
+            </div>
+
+            <div id="itemList" class="item-list"></div>
+
+            <div id="detailsPanel" class="details-panel" style="display: none">
+              <div class="details-header">
+                <div>
+                  <div class="details-title">
+                    <span id="detailsIcon">🏔️</span>
+                    <span id="detailsTitle"></span>
+                  </div>
+                  <div class="details-subtitle" id="detailsSubtitle"></div>
+                </div>
+              </div>
+              <table class="data-table" id="detailsTable">
+                <thead>
+                  <tr id="tableHeader"></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="map-container"><div id="map"></div></div>
+    </div>
+
+    <!-- Address Input Modal -->
+    <div class="modal-overlay" id="addressModal">
+      <div class="modal">
+        <h3>📍 Enter Your Location</h3>
+        <p>
+          We couldn't get your GPS location. Enter an address, city, or zip code
+          instead.
+        </p>
+        <input
+          type="text"
+          id="addressInput"
+          placeholder="e.g., Denver, CO or 80202"
+        />
+        <div class="modal-buttons">
+          <button class="modal-btn secondary" onclick="closeAddressModal()">
+            Cancel
+          </button>
+          <button class="modal-btn primary" onclick="geocodeAddress()">
+            Find Location
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile FAB: Near Me -->
+    <button
+      class="fab-near-me"
+      id="fabNearMe"
+      onclick="handleNearMe()"
+      aria-label="Find care near me"
+    >
+      📍
+      <span class="fab-label">Near Me</span>
+    </button>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <script>
+      // === STATE ===
+      let mode = "resorts"; // 'resorts' or 'clinics'
+      let resortIndex = {};
+      let clinicIndex = {};
+      let allResorts = [];
+      let selectedItem = null;
+      let map, markerClusterGroup, secondaryLayerGroup, lineLayerGroup;
+
+      // User location state
+      let userLocation = null; // { lat, lon, label }
+      let userLocationMarker = null;
+
+      // Expandable card state
+      let expandedItem = null;
+      let showAllExpanded = false;
+
+      // Mobile sidebar state
+      let mobileSidebarCollapsed = true;
+
+      // === INITIALIZATION ===
+      document.addEventListener("DOMContentLoaded", () => {
+        initTheme();
+        initMap();
+        initEventListeners();
+        initMobileState();
+        loadAllData();
+      });
+
+      function initMap() {
+        map = L.map("map", { center: [39.8283, -98.5795], zoom: 4 });
+
+        // Check saved theme for light/dark tiles
+        const savedTheme = localStorage.getItem("theme") || "rose-dark";
+        const isLight = savedTheme.includes("light");
+
+        L.tileLayer(
+          isLight
+            ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            : "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          {
+            attribution: "© OpenStreetMap, © CARTO",
+            maxZoom: 19,
+          }
+        ).addTo(map);
+
+        markerClusterGroup = L.markerClusterGroup({
+          maxClusterRadius: 50,
+          iconCreateFunction: (cluster) => {
+            const count = cluster.getChildCount();
+            const isClinic = mode === "clinics";
+            const emoji = isClinic ? "🏥" : "⛷️";
+            const typeClass = isClinic ? "clinic" : "resort";
+            return L.divIcon({
+              html: `<div class="cluster-marker ${typeClass}">
+                <div class="cluster-icon">${emoji}</div>
+                <span class="cluster-count">${count}</span>
+              </div>`,
+              className: "",
+              iconSize: L.point(44, 44),
+              iconAnchor: L.point(22, 22),
+            });
+          },
+        });
+        secondaryLayerGroup = L.layerGroup();
+        lineLayerGroup = L.layerGroup();
+
+        map.addLayer(lineLayerGroup);
+        map.addLayer(secondaryLayerGroup);
+        map.addLayer(markerClusterGroup);
+      }
+
+      function initEventListeners() {
+        // Search input with tracking
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", debounce(renderList, 200));
+        searchInput.addEventListener(
+          "input",
+          debounce(() => {
+            if (searchInput.value.length > 2) {
+              gtag("event", "search", {
+                event_category: "engagement",
+                search_term: searchInput.value,
+                mode: mode,
+              });
+            }
+          }, 1000)
+        );
+
+        // State filter with tracking
+        document
+          .getElementById("stateFilter")
+          .addEventListener("change", (e) => {
+            gtag("event", "filter_state", {
+              event_category: "engagement",
+              state: e.target.value || "all",
+              mode: mode,
+            });
+            renderList();
+          });
+
+        // Distance slider with tracking
+        document
+          .getElementById("distanceSlider")
+          .addEventListener("input", (e) => {
+            document.getElementById(
+              "distanceValue"
+            ).textContent = `${e.target.value} mi`;
+            debounce(renderList, 100)();
+          });
+        document
+          .getElementById("distanceSlider")
+          .addEventListener("change", (e) => {
+            gtag("event", "filter_distance", {
+              event_category: "engagement",
+              distance: parseInt(e.target.value),
+              mode: mode,
+            });
+          });
+
+        window.addEventListener(
+          "resize",
+          debounce(() => map.invalidateSize(), 150)
+        );
+      }
+
+      // === DATA LOADING ===
+      async function loadAllData() {
+        try {
+          const [resortsData, clinicsData] = await Promise.all([
+            fetch("resorts.json").then((r) =>
+              r.ok ? r.json() : Promise.reject("resorts.json not found")
+            ),
+            fetch("clinics.json").then((r) =>
+              r.ok ? r.json() : Promise.reject("clinics.json not found")
+            ),
+          ]);
+
+          parseResortData(resortsData);
+          parseClinicData(clinicsData);
+
+          document.getElementById("loadingState").style.display = "none";
+          document.getElementById("mainContent").style.display = "block";
+
+          updateStats();
+          populateStateFilter();
+          renderList();
+          updateMap();
+
+          showToast("Data loaded!", "success");
+          setTimeout(() => map.invalidateSize(), 100);
+
+          // Track page load complete
+          gtag("event", "page_load_complete", {
+            event_category: "engagement",
+            resorts_count: Object.keys(resortIndex).length,
+            clinics_count: Object.keys(clinicIndex).length,
+          });
+        } catch (err) {
+          console.error(err);
+          document.getElementById("loadingState").style.display = "none";
+          document.getElementById("errorState").style.display = "block";
+        }
+      }
+
+      function parseResortData(data) {
+        resortIndex = {};
+        allResorts = [];
+
+        data.forEach((r) => {
+          if (!r.name || !r.lat || !r.lon) return;
+
+          const key = `${r.name}|${r.state}`;
+          resortIndex[key] = {
+            name: r.name,
+            state: r.state,
+            lat: r.lat,
+            lon: r.lon,
+          };
+          allResorts.push({
+            key,
+            name: r.name,
+            state: r.state,
+            lat: r.lat,
+            lon: r.lon,
+          });
+        });
+      }
+
+      // Calculate nearest N clinics for a resort (called dynamically)
+      function getNearestClinics(resortKey, count = 5) {
+        const resort = resortIndex[resortKey];
+        if (!resort) return [];
+
+        const clinicsWithDist = Object.values(clinicIndex)
+          .map((c) => ({
+            ...c,
+            distance: haversine(resort.lat, resort.lon, c.lat, c.lon),
+          }))
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, count);
+
+        return clinicsWithDist;
+      }
+
+      function parseClinicData(data) {
+        clinicIndex = {};
+        data.forEach((c) => {
+          const ccn = c.ccn || "";
+          if (!ccn || !c.lat || !c.lon) return;
+
+          clinicIndex[ccn] = {
+            ccn,
+            facility: c.facility || "",
+            address: c.address || "",
+            city: c.city || "",
+            state: c.state || "",
+            zip: c.zip || "",
+            lat: c.lat,
+            lon: c.lon,
+            nearestResort: c.nearestResort || "",
+            nearestResortDist: c.nearestResortDist || 999,
+          };
+        });
+      }
+
+      // === MODE SWITCHING ===
+      function setMode(newMode) {
+        if (mode === newMode) return;
+        mode = newMode;
+        selectedItem = null;
+        expandedItem = null;
+        showAllExpanded = false;
+
+        // Track mode switch
+        gtag("event", "mode_switch", {
+          event_category: "engagement",
+          mode: newMode,
+        });
+
+        document.querySelectorAll(".mode-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.mode === mode);
+        });
+
+        document.getElementById("searchInput").placeholder =
+          mode === "resorts" ? "Search resorts..." : "Search clinics...";
+
+        document.getElementById("detailsPanel").style.display = "none";
+
+        populateStateFilter();
+        renderList();
+        updateMap();
+      }
+
+      // === FILTERING & RENDERING ===
+      function populateStateFilter() {
+        const sf = document.getElementById("stateFilter");
+        const states = new Set();
+
+        if (mode === "resorts") {
+          Object.values(resortIndex).forEach((r) => states.add(r.state));
+        } else {
+          Object.values(clinicIndex).forEach((c) => states.add(c.state));
+        }
+
+        sf.innerHTML = '<option value="">All States</option>';
+        [...states].sort().forEach((s) => {
+          sf.innerHTML += `<option value="${s}">${s}</option>`;
+        });
+      }
+
+      function updateStats() {
+        document.getElementById("resortCount").textContent =
+          Object.keys(resortIndex).length;
+        document.getElementById("clinicCount").textContent =
+          Object.keys(clinicIndex).length;
+      }
+
+      function renderList() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const stateF = document.getElementById("stateFilter").value;
+        const maxDist = parseInt(
+          document.getElementById("distanceSlider").value
+        );
+
+        if (mode === "resorts") {
+          renderResortList(search, stateF, maxDist);
+        } else {
+          renderClinicList(search, stateF, maxDist);
+        }
+      }
+
+      function renderResortList(search, stateF, maxDist) {
+        // Build items with dynamically calculated nearest clinics
+        let items = Object.entries(resortIndex).map(([key, data]) => {
+          const clinics = getNearestClinics(key, 5);
+          return {
+            key,
+            ...data,
+            clinics,
+            nearestDist: clinics[0]?.distance || 999,
+          };
+        });
+
+        // Calculate distance from user if location is set
+        if (userLocation) {
+          items = items.map((r) => ({
+            ...r,
+            userDist: haversine(
+              userLocation.lat,
+              userLocation.lon,
+              r.lat,
+              r.lon
+            ),
+          }));
+        }
+
+        if (search)
+          items = items.filter((r) => r.name.toLowerCase().includes(search));
+        if (stateF) items = items.filter((r) => r.state === stateF);
+        items = items.filter((r) => r.nearestDist <= maxDist);
+
+        // Sort by user distance if location is set, otherwise alphabetically
+        if (userLocation) {
+          items.sort((a, b) => a.userDist - b.userDist);
+        } else {
+          items.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        const html = items
+          .map((r) => {
+            const dc =
+              r.nearestDist < 25
+                ? "close"
+                : r.nearestDist < 75
+                ? "medium"
+                : "far";
+            const userDistBadge =
+              userLocation && r.userDist !== undefined
+                ? `<span class="user-distance">📍 ${r.userDist.toFixed(
+                    1
+                  )} mi from you</span>`
+                : "";
+            const isExpanded = expandedItem === r.key;
+            const clinicsToShow =
+              isExpanded && showAllExpanded ? r.clinics : r.clinics.slice(0, 3);
+            const hasMore = r.clinics.length > 3;
+
+            const expandedHtml = `
+              <div class="expanded-content">
+                <div class="expanded-list">
+                  ${clinicsToShow
+                    .map(
+                      (c, i) => `
+                    <div class="expanded-item" onclick="event.stopPropagation(); openDirections(${
+                      r.lat
+                    },${r.lon},${c.lat},${c.lon},'${r.name.replace(
+                        /'/g,
+                        "\\'"
+                      )}','${c.facility.replace(
+                        /'/g,
+                        "\\'"
+                      )}',${c.distance.toFixed(1)})">
+                      <div class="expanded-item-info">
+                        <span class="expanded-item-name">${i + 1}. ${
+                        c.facility
+                      }</span>
+                        <span class="expanded-item-location">${c.city}, ${
+                        c.state
+                      }</span>
+                      </div>
+                      <span class="expanded-item-distance">${c.distance.toFixed(
+                        1
+                      )} mi</span>
+                    </div>
+                  `
+                    )
+                    .join("")}
+                </div>
+                ${
+                  hasMore && !showAllExpanded
+                    ? `
+                  <button class="show-more-btn" onclick="event.stopPropagation(); toggleShowAll('${r.key}')">
+                    Show all ${r.clinics.length} clinics →
+                  </button>
+                `
+                    : ""
+                }
+              </div>
+            `;
+
+            return `
+          <div class="item-card ${
+            isExpanded ? "expanded" : ""
+          }" onclick="toggleExpand('${r.key}')" data-key="${r.key}">
+            <div class="item-header">
+              <span class="item-name">🏔️ ${
+                r.name
+              } <span class="card-expand-icon">▼</span></span>
+              <span class="item-badge">${r.state}</span>
+            </div>
+            <div class="item-meta">
+              ${userDistBadge}
+              <span class="distance-badge ${dc}">🏥 ${r.nearestDist.toFixed(
+              1
+            )} mi</span>
+            </div>
+            ${expandedHtml}
+          </div>
+        `;
+          })
+          .join("");
+
+        document.getElementById("itemList").innerHTML =
+          html ||
+          '<div class="empty-state"><div class="empty-state-icon">🏔️</div><h3>No resorts found</h3><p>Try adjusting your filters</p></div>';
+      }
+
+      function renderClinicList(search, stateF, maxDist) {
+        let items = Object.entries(clinicIndex).map(([ccn, data]) => ({
+          key: ccn,
+          ...data,
+        }));
+
+        // Calculate distance from user if location is set
+        if (userLocation) {
+          items = items.map((c) => ({
+            ...c,
+            userDist: haversine(
+              userLocation.lat,
+              userLocation.lon,
+              c.lat,
+              c.lon
+            ),
+          }));
+        }
+
+        if (search)
+          items = items.filter(
+            (c) =>
+              c.facility.toLowerCase().includes(search) ||
+              c.city.toLowerCase().includes(search)
+          );
+        if (stateF) items = items.filter((c) => c.state === stateF);
+        items = items.filter((c) => c.nearestResortDist <= maxDist);
+
+        // Sort by user distance if location is set, otherwise alphabetically
+        if (userLocation) {
+          items.sort((a, b) => a.userDist - b.userDist);
+        } else {
+          items.sort((a, b) => a.facility.localeCompare(b.facility));
+        }
+
+        // Limit display for performance
+        const displayItems = items.slice(0, 100);
+
+        const html = displayItems
+          .map((c) => {
+            const dc =
+              c.nearestResortDist < 25
+                ? "close"
+                : c.nearestResortDist < 75
+                ? "medium"
+                : "far";
+            const userDistBadge =
+              userLocation && c.userDist !== undefined
+                ? `<span class="user-distance">📍 ${c.userDist.toFixed(
+                    1
+                  )} mi from you</span>`
+                : "";
+            const isExpanded = expandedItem === c.key;
+
+            // Calculate nearest resorts for this clinic
+            const nearestResorts = allResorts
+              .map((r) => ({
+                ...r,
+                distance: haversine(c.lat, c.lon, r.lat, r.lon),
+              }))
+              .sort((a, b) => a.distance - b.distance)
+              .slice(0, showAllExpanded && isExpanded ? 5 : 3);
+
+            const expandedHtml = `
+              <div class="expanded-content">
+                <div class="expanded-list">
+                  ${nearestResorts
+                    .map(
+                      (r, i) => `
+                    <div class="expanded-item" onclick="event.stopPropagation(); openDirections(${
+                      c.lat
+                    },${c.lon},${r.lat},${r.lon},'${c.facility.replace(
+                        /'/g,
+                        "\\'"
+                      )}','${r.name.replace(/'/g, "\\'")}',${r.distance.toFixed(
+                        1
+                      )})">
+                      <div class="expanded-item-info">
+                        <span class="expanded-item-name">${i + 1}. ${
+                        r.name
+                      }</span>
+                        <span class="expanded-item-location">${r.state}</span>
+                      </div>
+                      <span class="expanded-item-distance">${r.distance.toFixed(
+                        1
+                      )} mi</span>
+                    </div>
+                  `
+                    )
+                    .join("")}
+                </div>
+                ${
+                  !showAllExpanded && allResorts.length > 3
+                    ? `
+                  <button class="show-more-btn" onclick="event.stopPropagation(); toggleShowAll('${c.key}')">
+                    Show all 5 resorts →
+                  </button>
+                `
+                    : ""
+                }
+              </div>
+            `;
+
+            return `
+          <div class="item-card ${
+            isExpanded ? "expanded" : ""
+          }" onclick="toggleExpand('${c.key}')" data-key="${c.key}">
+            <div class="item-header">
+              <span class="item-name">🏥 ${
+                c.facility
+              } <span class="card-expand-icon">▼</span></span>
+              <span class="item-badge">${c.state}</span>
+            </div>
+            <div class="item-meta">
+              ${userDistBadge}
+              <span class="item-location">📍 ${c.city}, ${c.state}</span>
+              <span class="distance-badge ${dc}">🏔️ ${c.nearestResortDist.toFixed(
+              1
+            )} mi</span>
+            </div>
+            ${expandedHtml}
+          </div>
+        `;
+          })
+          .join("");
+
+        const countNote =
+          items.length > 100
+            ? `<p style="text-align:center;color:var(--text-muted);font-size:12px;padding:10px;">Showing 100 of ${items.length} clinics</p>`
+            : "";
+
+        document.getElementById("itemList").innerHTML =
+          html + countNote ||
+          '<div class="empty-state"><div class="empty-state-icon">🏥</div><h3>No clinics found</h3><p>Try adjusting your filters</p></div>';
+      }
+
+      // === EXPANSION & SELECTION ===
+      function toggleExpand(key) {
+        const isExpanding = expandedItem !== key;
+
+        if (expandedItem === key) {
+          // Collapse if clicking the same item
+          expandedItem = null;
+          showAllExpanded = false;
+        } else {
+          // Expand new item (accordion - closes previous)
+          expandedItem = key;
+          showAllExpanded = false;
+        }
+
+        // Track item selection
+        if (isExpanding && key) {
+          const itemType = mode === "resorts" ? "resort" : "clinic";
+          const itemData =
+            mode === "resorts" ? resortIndex[key] : clinicIndex[key];
+          gtag("event", "item_select", {
+            event_category: "engagement",
+            item_type: itemType,
+            item_name: itemData?.name || itemData?.facility || key,
+            item_state: itemData?.state || "",
+          });
+        }
+
+        // Update map to show the expanded item's related markers
+        selectedItem = expandedItem;
+        renderList();
+        updateMap();
+
+        // Fly to location if expanded
+        if (expandedItem) {
+          if (mode === "resorts") {
+            const r = resortIndex[expandedItem];
+            if (r) map.flyTo([r.lat, r.lon], 8, { duration: 0.5 });
+          } else {
+            const c = clinicIndex[expandedItem];
+            if (c) map.flyTo([c.lat, c.lon], 8, { duration: 0.5 });
+          }
+        }
+      }
+
+      function toggleShowAll(key) {
+        showAllExpanded = true;
+
+        // Track show all expand
+        gtag("event", "show_all_expand", {
+          event_category: "engagement",
+          item_key: key,
+          mode: mode,
+        });
+
+        renderList();
+      }
+
+      function selectItem(key) {
+        selectedItem = key;
+
+        // Track view details
+        const itemType = mode === "resorts" ? "resort" : "clinic";
+        const itemData =
+          mode === "resorts" ? resortIndex[key] : clinicIndex[key];
+        gtag("event", "view_details_click", {
+          event_category: "engagement",
+          item_type: itemType,
+          item_name: itemData?.name || itemData?.facility || key,
+          item_state: itemData?.state || "",
+          mode: mode,
+        });
+
+        if (mode === "resorts") {
+          selectResort(key);
+        } else {
+          selectClinic(key);
+        }
+
+        renderList();
+        updateMap();
+      }
+
+      function selectResort(key) {
+        const r = resortIndex[key];
+        if (!r) return;
+
+        const clinics = getNearestClinics(key, 5);
+
+        document.getElementById("detailsIcon").textContent = "🏔️";
+        document.getElementById("detailsTitle").textContent = r.name;
+        document.getElementById(
+          "detailsSubtitle"
+        ).textContent = `${r.state} • ${clinics.length} nearby clinics`;
+        document.getElementById("tableHeader").innerHTML =
+          "<th>#</th><th>Dist</th><th>Clinic</th><th>Location</th>";
+
+        document.querySelector("#detailsTable tbody").innerHTML = clinics
+          .map(
+            (c, i) => `
+        <tr onclick="openDirections(${r.lat},${r.lon},${c.lat},${
+              c.lon
+            },'${r.name.replace(/'/g, "\\'")}','${c.facility.replace(
+              /'/g,
+              "\\'"
+            )}',${c.distance.toFixed(1)})">
+          <td><span class="rank-badge rank-${i + 1}">${i + 1}</span></td>
+          <td>${c.distance.toFixed(1)} mi</td>
+          <td>${c.facility}</td>
+          <td>${c.city}, ${c.state}</td>
+        </tr>
+      `
+          )
+          .join("");
+
+        document.getElementById("detailsPanel").style.display = "block";
+        map.flyTo([r.lat, r.lon], 8, { duration: 0.6 });
+      }
+
+      function selectClinic(ccn) {
+        const c = clinicIndex[ccn];
+        if (!c) return;
+
+        // Calculate distances to all resorts
+        const resortDistances = allResorts
+          .map((r) => ({
+            ...r,
+            distance: haversine(c.lat, c.lon, r.lat, r.lon),
+          }))
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 5);
+
+        document.getElementById("detailsIcon").textContent = "🏥";
+        document.getElementById("detailsTitle").textContent = c.facility;
+        document.getElementById(
+          "detailsSubtitle"
+        ).textContent = `${c.city}, ${c.state} ${c.zip}`;
+        document.getElementById("tableHeader").innerHTML =
+          "<th>#</th><th>Dist</th><th>Resort</th><th>State</th>";
+
+        document.querySelector("#detailsTable tbody").innerHTML =
+          resortDistances
+            .map(
+              (r, i) => `
+        <tr onclick="openDirections(${c.lat},${c.lon},${r.lat},${
+                r.lon
+              },'${c.facility.replace(/'/g, "\\'")}','${r.name.replace(
+                /'/g,
+                "\\'"
+              )}',${r.distance.toFixed(1)})">
+          <td><span class="rank-badge rank-${i + 1}">${i + 1}</span></td>
+          <td>${r.distance.toFixed(1)} mi</td>
+          <td>${r.name}</td>
+          <td>${r.state}</td>
+        </tr>
+      `
+            )
+            .join("");
+
+        // Store computed distances for map
+        c._nearestResorts = resortDistances;
+
+        document.getElementById("detailsPanel").style.display = "block";
+        map.flyTo([c.lat, c.lon], 8, { duration: 0.6 });
+      }
+
+      // === MAP UPDATES ===
+      function updateMap() {
+        markerClusterGroup.clearLayers();
+        secondaryLayerGroup.clearLayers();
+        lineLayerGroup.clearLayers();
+
+        if (mode === "resorts") {
+          updateMapResortMode();
+        } else {
+          updateMapClinicMode();
+        }
+      }
+
+      function updateMapResortMode() {
+        // Add all resort markers
+        Object.entries(resortIndex).forEach(([key, r]) => {
+          const isSelected = selectedItem === key;
+          const nearestClinic = getNearestClinics(key, 1)[0];
+          const icon = L.divIcon({
+            className: "",
+            html: `<div class="resort-marker ${
+              isSelected ? "selected" : ""
+            }">⛷️</div>`,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+          });
+
+          const m = L.marker([r.lat, r.lon], { icon }).bindPopup(
+            buildResortPopup(r, key)
+          );
+          m.on("popupopen", () => trackPopupOpen("resort", r.name, r.state));
+          markerClusterGroup.addLayer(m);
+        });
+
+        // If resort selected, show its clinics
+        if (selectedItem && resortIndex[selectedItem]) {
+          const r = resortIndex[selectedItem];
+          const clinics = getNearestClinics(selectedItem, 5);
+          clinics.forEach((c, i) => {
+            if (!c.lat || !c.lon) return;
+
+            const icon = L.divIcon({
+              className: "",
+              html: '<div class="clinic-marker"></div>',
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+            });
+
+            const userDistHtml = userLocation
+              ? `<div class="popup-user-dist">📍 ${haversine(
+                  userLocation.lat,
+                  userLocation.lon,
+                  c.lat,
+                  c.lon
+                ).toFixed(1)} mi from you</div>`
+              : "";
+            const userDirBtn = userLocation
+              ? `<button class="btn btn-sm" onclick="openDirections(${
+                  userLocation.lat
+                },${userLocation.lon},${c.lat},${
+                  c.lon
+                },'Your Location','${c.facility.replace(
+                  /'/g,
+                  "\\'"
+                )}',${haversine(
+                  userLocation.lat,
+                  userLocation.lon,
+                  c.lat,
+                  c.lon
+                ).toFixed(1)})">📍 From Me</button>`
+              : "";
+
+            const m = L.marker([c.lat, c.lon], { icon }).bindPopup(`
+            <div class="popup-title">🏥 ${c.facility}</div>
+            <div class="popup-meta">${c.address}<br>${c.city}, ${c.state} ${
+              c.zip
+            }</div>
+            ${userDistHtml}
+            <div class="popup-highlight">⛷️ ${c.distance.toFixed(1)} mi from ${
+              r.name
+            }</div>
+            <div class="popup-actions">
+              ${userDirBtn}
+              <button class="btn btn-sm btn-primary" onclick="openDirections(${
+                r.lat
+              },${r.lon},${c.lat},${c.lon},'${r.name.replace(
+              /'/g,
+              "\\'"
+            )}','${c.facility.replace(/'/g, "\\'")}',${c.distance.toFixed(
+              1
+            )})">📍 Resort → Clinic</button>
+            </div>
+          `);
+            m.on("popupopen", () =>
+              trackPopupOpen("clinic", c.facility, c.state)
+            );
+            secondaryLayerGroup.addLayer(m);
+
+            // Draw connection line
+            const color = i === 0 ? "#4ade80" : i < 3 ? "#60a5fa" : "#6b7280";
+            lineLayerGroup.addLayer(
+              L.polyline(
+                [
+                  [r.lat, r.lon],
+                  [c.lat, c.lon],
+                ],
+                {
+                  color,
+                  weight: i === 0 ? 3 : 2,
+                  opacity: i === 0 ? 0.9 : 0.5,
+                  dashArray: i > 0 ? "6,6" : null,
+                }
+              )
+            );
+          });
+        }
+      }
+
+      function updateMapClinicMode() {
+        const maxDist = parseInt(
+          document.getElementById("distanceSlider").value
+        );
+
+        // Add all clinic markers (filtered)
+        Object.entries(clinicIndex).forEach(([ccn, c]) => {
+          if (c.nearestResortDist > maxDist) return;
+
+          const isSelected = selectedItem === ccn;
+          const icon = L.divIcon({
+            className: "",
+            html: `<div class="clinic-marker ${
+              isSelected ? "selected" : ""
+            }"></div>`,
+            iconSize: isSelected ? [28, 28] : [20, 20],
+            iconAnchor: isSelected ? [14, 14] : [10, 10],
+          });
+
+          const m = L.marker([c.lat, c.lon], { icon }).bindPopup(
+            buildClinicPopup(c, ccn)
+          );
+          m.on("popupopen", () =>
+            trackPopupOpen("clinic", c.facility, c.state)
+          );
+          markerClusterGroup.addLayer(m);
+        });
+
+        // Always show resort markers (smaller, as reference)
+        allResorts.forEach((r) => {
+          const icon = L.divIcon({
+            className: "",
+            html: '<div class="resort-marker" style="width:24px;height:24px;font-size:12px;">⛷️</div>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12],
+          });
+          const m = L.marker([r.lat, r.lon], { icon }).bindPopup(
+            buildResortPopup(r, r.key)
+          );
+          m.on("popupopen", () => trackPopupOpen("resort", r.name, r.state));
+          secondaryLayerGroup.addLayer(m);
+        });
+
+        // If clinic selected, show lines to nearest resorts
+        if (selectedItem && clinicIndex[selectedItem]) {
+          const c = clinicIndex[selectedItem];
+          if (c._nearestResorts) {
+            c._nearestResorts.forEach((r, i) => {
+              const color = i === 0 ? "#4ade80" : i < 3 ? "#60a5fa" : "#6b7280";
+              lineLayerGroup.addLayer(
+                L.polyline(
+                  [
+                    [c.lat, c.lon],
+                    [r.lat, r.lon],
+                  ],
+                  {
+                    color,
+                    weight: i === 0 ? 3 : 2,
+                    opacity: i === 0 ? 0.9 : 0.5,
+                    dashArray: i > 0 ? "6,6" : null,
+                  }
+                )
+              );
+            });
+          }
+        }
+      }
+
+      // === USER LOCATION ===
+      function requestUserLocation() {
+        // Track Near Me click
+        gtag("event", "near_me_click", {
+          event_category: "engagement",
+          mode: mode,
+        });
+
+        const btn = document.getElementById("nearMeBtn");
+        btn.classList.add("loading");
+        btn.innerHTML = '<div class="spinner"></div>';
+
+        if (!navigator.geolocation) {
+          gtag("event", "location_fallback", { reason: "no_geolocation" });
+          showAddressModal();
+          resetNearMeBtn();
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation(
+              position.coords.latitude,
+              position.coords.longitude,
+              "Your location",
+              "gps"
+            );
+            resetNearMeBtn();
+          },
+          (error) => {
+            console.log("Geolocation error:", error.message);
+            gtag("event", "location_fallback", { reason: error.message });
+            showAddressModal();
+            resetNearMeBtn();
+          },
+          { timeout: 10000, enableHighAccuracy: true }
+        );
+      }
+
+      function resetNearMeBtn() {
+        const btn = document.getElementById("nearMeBtn");
+        btn.classList.remove("loading");
+        btn.innerHTML = '<span class="btn-content">📍 Near Me</span>';
+      }
+
+      function showAddressModal() {
+        document.getElementById("addressModal").classList.add("show");
+        document.getElementById("addressInput").focus();
+
+        // Allow Enter key to submit
+        document.getElementById("addressInput").onkeydown = (e) => {
+          if (e.key === "Enter") geocodeAddress();
+        };
+      }
+
+      function closeAddressModal() {
+        document.getElementById("addressModal").classList.remove("show");
+        document.getElementById("addressInput").value = "";
+      }
+
+      async function geocodeAddress() {
+        const address = document.getElementById("addressInput").value.trim();
+        if (!address) {
+          showToast("Please enter an address", "error");
+          return;
+        }
+
+        const btn = document.querySelector(".modal-btn.primary");
+        btn.textContent = "Searching...";
+        btn.disabled = true;
+
+        try {
+          // Use Nominatim (OpenStreetMap) for geocoding
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+              address
+            )}&countrycodes=us&limit=1`,
+            { headers: { "User-Agent": "EpicDaVitaApp/1.0" } }
+          );
+
+          const results = await response.json();
+
+          if (results.length === 0) {
+            showToast("Location not found. Try a different address.", "error");
+            btn.textContent = "Find Location";
+            btn.disabled = false;
+            return;
+          }
+
+          const result = results[0];
+          const label = result.display_name.split(",").slice(0, 2).join(",");
+
+          setUserLocation(
+            parseFloat(result.lat),
+            parseFloat(result.lon),
+            label,
+            "address"
+          );
+
+          closeAddressModal();
+        } catch (err) {
+          console.error("Geocoding error:", err);
+          showToast("Error finding location. Try again.", "error");
+        }
+
+        btn.textContent = "Find Location";
+        btn.disabled = false;
+      }
+
+      function setUserLocation(lat, lon, label, source = "unknown") {
+        userLocation = { lat, lon, label };
+
+        // Haptic feedback
+        if (navigator.vibrate) navigator.vibrate(20);
+
+        // Track location set
+        gtag("event", "location_set", {
+          event_category: "engagement",
+          location_type: source,
+          location_label: label,
+          mode: mode,
+        });
+
+        // Update UI
+        document.getElementById("nearMeBtn").classList.add("active");
+        document.getElementById("locationBanner").style.display = "flex";
+        document.getElementById("locationText").textContent = label;
+
+        // Update mobile UI
+        const mobileLabel = document.getElementById("mobileLocationLabel");
+        const mobileBtn = document.getElementById("mobileNearMeBtn");
+        if (mobileLabel) mobileLabel.textContent = label;
+        if (mobileBtn) mobileBtn.classList.add("active");
+
+        // Update FAB
+        const fab = document.getElementById("fabNearMe");
+        if (fab) {
+          fab.classList.add("has-location");
+          fab.querySelector(".fab-label").textContent = "Located";
+        }
+
+        // Add marker to map
+        if (userLocationMarker) {
+          map.removeLayer(userLocationMarker);
+        }
+
+        userLocationMarker = L.marker([lat, lon], {
+          icon: L.divIcon({
+            className: "",
+            html: `<div class="user-location-marker">
+              <div class="pulse"></div>
+              <div class="dot"></div>
+            </div>`,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+          }),
+          zIndexOffset: 1000,
+        }).addTo(map);
+
+        userLocationMarker.bindPopup(`<strong>📍 ${label}</strong>`);
+
+        // Re-render list sorted by distance
+        renderList();
+        updateMap();
+
+        // Pan to user location
+        map.flyTo([lat, lon], 7, { duration: 0.8 });
+
+        showToast("Location set! Results sorted by distance.", "success");
+      }
+
+      function clearUserLocation() {
+        // Track clear location
+        gtag("event", "clear_location", {
+          event_category: "engagement",
+          mode: mode,
+        });
+
+        userLocation = null;
+
+        // Update UI
+        document.getElementById("nearMeBtn").classList.remove("active");
+        document.getElementById("locationBanner").style.display = "none";
+
+        // Update mobile UI
+        const mobileLabel = document.getElementById("mobileLocationLabel");
+        const mobileBtn = document.getElementById("mobileNearMeBtn");
+        if (mobileLabel) mobileLabel.textContent = "";
+        if (mobileBtn) mobileBtn.classList.remove("active");
+
+        // Update FAB
+        const fab = document.getElementById("fabNearMe");
+        if (fab) {
+          fab.classList.remove("has-location");
+          fab.querySelector(".fab-label").textContent = "Near Me";
+        }
+
+        // Remove marker
+        if (userLocationMarker) {
+          map.removeLayer(userLocationMarker);
+          userLocationMarker = null;
+        }
+
+        // Re-render with default sorting
+        renderList();
+        updateMap();
+
+        // Reset view
+        map.flyTo([39.8283, -98.5795], 4, { duration: 0.6 });
+
+        showToast("Location cleared", "success");
+      }
+
+      // === RESET APP (Logo Click) ===
+      function resetApp(event) {
+        event.preventDefault();
+
+        // Track reset
+        gtag("event", "logo_click", {
+          event_category: "navigation",
+          action: "reset_app",
+        });
+
+        // Haptic feedback
+        if (navigator.vibrate) navigator.vibrate(30);
+
+        // Clear location if set
+        if (userLocation) {
+          userLocation = null;
+          if (userLocationMarker) {
+            map.removeLayer(userLocationMarker);
+            userLocationMarker = null;
+          }
+        }
+
+        // Reset filters
+        document.getElementById("stateFilter").value = "";
+        document.getElementById("distanceFilter").value = 200;
+        document.getElementById("distanceLabel").textContent = "200";
+        document.getElementById("searchInput").value = "";
+
+        // Reset UI state
+        document.getElementById("nearMeBtn").classList.remove("active");
+        document.getElementById("locationBanner").style.display = "none";
+
+        // Reset mobile UI
+        const mobileLabel = document.getElementById("mobileLocationLabel");
+        const mobileBtn = document.getElementById("mobileNearMeBtn");
+        if (mobileLabel) mobileLabel.textContent = "";
+        if (mobileBtn) mobileBtn.classList.remove("active");
+
+        // Reset FAB
+        const fab = document.getElementById("fabNearMe");
+        if (fab) {
+          fab.classList.remove("has-location");
+          fab.querySelector(".fab-label").textContent = "Near Me";
+        }
+
+        // Re-render lists
+        renderList();
+        updateMap();
+
+        // Reset map view to US overview
+        map.flyTo([39.8283, -98.5795], 4, { duration: 0.6 });
+
+        showToast("Reset to home", "success");
+      }
+
+      // === MOBILE SIDEBAR ===
+      function toggleMobileSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("mobileToggleBtn");
+        const toggleIcon = document.getElementById("mobileToggleIcon");
+        const toggleText = document.getElementById("mobileToggleText");
+
+        mobileSidebarCollapsed = !mobileSidebarCollapsed;
+
+        // Track sidebar toggle
+        gtag("event", "sidebar_toggle", {
+          event_category: "engagement",
+          state: mobileSidebarCollapsed ? "collapsed" : "expanded",
+          mode: mode,
+        });
+
+        if (mobileSidebarCollapsed) {
+          sidebar.classList.add("collapsed");
+          toggleIcon.textContent = "📋";
+          toggleText.textContent = "Show List";
+        } else {
+          sidebar.classList.remove("collapsed");
+          toggleIcon.textContent = "🗺️";
+          toggleText.textContent = "Show Map";
+        }
+
+        // Resize map after transition
+        setTimeout(() => map.invalidateSize(), 400);
+      }
+
+      // Initialize mobile state on load
+      function initMobileState() {
+        const sidebar = document.getElementById("sidebar");
+        if (window.innerWidth < 768) {
+          sidebar.classList.add("collapsed");
+          mobileSidebarCollapsed = true;
+        } else {
+          sidebar.classList.remove("collapsed");
+          mobileSidebarCollapsed = false;
+        }
+
+        // Handle resize events
+        window.addEventListener(
+          "resize",
+          debounce(() => {
+            if (window.innerWidth >= 768) {
+              sidebar.classList.remove("collapsed");
+            }
+          }, 200)
+        );
+      }
+
+      // === UTILITIES ===
+      function haversine(lat1, lon1, lat2, lon2) {
+        const R = 3958.8; // Earth's radius in miles
+        const dLat = ((lat2 - lat1) * Math.PI) / 180;
+        const dLon = ((lon2 - lon1) * Math.PI) / 180;
+        const a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos((lat1 * Math.PI) / 180) *
+            Math.cos((lat2 * Math.PI) / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      }
+
+      // Build rich popup HTML for resort markers
+      function buildResortPopup(r, key) {
+        const nearestClinics = getNearestClinics(key, 3);
+        const userDistHtml = userLocation
+          ? `<div class="popup-user-dist">📍 ${haversine(
+              userLocation.lat,
+              userLocation.lon,
+              r.lat,
+              r.lon
+            ).toFixed(1)} mi from you</div>`
+          : "";
+
+        const clinicListHtml =
+          nearestClinics.length > 0
+            ? `<div class="popup-nearby-list">
+              <div class="popup-nearby-title">🏥 Nearest Clinics:</div>
+              ${nearestClinics
+                .map(
+                  (c, i) => `
+                <div class="popup-nearby-item" onclick="openDirections(${
+                  r.lat
+                },${r.lon},${c.lat},${c.lon},'${r.name.replace(
+                    /'/g,
+                    "\\'"
+                  )}','${c.facility.replace(/'/g, "\\'")}',${c.distance.toFixed(
+                    1
+                  )})">
+                  <span class="popup-nearby-rank">${i + 1}.</span>
+                  <span class="popup-nearby-name">${c.facility}</span>
+                  <span class="popup-nearby-dist">${c.distance.toFixed(
+                    1
+                  )} mi →</span>
+                </div>
+              `
+                )
+                .join("")}
+            </div>`
+            : "";
+
+        const userDirBtn = userLocation
+          ? `<button class="btn btn-sm" onclick="openDirections(${
+              userLocation.lat
+            },${userLocation.lon},${r.lat},${
+              r.lon
+            },'Your Location','${r.name.replace(/'/g, "\\'")}',${haversine(
+              userLocation.lat,
+              userLocation.lon,
+              r.lat,
+              r.lon
+            ).toFixed(1)})">📍 Directions from Me</button>`
+          : "";
+
+        return `
+          <div class="popup-title">🏔️ ${r.name}</div>
+          <div class="popup-meta">${r.state}</div>
+          ${userDistHtml}
+          ${clinicListHtml}
+          <div class="popup-actions">
+            ${userDirBtn}
+            <button class="btn btn-sm btn-primary" onclick="selectItem('${key}')">📋 View Details</button>
+            <button class="btn btn-sm" onclick="shareLocation('resort','${r.name.replace(
+              /'/g,
+              "\\'"
+            )}',${r.lat},${r.lon})">📤 Share</button>
+          </div>
+        `;
+      }
+
+      // Build rich popup HTML for clinic markers
+      function buildClinicPopup(c, ccn) {
+        const nearestResorts = allResorts
+          .map((r) => ({
+            ...r,
+            distance: haversine(c.lat, c.lon, r.lat, r.lon),
+          }))
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 3);
+
+        const userDistHtml = userLocation
+          ? `<div class="popup-user-dist">📍 ${haversine(
+              userLocation.lat,
+              userLocation.lon,
+              c.lat,
+              c.lon
+            ).toFixed(1)} mi from you</div>`
+          : "";
+
+        const resortListHtml =
+          nearestResorts.length > 0
+            ? `<div class="popup-nearby-list">
+              <div class="popup-nearby-title">⛷️ Nearest Resorts:</div>
+              ${nearestResorts
+                .map(
+                  (r, i) => `
+                <div class="popup-nearby-item" onclick="openDirections(${
+                  c.lat
+                },${c.lon},${r.lat},${r.lon},'${c.facility.replace(
+                    /'/g,
+                    "\\'"
+                  )}','${r.name.replace(/'/g, "\\'")}',${r.distance.toFixed(
+                    1
+                  )})">
+                  <span class="popup-nearby-rank">${i + 1}.</span>
+                  <span class="popup-nearby-name">${r.name}</span>
+                  <span class="popup-nearby-dist">${r.distance.toFixed(
+                    1
+                  )} mi →</span>
+                </div>
+              `
+                )
+                .join("")}
+            </div>`
+            : "";
+
+        const userDirBtn = userLocation
+          ? `<button class="btn btn-sm" onclick="openDirections(${
+              userLocation.lat
+            },${userLocation.lon},${c.lat},${
+              c.lon
+            },'Your Location','${c.facility.replace(/'/g, "\\'")}',${haversine(
+              userLocation.lat,
+              userLocation.lon,
+              c.lat,
+              c.lon
+            ).toFixed(1)})">📍 Directions from Me</button>`
+          : "";
+
+        return `
+          <div class="popup-title">🏥 ${c.facility}</div>
+          <div class="popup-meta">${c.address}<br>${c.city}, ${c.state} ${
+          c.zip
+        }</div>
+          ${userDistHtml}
+          ${resortListHtml}
+          <div class="popup-actions">
+            ${userDirBtn}
+            <button class="btn btn-sm btn-primary" onclick="selectItem('${ccn}')">📋 View Details</button>
+            <button class="btn btn-sm" onclick="shareLocation('clinic','${c.facility.replace(
+              /'/g,
+              "\\'"
+            )}',${c.lat},${c.lon})">📤 Share</button>
+          </div>
+        `;
+      }
+
+      // Track popup open
+      function trackPopupOpen(type, name, state) {
+        gtag("event", "popup_open", {
+          event_category: "engagement",
+          item_type: type,
+          item_name: name,
+          item_state: state,
+          mode: mode,
+        });
+      }
+
+      function openDirections(
+        lat1,
+        lon1,
+        lat2,
+        lon2,
+        fromName = "",
+        toName = "",
+        distance = null
+      ) {
+        // Haptic feedback
+        if (navigator.vibrate) navigator.vibrate(15);
+
+        // Track directions click with details
+        gtag("event", "directions_click", {
+          event_category: "engagement",
+          mode: mode,
+          from_name: fromName || "unknown",
+          to_name: toName || "unknown",
+          distance_miles: distance || "unknown",
+        });
+
+        window.open(
+          `https://www.google.com/maps/dir/${lat1},${lon1}/${lat2},${lon2}`,
+          "_blank"
+        );
+      }
+
+      // Share functionality (Web Share API with fallback)
+      async function shareLocation(type, name, lat, lon) {
+        // Haptic feedback
+        if (navigator.vibrate) navigator.vibrate(15);
+
+        const shareData = {
+          title: `${name} - SkiWithCare`,
+          text:
+            type === "resort"
+              ? `Check out ${name} and find dialysis care nearby!`
+              : `${name} - Dialysis care near ski resorts`,
+          url: `https://skiwithcare.com/?${type}=${encodeURIComponent(
+            name
+          )}&lat=${lat}&lon=${lon}`,
+        };
+
+        // Track share attempt
+        gtag("event", "share_click", {
+          event_category: "engagement",
+          item_type: type,
+          item_name: name,
+        });
+
+        try {
+          if (navigator.share && navigator.canShare(shareData)) {
+            await navigator.share(shareData);
+            gtag("event", "share_success", {
+              event_category: "engagement",
+              item_type: type,
+              item_name: name,
+              method: "native",
+            });
+          } else {
+            // Fallback: Copy to clipboard
+            await navigator.clipboard.writeText(shareData.url);
+            showToast("Link copied to clipboard!", "success");
+            gtag("event", "share_success", {
+              event_category: "engagement",
+              item_type: type,
+              item_name: name,
+              method: "clipboard",
+            });
+          }
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            showToast("Couldn't share. Try copying the URL.", "error");
+          }
+        }
+      }
+
+      // Unified theme management (color + light/dark)
+      function setTheme(theme) {
+        const [color, mode] = theme.split("-");
+
+        // Remove all theme classes
+        document.body.classList.remove(
+          "theme-alpine",
+          "theme-glacier",
+          "light-theme"
+        );
+
+        // Apply color theme
+        if (color === "alpine") {
+          document.body.classList.add("theme-alpine");
+        } else if (color === "glacier") {
+          document.body.classList.add("theme-glacier");
+        }
+
+        // Apply light/dark mode
+        const isLight = mode === "light";
+        if (isLight) {
+          document.body.classList.add("light-theme");
+        }
+
+        // Update map tiles
+        if (map) {
+          map.eachLayer((l) => {
+            if (l._url) map.removeLayer(l);
+          });
+          L.tileLayer(
+            isLight
+              ? "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              : "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+            { attribution: "© OpenStreetMap, © CARTO", maxZoom: 19 }
+          ).addTo(map);
+        }
+
+        // Update dropdown selection
+        const select = document.getElementById("themeSelect");
+        if (select) select.value = theme;
+
+        // Save preference
+        localStorage.setItem("theme", theme);
+
+        // Haptic feedback
+        if (navigator.vibrate) navigator.vibrate(10);
+
+        // Track in GA
+        gtag("event", "theme_change", {
+          event_category: "engagement",
+          theme_color: color,
+          theme_mode: mode,
+          theme_full: theme,
+        });
+      }
+
+      // Initialize theme from localStorage
+      function initTheme() {
+        const saved = localStorage.getItem("theme") || "rose-dark";
+        setTheme(saved);
+      }
+
+      function showToast(msg, type = "success") {
+        const t = document.createElement("div");
+        t.className = `toast ${type}`;
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2500);
+      }
+
+      function debounce(fn, wait) {
+        let t;
+        return (...a) => {
+          clearTimeout(t);
+          t = setTimeout(() => fn(...a), wait);
+        };
+      }
+    </script>
+  </body>
+</html>

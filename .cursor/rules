@@ -1,0 +1,114 @@
+# SkiWithCare — AI Collaboration Rules
+
+**Author:** Cameron Taylor ([@ct3685](https://github.com/ct3685))
+
+---
+
+## Brand Fundamentals
+
+**Product Name:** SkiWithCare
+
+- CamelCase in code identifiers: `SkiWithCare`, `skiWithCare`
+- Human-facing prose: "Ski With Care" or "SkiWithCare"
+- Domain: skiwithcare.com
+
+**Primary Tagline:** Care Near the Slopes
+
+**Mission:** Help dialysis patients and caregivers plan ski trips by finding dialysis clinics near ski resorts.
+
+---
+
+## Official Brand Colors (from Logo)
+
+The logo features:
+
+- **Pink** `#e879a0` — Skier silhouette, mountain peak, medical cross
+- **Cyan** `#64d9f7` — Flowing wave element
+- **Dark Background** `#0f0a12` — Deep purple-black
+
+These match the **Rose** theme (default). The logo should always appear on dark backgrounds for best contrast.
+
+---
+
+## Tone & Voice
+
+**Be:** Calm, reassuring, trustworthy, competent, supportive
+
+**Avoid:**
+
+- Extreme-sports vibe ("shred", "epic", "gnarly")
+- Hype language ("amazing", "incredible", "game-changer")
+- Fear tactics or urgency ("don't miss out", "act now")
+- Overly clinical jargon ("hemodialysis facility", "renal replacement")
+
+**Preferred Language:**
+
+- care, nearby, planning, support, confidence
+- access, coordinate, trip, clinic, resort
+- find, discover, explore, prepare
+
+---
+
+## Three Color Themes (Preserve These)
+
+The project has three color themes that must be preserved:
+
+1. **Rose** — Pink (#e879a0) + Cyan (#64d9f7)
+
+   - Warm, caring, approachable
+   - Default theme
+
+2. **Alpine** — Coral (#f97316) + Ice Blue (#38bdf8)
+
+   - Adventurous, sunset warmth
+   - Energetic but not extreme
+
+3. **Glacier** — Teal (#14b8a6) + Blue (#3b82f6)
+   - Cool, serene, calming
+   - Winter ice tones
+
+Each theme has light and dark variants. Always maintain this theming system.
+
+---
+
+## UX & Content Rules
+
+1. **Prioritize clarity and user trust** over cleverness
+2. **Microcopy should reduce anxiety** and be action-oriented (no pressure)
+3. **Accessibility first:** contrast, readable headings, predictable layout
+4. **Mobile-first:** All features must work well on mobile devices
+5. **No external dependencies** where possible (vanilla JS preferred)
+
+---
+
+## Engineering & Naming
+
+- Component names: PascalCase, brand-prefixed when relevant
+- Function names: camelCase, descriptive
+- CSS variables: `--accent-primary`, `--bg-primary`, etc.
+- GA4 events: snake_case, descriptive (`theme_change`, `near_me_click`)
+- Keep configuration centralized in CSS variables
+
+---
+
+## File Structure
+
+```
+├── public/           # Deployed assets only
+│   ├── index.html    # Main app (single-page)
+│   ├── *.json        # Generated data
+│   └── *.png         # Logo/icons
+├── .cursor/          # AI collaboration rules
+├── epic_davita.py    # Data generator
+└── netlify.toml      # Deploy config
+```
+
+---
+
+## When Making Changes
+
+1. Honor the three themes (Rose, Alpine, Glacier)
+2. Keep copy calm and supportive
+3. Test on mobile viewports
+4. Maintain accessibility standards
+5. Update this file if brand guidelines evolve

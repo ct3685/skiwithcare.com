@@ -1,0 +1,12 @@
+# SkiWithCare - https://skiwithcare.com
+# Find Dialysis Care Near Ski Resorts
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://skiwithcare.com/sitemap.xml
+
+# Static assets (allow indexing)
+Allow: /*.json
+Allow: /*.png

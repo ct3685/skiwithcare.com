@@ -1,0 +1,224 @@
+[
+  {
+    "name": "Afton Alps",
+    "state": "MN",
+    "lat": 44.853188,
+    "lon": -92.784803
+  },
+  {
+    "name": "Alpine Valley",
+    "state": "OH",
+    "lat": 41.528392,
+    "lon": -81.261449
+  },
+  {
+    "name": "Attitash",
+    "state": "NH",
+    "lat": 44.07421,
+    "lon": -71.244665
+  },
+  {
+    "name": "Beaver Creek",
+    "state": "CO",
+    "lat": 39.604879,
+    "lon": -106.515002
+  },
+  {
+    "name": "Big Boulder",
+    "state": "PA",
+    "lat": 41.046652,
+    "lon": -75.599762
+  },
+  {
+    "name": "Boston Mills",
+    "state": "OH",
+    "lat": 41.263692,
+    "lon": -81.564326
+  },
+  {
+    "name": "Brandywine",
+    "state": "OH",
+    "lat": 40.865613,
+    "lon": -82.939075
+  },
+  {
+    "name": "Breckenridge",
+    "state": "CO",
+    "lat": 39.482912,
+    "lon": -106.046549
+  },
+  {
+    "name": "Crested Butte",
+    "state": "CO",
+    "lat": 38.86982,
+    "lon": -106.984043
+  },
+  {
+    "name": "Crotched",
+    "state": "NH",
+    "lat": 42.998291,
+    "lon": -71.873907
+  },
+  {
+    "name": "Heavenly",
+    "state": "CA/NV",
+    "lat": 38.940452,
+    "lon": -119.897421
+  },
+  {
+    "name": "Hidden Valley",
+    "state": "MO",
+    "lat": 38.535899,
+    "lon": -90.653808
+  },
+  {
+    "name": "Hidden Valley Resort",
+    "state": "PA",
+    "lat": 40.059028,
+    "lon": -79.25288
+  },
+  {
+    "name": "Hunter",
+    "state": "NY",
+    "lat": 42.213699,
+    "lon": -74.218754
+  },
+  {
+    "name": "Jack Frost",
+    "state": "PA",
+    "lat": 40.108035,
+    "lon": -75.163741
+  },
+  {
+    "name": "Keystone",
+    "state": "CO",
+    "lat": 39.596564,
+    "lon": -105.934034
+  },
+  {
+    "name": "Kirkwood",
+    "state": "CA",
+    "lat": 38.702686,
+    "lon": -120.072685
+  },
+  {
+    "name": "Laurel Mountain",
+    "state": "PA",
+    "lat": 40.211184,
+    "lon": -79.185031
+  },
+  {
+    "name": "Liberty Mountain",
+    "state": "PA",
+    "lat": 39.760637,
+    "lon": -77.368534
+  },
+  {
+    "name": "Mad River Mountain",
+    "state": "OH",
+    "lat": 40.317239,
+    "lon": -83.675258
+  },
+  {
+    "name": "Mount Snow",
+    "state": "VT",
+    "lat": 42.959253,
+    "lon": -72.923761
+  },
+  {
+    "name": "Mount Sunapee",
+    "state": "NH",
+    "lat": 43.340631,
+    "lon": -72.070918
+  },
+  {
+    "name": "Mt Brighton",
+    "state": "MI",
+    "lat": 42.54101,
+    "lon": -83.810807
+  },
+  {
+    "name": "Northstar",
+    "state": "CA",
+    "lat": 33.656066,
+    "lon": -117.669511
+  },
+  {
+    "name": "Okemo",
+    "state": "VT",
+    "lat": 43.395853,
+    "lon": -72.75348
+  },
+  {
+    "name": "Paoli Peaks",
+    "state": "IN",
+    "lat": 38.555882,
+    "lon": -86.51218
+  },
+  {
+    "name": "Park City",
+    "state": "UT",
+    "lat": 40.646092,
+    "lon": -111.497996
+  },
+  {
+    "name": "Roundtop",
+    "state": "PA",
+    "lat": 40.093129,
+    "lon": -79.666985
+  },
+  {
+    "name": "Seven Springs",
+    "state": "PA",
+    "lat": 40.02313,
+    "lon": -79.297255
+  },
+  {
+    "name": "Snow Creek",
+    "state": "MO",
+    "lat": 39.465625,
+    "lon": -94.968822
+  },
+  {
+    "name": "Stevens Pass",
+    "state": "WA",
+    "lat": 47.745635,
+    "lon": -121.089171
+  },
+  {
+    "name": "Stowe",
+    "state": "VT",
+    "lat": 44.464377,
+    "lon": -72.68562
+  },
+  {
+    "name": "Telluride Ski Resort",
+    "state": "CO",
+    "lat": 37.936187,
+    "lon": -107.845128
+  },
+  {
+    "name": "Vail",
+    "state": "CO",
+    "lat": 39.643803,
+    "lon": -106.388823
+  },
+  {
+    "name": "Whitetail",
+    "state": "PA",
+    "lat": 39.756046,
+    "lon": -77.920545
+  },
+  {
+    "name": "Wildcat",
+    "state": "NH",
+    "lat": 43.138592,
+    "lon": -70.939403
+  },
+  {
+    "name": "Wilmot Mountain",
+    "state": "WI",
+    "lat": 42.499847,
+    "lon": -88.190427
+  }
+]

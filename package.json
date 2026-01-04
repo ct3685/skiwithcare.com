@@ -1,0 +1,26 @@
+{
+  "name": "skiwithcare",
+  "version": "1.0.0",
+  "description": "Care Near the Slopes — Find dialysis clinics near ski resorts",
+  "scripts": {
+    "start": "./venv/bin/python epic_davita.py && cd public && python3 -m http.server 8000",
+    "serve": "cd public && python3 -m http.server 8000",
+    "build": "./venv/bin/python epic_davita.py",
+    "build:fresh": "rm -f resort_geocoded_cache.json davita_geocoded_cache.json && ./venv/bin/python epic_davita.py"
+  },
+  "keywords": [
+    "skiwithcare",
+    "davita",
+    "dialysis",
+    "ski",
+    "epic-pass",
+    "healthcare",
+    "travel"
+  ],
+  "author": "Cameron Taylor <https://github.com/ct3685>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ct3685/skiwithcare"
+  }
+}
