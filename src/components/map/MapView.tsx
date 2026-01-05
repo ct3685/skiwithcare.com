@@ -4,6 +4,7 @@ import L from "leaflet";
 import type { Map as LeafletMap } from "leaflet";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useLocationStore } from "@/stores/locationStore";
+import { useFilterStore } from "@/stores/filterStore";
 import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icon issue
@@ -32,6 +33,19 @@ const ATTRIBUTION = "© OpenStreetMap, © CARTO";
 
 // Debounce delay for map center updates (ms)
 const MAP_CENTER_DEBOUNCE = 300;
+
+/**
+ * Convert max distance (miles) to appropriate zoom level
+ * Larger distances = lower zoom (more zoomed out)
+ */
+function distanceToZoom(distanceMiles: number): number {
+  if (distanceMiles <= 10) return 12;
+  if (distanceMiles <= 25) return 11;
+  if (distanceMiles <= 50) return 10;
+  if (distanceMiles <= 100) return 9;
+  if (distanceMiles <= 150) return 8;
+  return 7;
+}
 
 interface MapViewProps {
   children?: React.ReactNode;
@@ -142,6 +156,43 @@ function MapCenterTracker() {
   return null;
 }
 
+/**
+ * Component to sync map view with user location changes
+ * Flies to user location with zoom based on maxDistance filter
+ */
+function LocationZoomSync() {
+  const map = useMap();
+  const { userLocation } = useLocationStore();
+  const { maxDistance } = useFilterStore();
+  const prevLocationRef = useRef<{ lat: number; lon: number } | null>(null);
+
+  useEffect(() => {
+    if (!userLocation) {
+      prevLocationRef.current = null;
+      return;
+    }
+
+    // Check if location actually changed (not just a re-render)
+    const prev = prevLocationRef.current;
+    if (prev && prev.lat === userLocation.lat && prev.lon === userLocation.lon) {
+      return;
+    }
+
+    // Calculate zoom based on max distance filter
+    const zoom = distanceToZoom(maxDistance);
+
+    // Fly to the new location
+    map.flyTo([userLocation.lat, userLocation.lon], zoom, {
+      duration: 0.8,
+    });
+
+    // Update ref
+    prevLocationRef.current = { lat: userLocation.lat, lon: userLocation.lon };
+  }, [userLocation, maxDistance, map]);
+
+  return null;
+}
+
 export function MapView({
   children,
   center = DEFAULT_CENTER,
@@ -158,6 +209,7 @@ export function MapView({
       <TileLayerSync />
       <MapReadyHandler onMapReady={onMapReady} />
       <MapCenterTracker />
+      <LocationZoomSync />
       {children}
     </MapContainer>
   );
