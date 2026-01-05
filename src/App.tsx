@@ -96,10 +96,11 @@ function App() {
     [select, toggleExpand, flyToItem]
   );
 
-  // Get nearest clinics for a resort (filtered by max distance)
+  // Get nearest clinics for a resort
+  // Returns at least minCount items, prioritizing those within maxMiles
   const getNearestClinics = useCallback(
-    (resort: Resort, limit = 5, maxMiles = 100): ClinicWithDistance[] => {
-      return clinics
+    (resort: Resort, limit = 5, maxMiles = 100, minCount = 3): ClinicWithDistance[] => {
+      const withDistance = clinics
         .map((c) => ({
           ...c,
           distance: haversine(
@@ -107,17 +108,27 @@ function App() {
             { lat: c.lat, lon: c.lon }
           ),
         }))
-        .filter((c) => c.distance <= maxMiles)
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, limit);
+        .sort((a, b) => a.distance - b.distance);
+      
+      // Get items within max distance
+      const withinRange = withDistance.filter((c) => c.distance <= maxMiles);
+      
+      // Ensure at least minCount items (even if beyond maxMiles)
+      if (withinRange.length >= minCount) {
+        return withinRange.slice(0, limit);
+      }
+      
+      // Need to include some beyond range to meet minimum
+      return withDistance.slice(0, Math.max(minCount, Math.min(limit, withinRange.length)));
     },
     [clinics]
   );
 
-  // Get nearest resorts for a clinic (filtered by max distance)
+  // Get nearest resorts for a clinic
+  // Returns at least minCount items, prioritizing those within maxMiles
   const getNearestResorts = useCallback(
-    (clinic: Clinic, limit = 5, maxMiles = 100): ResortWithDistance[] => {
-      return resorts
+    (clinic: Clinic, limit = 5, maxMiles = 100, minCount = 3): ResortWithDistance[] => {
+      const withDistance = resorts
         .map((r) => ({
           ...r,
           distance: haversine(
@@ -125,17 +136,27 @@ function App() {
             { lat: r.lat, lon: r.lon }
           ),
         }))
-        .filter((r) => r.distance <= maxMiles)
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, limit);
+        .sort((a, b) => a.distance - b.distance);
+      
+      // Get items within max distance
+      const withinRange = withDistance.filter((r) => r.distance <= maxMiles);
+      
+      // Ensure at least minCount items (even if beyond maxMiles)
+      if (withinRange.length >= minCount) {
+        return withinRange.slice(0, limit);
+      }
+      
+      // Need to include some beyond range to meet minimum
+      return withDistance.slice(0, Math.max(minCount, Math.min(limit, withinRange.length)));
     },
     [resorts]
   );
 
-  // Get nearest resorts for a hospital (filtered by max distance)
+  // Get nearest resorts for a hospital
+  // Returns at least minCount items, prioritizing those within maxMiles
   const getNearestResortsFromHospital = useCallback(
-    (hospital: Hospital, limit = 5, maxMiles = 100): ResortWithDistance[] => {
-      return resorts
+    (hospital: Hospital, limit = 5, maxMiles = 100, minCount = 3): ResortWithDistance[] => {
+      const withDistance = resorts
         .map((r) => ({
           ...r,
           distance: haversine(
@@ -143,9 +164,18 @@ function App() {
             { lat: r.lat, lon: r.lon }
           ),
         }))
-        .filter((r) => r.distance <= maxMiles)
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, limit);
+        .sort((a, b) => a.distance - b.distance);
+      
+      // Get items within max distance
+      const withinRange = withDistance.filter((r) => r.distance <= maxMiles);
+      
+      // Ensure at least minCount items (even if beyond maxMiles)
+      if (withinRange.length >= minCount) {
+        return withinRange.slice(0, limit);
+      }
+      
+      // Need to include some beyond range to meet minimum
+      return withDistance.slice(0, Math.max(minCount, Math.min(limit, withinRange.length)));
     },
     [resorts]
   );
