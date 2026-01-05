@@ -110,13 +110,21 @@ open http://localhost:3000
 
 ## 🔄 Data Updates
 
-### Automatic (Netlify)
+### Automatic Updates
 
-Data is automatically refreshed on every deploy. The build process:
+**Netlify Build:**
+Data files are generated during each Netlify deployment. The build process:
+1. Installs Python dependencies
+2. Downloads latest CMS dialysis facility data
+3. Uses cached geocodes for speed (~3 seconds with cache)
+4. Falls back to fresh geocoding if cache is missing
+5. Outputs fresh `resorts.json`, `clinics.json`, and `hospitals.json` to `public/`
 
-1. Downloads latest CMS dialysis facility data
-2. Uses cached geocodes for speed (~3 seconds)
-3. Outputs fresh `resorts.json` and `clinics.json`
+**GitHub Actions (Weekly):**
+Scheduled workflows run every Sunday at 6 AM UTC to update:
+- Resort data from OpenStreetMap
+- Hospital data from OpenStreetMap
+- Changes are automatically committed to the repository
 
 ### Manual (Local)
 

@@ -1,15 +1,19 @@
 # Netlify Configuration
 # ====================
-# React + Vite static site (data pre-generated locally)
+# React + Vite static site with data generation during build
 
 [build]
   publish = "dist"
-  # Data is pre-generated and committed to public/
-  # Run `npm run data:generate` locally to update resort/clinic data
-  command = "npm run build"
+  # Build process:
+  # 1. Install Python dependencies (using python3, fallback to python)
+  # 2. Generate data files using cached geocodes (pnpm data:all)
+  # 3. Build React app (pnpm build)
+  # Note: Geocode cache files are committed to repo and persist between builds
+  command = "python3 -m pip install -r scripts/requirements.txt && pnpm install && pnpm data:all && pnpm build"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "24"
+  PYTHON_VERSION = "3.11"
 
 # SPA Routing - redirect all routes to index.html
 [[redirects]]
