@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useRef, useMemo } from "react";
+import L from "leaflet";
 import type { Map as LeafletMap } from "leaflet";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useSelectionStore } from "@/stores/selectionStore";
@@ -10,6 +11,10 @@ import {
   ClinicMarker,
   HospitalMarker,
   UserLocationMarker,
+  ConnectionLines,
+  ConnectionLegend,
+  SecondaryClinicMarker,
+  SecondaryResortMarker,
 } from "@/components/map";
 import { ResortCard, ClinicCard, HospitalCard } from "@/components/cards";
 import { Spinner } from "@/components/ui";
@@ -25,7 +30,7 @@ import type {
 
 function App() {
   const { colorTheme, darkMode } = useSettingsStore();
-  const { mode, selectedId, select, toggleExpand } = useSelectionStore();
+  const { mode, selectedId, expandedId, highlightedConnectionIndex, select, toggleExpand } = useSelectionStore();
   const { userLocation } = useLocationStore();
   const mapRef = useRef<LeafletMap | null>(null);
 
@@ -91,9 +96,9 @@ function App() {
     [select, toggleExpand, flyToItem]
   );
 
-  // Get nearest clinics for a resort
+  // Get nearest clinics for a resort (filtered by max distance)
   const getNearestClinics = useCallback(
-    (resort: Resort, limit = 3): ClinicWithDistance[] => {
+    (resort: Resort, limit = 5, maxMiles = 100): ClinicWithDistance[] => {
       return clinics
         .map((c) => ({
           ...c,
@@ -102,15 +107,16 @@ function App() {
             { lat: c.lat, lon: c.lon }
           ),
         }))
+        .filter((c) => c.distance <= maxMiles)
         .sort((a, b) => a.distance - b.distance)
         .slice(0, limit);
     },
     [clinics]
   );
 
-  // Get nearest resorts for a clinic
+  // Get nearest resorts for a clinic (filtered by max distance)
   const getNearestResorts = useCallback(
-    (clinic: Clinic, limit = 3): ResortWithDistance[] => {
+    (clinic: Clinic, limit = 5, maxMiles = 100): ResortWithDistance[] => {
       return resorts
         .map((r) => ({
           ...r,
@@ -119,15 +125,16 @@ function App() {
             { lat: r.lat, lon: r.lon }
           ),
         }))
+        .filter((r) => r.distance <= maxMiles)
         .sort((a, b) => a.distance - b.distance)
         .slice(0, limit);
     },
     [resorts]
   );
 
-  // Get nearest resorts for a hospital
+  // Get nearest resorts for a hospital (filtered by max distance)
   const getNearestResortsFromHospital = useCallback(
-    (hospital: Hospital, limit = 3): ResortWithDistance[] => {
+    (hospital: Hospital, limit = 5, maxMiles = 100): ResortWithDistance[] => {
       return resorts
         .map((r) => ({
           ...r,
@@ -136,6 +143,7 @@ function App() {
             { lat: r.lat, lon: r.lon }
           ),
         }))
+        .filter((r) => r.distance <= maxMiles)
         .sort((a, b) => a.distance - b.distance)
         .slice(0, limit);
     },
@@ -161,6 +169,73 @@ function App() {
     },
     []
   );
+
+  // Compute expanded item and its nearest related items for map visualization
+  const expandedData = useMemo(() => {
+    if (!expandedId) return null;
+
+    if (mode === "resorts") {
+      const resort = filtered.resorts.find((r) => r.id === expandedId);
+      if (!resort) return null;
+      const nearestClinics = getNearestClinics(resort);
+      return {
+        type: "resort" as const,
+        item: resort,
+        relatedItems: nearestClinics,
+      };
+    }
+
+    if (mode === "clinics") {
+      const clinic = filtered.clinics.find((c) => c.ccn === expandedId);
+      if (!clinic) return null;
+      const nearestResorts = getNearestResorts(clinic);
+      return {
+        type: "clinic" as const,
+        item: clinic,
+        relatedItems: nearestResorts,
+      };
+    }
+
+    if (mode === "hospitals") {
+      const hospital = filtered.hospitals.find((h) => h.id === expandedId);
+      if (!hospital) return null;
+      const nearestResorts = getNearestResortsFromHospital(hospital);
+      return {
+        type: "hospital" as const,
+        item: hospital,
+        relatedItems: nearestResorts,
+      };
+    }
+
+    return null;
+  }, [expandedId, mode, filtered, getNearestClinics, getNearestResorts, getNearestResortsFromHospital]);
+
+  // Fit map bounds to show expanded item and all related items
+  useEffect(() => {
+    if (!expandedData || !mapRef.current) return;
+
+    const { item, relatedItems } = expandedData;
+    
+    // If no related items, just fly to the item
+    if (relatedItems.length === 0) {
+      mapRef.current.flyTo([item.lat, item.lon], 10, { duration: 0.5 });
+      return;
+    }
+
+    // Create bounds that include all points
+    const bounds = L.latLngBounds([]);
+    bounds.extend([item.lat, item.lon]);
+    relatedItems.forEach((related) => {
+      bounds.extend([related.lat, related.lon]);
+    });
+
+    // Fit to bounds with padding
+    mapRef.current.fitBounds(bounds, {
+      padding: [50, 50],
+      maxZoom: 10,
+      duration: 0.6,
+    });
+  }, [expandedData]);
 
   // Render card list based on mode
   const renderCards = () => {
@@ -271,9 +346,30 @@ function App() {
 
         {/* Map */}
         <div className="flex-1 relative">
+          {/* Connection Legend */}
+          {expandedData && expandedData.relatedItems.length > 0 && (
+            <ConnectionLegend
+              itemType={expandedData.type === "resort" ? "clinics" : "resorts"}
+              count={expandedData.relatedItems.length}
+            />
+          )}
+
           <MapView onMapReady={handleMapReady}>
             {/* User Location */}
             {userLocation && <UserLocationMarker location={userLocation} />}
+
+            {/* Connection Lines (render first so they appear behind markers) */}
+            {expandedData && expandedData.relatedItems.length > 0 && (
+              <ConnectionLines
+                origin={{ lat: expandedData.item.lat, lon: expandedData.item.lon }}
+                destinations={expandedData.relatedItems.map((item, index) => ({
+                  lat: item.lat,
+                  lon: item.lon,
+                  rank: index,
+                }))}
+                highlightedIndex={highlightedConnectionIndex}
+              />
+            )}
 
             {/* Resort Markers */}
             {mode === "resorts" &&
@@ -286,6 +382,16 @@ function App() {
                   onClick={() =>
                     handleMapSelect(resort.id, resort.lat, resort.lon)
                   }
+                />
+              ))}
+
+            {/* Secondary Clinic Markers (when a resort is expanded) */}
+            {mode === "resorts" && expandedData?.type === "resort" &&
+              expandedData.relatedItems.map((clinic, index) => (
+                <SecondaryClinicMarker
+                  key={`secondary-clinic-${clinic.ccn}`}
+                  clinic={clinic}
+                  rank={index}
                 />
               ))}
 
@@ -303,6 +409,16 @@ function App() {
                 />
               ))}
 
+            {/* Secondary Resort Markers (when a clinic is expanded) */}
+            {mode === "clinics" && expandedData?.type === "clinic" &&
+              expandedData.relatedItems.map((resort, index) => (
+                <SecondaryResortMarker
+                  key={`secondary-resort-${resort.id}`}
+                  resort={resort}
+                  rank={index}
+                />
+              ))}
+
             {/* Hospital Markers */}
             {mode === "hospitals" &&
               filtered.hospitals.map((hospital) => (
@@ -313,6 +429,16 @@ function App() {
                   onClick={() =>
                     handleMapSelect(hospital.id, hospital.lat, hospital.lon)
                   }
+                />
+              ))}
+
+            {/* Secondary Resort Markers (when a hospital is expanded) */}
+            {mode === "hospitals" && expandedData?.type === "hospital" &&
+              expandedData.relatedItems.map((resort, index) => (
+                <SecondaryResortMarker
+                  key={`secondary-resort-${resort.id}`}
+                  resort={resort}
+                  rank={index}
                 />
               ))}
           </MapView>

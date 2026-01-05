@@ -26,7 +26,7 @@ export function ResortCard({
   nearestClinics = [],
   onDirectionsClick,
 }: ResortCardProps) {
-  const { expandedId, toggleExpand } = useSelectionStore();
+  const { expandedId, highlightedConnectionIndex, toggleExpand, setHighlightedConnection } = useSelectionStore();
   const { distanceUnit } = useSettingsStore();
 
   const isExpanded = expandedId === resort.id;
@@ -55,6 +55,14 @@ export function ResortCard({
         clinic.distance
       );
     }
+  };
+
+  const handleClinicHover = (index: number) => {
+    setHighlightedConnection(index);
+  };
+
+  const handleClinicLeave = () => {
+    setHighlightedConnection(-1);
   };
 
   return (
@@ -111,7 +119,16 @@ export function ResortCard({
               <div
                 key={clinic.ccn}
                 onClick={(e) => handleClinicClick(e, clinic)}
-                className="flex items-center justify-between p-2 rounded-lg bg-bg-tertiary hover:bg-bg-secondary transition-colors cursor-pointer"
+                onMouseEnter={() => handleClinicHover(i)}
+                onMouseLeave={handleClinicLeave}
+                className={`
+                  flex items-center justify-between p-2 rounded-lg 
+                  transition-all duration-200 cursor-pointer
+                  ${highlightedConnectionIndex === i 
+                    ? "bg-amber-500/20 border border-amber-500/40" 
+                    : "bg-bg-tertiary hover:bg-bg-secondary border border-transparent"
+                  }
+                `}
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-text-primary truncate">
@@ -121,7 +138,9 @@ export function ResortCard({
                     {clinic.city}, {clinic.state}
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-accent-clinic ml-2">
+                <span className={`text-sm font-semibold ml-2 ${
+                  highlightedConnectionIndex === i ? "text-amber-400" : "text-accent-clinic"
+                }`}>
                   {formatDistance(clinic.distance, distanceUnit)} →
                 </span>
               </div>

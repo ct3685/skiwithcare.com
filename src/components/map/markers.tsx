@@ -61,6 +61,22 @@ const userLocationIcon = createDivIcon(
   [16, 16]
 );
 
+// Secondary marker icons (smaller, for showing related items)
+const secondaryResortIcon = createDivIcon(
+  `<div class="flex items-center justify-center w-6 h-6 rounded-full bg-bg-card/80 border border-accent-primary/60 shadow-md text-sm opacity-90">⛷️</div>`,
+  [24, 24]
+);
+
+const secondaryClinicIcon = createDivIcon(
+  `<div class="w-4 h-4 rounded-full bg-gradient-to-br from-accent-clinic/80 to-blue-400/80 border border-white shadow-md"></div>`,
+  [16, 16]
+);
+
+const secondaryHospitalIcon = createDivIcon(
+  `<div class="flex items-center justify-center w-5 h-5 rounded-full bg-accent-danger/80 border border-white shadow-md text-[10px] text-white font-bold">+</div>`,
+  [20, 20]
+);
+
 // ============ Marker Components ============
 
 interface ResortMarkerProps {
@@ -273,6 +289,113 @@ export function HospitalMarker({
     </Marker>
   );
 }
+
+// ============ Secondary Marker Components (for showing related items) ============
+
+interface SecondaryResortMarkerProps {
+  resort: Resort & { distance: number };
+  rank: number;
+  onClick?: () => void;
+}
+
+export function SecondaryResortMarker({
+  resort,
+  rank,
+  onClick,
+}: SecondaryResortMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+
+  return (
+    <Marker
+      position={[resort.lat, resort.lon]}
+      icon={secondaryResortIcon}
+      eventHandlers={{ click: onClick }}
+      zIndexOffset={100 - rank}
+    >
+      <Popup>
+        <div className="min-w-[180px]">
+          <div className="font-bold text-sm mb-1">🏔️ {resort.name}</div>
+          <div className="text-xs text-gray-600 mb-1">{resort.state}</div>
+          <div className="text-xs text-green-600 font-medium">
+            {formatDistance(resort.distance, distanceUnit)} away
+          </div>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+interface SecondaryClinicMarkerProps {
+  clinic: Clinic & { distance: number };
+  rank: number;
+  onClick?: () => void;
+}
+
+export function SecondaryClinicMarker({
+  clinic,
+  rank,
+  onClick,
+}: SecondaryClinicMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+
+  return (
+    <Marker
+      position={[clinic.lat, clinic.lon]}
+      icon={secondaryClinicIcon}
+      eventHandlers={{ click: onClick }}
+      zIndexOffset={100 - rank}
+    >
+      <Popup>
+        <div className="min-w-[180px]">
+          <div className="font-bold text-sm mb-1">🏥 {clinic.facility}</div>
+          <div className="text-xs text-gray-600 mb-1">
+            {clinic.city}, {clinic.state}
+          </div>
+          <div className="text-xs text-cyan-600 font-medium">
+            {formatDistance(clinic.distance, distanceUnit)} away
+          </div>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+interface SecondaryHospitalMarkerProps {
+  hospital: Hospital & { distance: number };
+  rank: number;
+  onClick?: () => void;
+}
+
+export function SecondaryHospitalMarker({
+  hospital,
+  rank,
+  onClick,
+}: SecondaryHospitalMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+
+  return (
+    <Marker
+      position={[hospital.lat, hospital.lon]}
+      icon={secondaryHospitalIcon}
+      eventHandlers={{ click: onClick }}
+      zIndexOffset={100 - rank}
+    >
+      <Popup>
+        <div className="min-w-[180px]">
+          <div className="font-bold text-sm mb-1">🚑 {hospital.name}</div>
+          <div className="text-xs text-gray-600 mb-1">
+            {hospital.city}, {hospital.state}
+          </div>
+          <div className="text-xs text-red-600 font-medium">
+            {formatDistance(hospital.distance, distanceUnit)} away
+          </div>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+// ============ User Location Marker ============
 
 interface UserLocationMarkerProps {
   location: UserLocation;

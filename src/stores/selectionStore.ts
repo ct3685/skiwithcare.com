@@ -17,6 +17,8 @@ interface SelectionState {
   expandedId: string | null;
   /** Whether to show all related items in expanded view */
   showAllExpanded: boolean;
+  /** Index of highlighted connection line (-1 for none) */
+  highlightedConnectionIndex: number;
 
   // Actions
   setMode: (mode: ViewMode) => void;
@@ -24,6 +26,7 @@ interface SelectionState {
   expand: (id: string | null) => void;
   toggleExpand: (id: string) => void;
   setShowAllExpanded: (show: boolean) => void;
+  setHighlightedConnection: (index: number) => void;
   clearSelection: () => void;
 }
 
@@ -32,6 +35,7 @@ export const useSelectionStore = create<SelectionState>()((set) => ({
   selectedId: null,
   expandedId: null,
   showAllExpanded: false,
+  highlightedConnectionIndex: -1,
 
   setMode: (mode) =>
     set({
@@ -39,6 +43,7 @@ export const useSelectionStore = create<SelectionState>()((set) => ({
       selectedId: null,
       expandedId: null,
       showAllExpanded: false,
+      highlightedConnectionIndex: -1,
     }),
 
   select: (selectedId) => set({ selectedId }),
@@ -47,21 +52,27 @@ export const useSelectionStore = create<SelectionState>()((set) => ({
     set({
       expandedId,
       showAllExpanded: false,
+      highlightedConnectionIndex: -1,
     }),
 
   toggleExpand: (id) =>
     set((state) => ({
       expandedId: state.expandedId === id ? null : id,
       showAllExpanded: false,
+      highlightedConnectionIndex: -1,
     })),
 
   setShowAllExpanded: (showAllExpanded) => set({ showAllExpanded }),
+
+  setHighlightedConnection: (highlightedConnectionIndex) =>
+    set({ highlightedConnectionIndex }),
 
   clearSelection: () =>
     set({
       selectedId: null,
       expandedId: null,
       showAllExpanded: false,
+      highlightedConnectionIndex: -1,
     }),
 }));
 

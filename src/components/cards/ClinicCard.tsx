@@ -26,7 +26,7 @@ export function ClinicCard({
   nearestResorts = [],
   onDirectionsClick,
 }: ClinicCardProps) {
-  const { expandedId, toggleExpand } = useSelectionStore();
+  const { expandedId, highlightedConnectionIndex, toggleExpand, setHighlightedConnection } = useSelectionStore();
   const { distanceUnit } = useSettingsStore();
 
   const isExpanded = expandedId === clinic.ccn;
@@ -54,6 +54,14 @@ export function ClinicCard({
         resort.distance
       );
     }
+  };
+
+  const handleResortHover = (index: number) => {
+    setHighlightedConnection(index);
+  };
+
+  const handleResortLeave = () => {
+    setHighlightedConnection(-1);
   };
 
   return (
@@ -113,7 +121,16 @@ export function ClinicCard({
               <div
                 key={resort.id}
                 onClick={(e) => handleResortClick(e, resort)}
-                className="flex items-center justify-between p-2 rounded-lg bg-bg-tertiary hover:bg-bg-secondary transition-colors cursor-pointer"
+                onMouseEnter={() => handleResortHover(i)}
+                onMouseLeave={handleResortLeave}
+                className={`
+                  flex items-center justify-between p-2 rounded-lg 
+                  transition-all duration-200 cursor-pointer
+                  ${highlightedConnectionIndex === i 
+                    ? "bg-amber-500/20 border border-amber-500/40" 
+                    : "bg-bg-tertiary hover:bg-bg-secondary border border-transparent"
+                  }
+                `}
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-text-primary truncate">
@@ -121,7 +138,9 @@ export function ClinicCard({
                   </div>
                   <div className="text-xs text-text-muted">{resort.state}</div>
                 </div>
-                <span className="text-sm font-semibold text-accent-primary ml-2">
+                <span className={`text-sm font-semibold ml-2 ${
+                  highlightedConnectionIndex === i ? "text-amber-400" : "text-accent-primary"
+                }`}>
                   {formatDistance(resort.distance, distanceUnit)} →
                 </span>
               </div>
