@@ -71,18 +71,18 @@ export function ResortCard({
       `}
     >
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <span className="font-semibold text-text-primary flex items-center gap-2">
-          🏔️ {resort.name}
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex items-start gap-2 min-w-0">
+          <span className="font-semibold text-text-primary">🏔️ {resort.name}</span>
           <span
-            className={`text-xs transition-transform duration-200 ${
+            className={`text-xs transition-transform duration-200 flex-shrink-0 mt-0.5 ${
               isExpanded ? "rotate-180" : ""
             }`}
           >
             ▼
           </span>
-        </span>
-        <div className="flex items-center gap-2">
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
           <PassBadge pass={resort.passNetwork} />
           <Badge>{resort.state}</Badge>
         </div>
