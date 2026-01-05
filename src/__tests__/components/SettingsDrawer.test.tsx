@@ -125,7 +125,7 @@ describe("SettingsDrawer", () => {
 
     it("changes dark mode when mode button is clicked", () => {
       useSettingsStore.getState().openDrawer();
-      expect(useSettingsStore.getState().darkMode).toBe("dark");
+      expect(useSettingsStore.getState().darkMode).toBe("auto");
       
       render(<SettingsDrawer />);
       
@@ -161,7 +161,7 @@ describe("SettingsDrawer", () => {
       
       const state = useSettingsStore.getState();
       expect(state.colorTheme).toBe("rose");
-      expect(state.darkMode).toBe("dark");
+      expect(state.darkMode).toBe("auto");
       expect(state.distanceUnit).toBe("miles");
     });
   });

@@ -35,7 +35,7 @@ interface SettingsState {
 
 const DEFAULT_SETTINGS = {
   colorTheme: "rose" as ColorTheme,
-  darkMode: "dark" as DarkMode,
+  darkMode: "auto" as DarkMode,
   distanceUnit: "miles" as DistanceUnit,
   defaultView: "resorts" as ViewMode,
   defaultMaxDistance: 100,

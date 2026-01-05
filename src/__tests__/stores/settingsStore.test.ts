@@ -12,7 +12,7 @@ describe("settingsStore", () => {
       const state = useSettingsStore.getState();
 
       expect(state.colorTheme).toBe("rose");
-      expect(state.darkMode).toBe("dark");
+      expect(state.darkMode).toBe("auto");
       expect(state.distanceUnit).toBe("miles");
       expect(state.defaultView).toBe("resorts");
       expect(state.defaultMaxDistance).toBe(100);
@@ -104,7 +104,7 @@ describe("settingsStore", () => {
       // Verify defaults restored
       const state = useSettingsStore.getState();
       expect(state.colorTheme).toBe("rose");
-      expect(state.darkMode).toBe("dark");
+      expect(state.darkMode).toBe("auto");
       expect(state.distanceUnit).toBe("miles");
       expect(state.defaultView).toBe("resorts");
       expect(state.defaultMaxDistance).toBe(100);
