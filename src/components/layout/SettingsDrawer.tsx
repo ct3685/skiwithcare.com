@@ -101,7 +101,7 @@ export function SettingsDrawer() {
       {/* Backdrop */}
       <div
         className={`
-          fixed inset-0 z-[60]
+          fixed inset-0 z-[9998]
           bg-black/60 backdrop-blur-sm
           transition-opacity duration-300
           ${isDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
@@ -112,17 +112,17 @@ export function SettingsDrawer() {
       {/* Drawer */}
       <aside
         className={`
-          fixed top-0 right-0 z-[70]
-          h-full w-80 max-w-[90vw]
+          fixed top-0 right-0 z-[9999]
+          h-screen w-80 max-w-[90vw]
           bg-bg-secondary border-l border-border
           shadow-2xl
           transform transition-transform duration-300 ease-out
           ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}
-          overflow-y-auto
+          flex flex-col
         `}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-bg-secondary border-b border-border px-4 py-4 flex items-center justify-between">
+        <div className="shrink-0 bg-bg-secondary border-b border-border px-4 py-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-text-primary">Settings</h2>
           <button
             onClick={closeDrawer}
@@ -133,7 +133,10 @@ export function SettingsDrawer() {
           </button>
         </div>
 
-        <div className="p-4 space-y-6">
+        <div
+          className="flex-1 min-h-0 overflow-y-auto p-4 space-y-6"
+          data-testid="settings-content"
+        >
           {/* Appearance Section */}
           <section>
             <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
