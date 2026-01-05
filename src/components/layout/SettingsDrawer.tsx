@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useSettingsStore, type ColorTheme, type DarkMode, type DistanceUnit } from "@/stores/settingsStore";
+import {
+  useSettingsStore,
+  type ColorTheme,
+  type DarkMode,
+  type DistanceUnit,
+} from "@/stores/settingsStore";
 import { useSelectionStore, type ViewMode } from "@/stores/selectionStore";
 import { Button } from "@/components/ui/Button";
 import { trackThemeChange } from "@/utils/analytics";
@@ -234,7 +239,9 @@ export function SettingsDrawer() {
               </label>
               <select
                 value={defaultView}
-                onChange={(e) => handleDefaultViewChange(e.target.value as ViewMode)}
+                onChange={(e) =>
+                  handleDefaultViewChange(e.target.value as ViewMode)
+                }
                 className="w-full px-3 py-2 bg-bg-tertiary border border-border rounded-lg text-text-primary text-sm"
               >
                 {defaultViews.map(({ id, label }) => (
@@ -281,4 +288,3 @@ export function SettingsDrawer() {
     portalRoot
   );
 }
-
