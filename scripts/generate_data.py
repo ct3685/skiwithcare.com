@@ -4,60 +4,93 @@ SkiWithCare Data Generator
 ==========================
 
 Generates JSON data files for the SkiWithCare web application:
-- resorts.json: All ski resorts (Epic + Ikon Pass)
 - clinics.json: All dialysis clinics near resorts (all providers)
-- hospitals.json: Hospitals near resorts (future)
 
 Data Sources:
-- OpenStreetMap Nominatim (resort geocoding)
 - CMS Provider Data Catalog (dialysis facilities)
-- US Census Bureau Geocoder (facility geocoding)
+- US Census Bureau Batch Geocoder (facility geocoding)
 
 Usage:
     python scripts/generate_data.py
 
 Output:
-    public/resorts.json
     public/clinics.json
 """
 
+import csv
 import json
+import math
 import os
 import sys
 import time
 from io import StringIO
 from typing import Dict, List
 
-import pandas as pd
 import requests
 
 # Add scripts directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config import get_all_resorts, classify_provider
-from geocoder import ResortGeocoder, FacilityGeocoder, haversine_miles
+from config import classify_provider
 
 # === CONFIGURATION ===
 
 OUTPUT_DIR = "public"
 RESORTS_JSON = f"{OUTPUT_DIR}/resorts.json"
 CLINICS_JSON = f"{OUTPUT_DIR}/clinics.json"
-HOSPITALS_JSON = f"{OUTPUT_DIR}/hospitals.json"
+CACHE_FILE = "facility_geocoded_cache.json"
 
 # CMS Dialysis Facility Dataset
 CMS_METADATA_URL = "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/23ew-n7w9"
 CMS_CSV_FALLBACK = "https://data.cms.gov/provider-data/sites/default/files/resources/c04d84bc5c641284494bee4f20f17f9c_1759341903/DFC_FACILITY.csv"
 
+# Census Batch Geocoder (handles up to 10,000 addresses per request)
+CENSUS_BATCH_URL = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch"
+
 # Distance threshold for clinic inclusion (miles)
 MAX_CLINIC_DISTANCE = 200
+BATCH_SIZE = 5000  # Census allows 10k, but smaller batches = more reliable
 
-# US states (filter out Canadian resorts)
-US_STATES = {
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN",
-    "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV",
-    "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN",
-    "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC", "CA/NV"
-}
+
+def haversine_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Calculate great-circle distance between two points in miles."""
+    r = 3958.8
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    a = math.sin(dp/2)**2 + math.cos(p1) * math.cos(p2) * math.sin(dl/2)**2
+    return 2 * r * math.asin(math.sqrt(a))
+
+
+def load_json(path: str, default=None) -> Dict:
+    """Load JSON from file."""
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except:
+        return default if default is not None else {}
+
+
+def save_json(path: str, data) -> None:
+    """Save JSON to file."""
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+
+
+def spinner(msg: str, i: int) -> None:
+    """Simple spinner for long operations."""
+    chars = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+    sys.stdout.write(f"\r   {chars[i % len(chars)]} {msg}")
+    sys.stdout.flush()
+
+
+def progress_bar(current: int, total: int, width: int = 40, prefix: str = "", suffix: str = "") -> None:
+    """Display a progress bar."""
+    pct = current / total if total > 0 else 1
+    filled = int(width * pct)
+    bar = "█" * filled + "░" * (width - filled)
+    sys.stdout.write(f"\r{prefix} [{bar}] {current}/{total} ({pct*100:.0f}%) {suffix}  ")
+    sys.stdout.flush()
 
 
 def get_cms_csv_url() -> str:
@@ -74,266 +107,267 @@ def get_cms_csv_url() -> str:
         
         return CMS_CSV_FALLBACK
     except requests.RequestException:
-        print("  [WARNING] Could not fetch metadata, using fallback CSV URL")
+        print("   [WARNING] Could not fetch metadata, using fallback CSV URL")
         return CMS_CSV_FALLBACK
 
 
-def geocode_resorts(resorts: List[Dict]) -> pd.DataFrame:
-    """Geocode all resorts and return DataFrame."""
-    print("\n[1/3] Geocoding resorts via OpenStreetMap Nominatim...")
+def batch_geocode(addresses: List[tuple]) -> Dict:
+    """
+    Geocode addresses using Census Bureau batch API.
+    addresses: list of (id, street, city, state, zip)
+    Returns: dict of id -> {"lat": ..., "lon": ...} or {"failed": True}
+    """
+    results = {}
     
-    geocoder = ResortGeocoder()
-    print(f"  Loaded {len(geocoder.cache)} cached resort geocodes")
+    # Create CSV content
+    csv_content = StringIO()
+    writer = csv.writer(csv_content)
+    for addr in addresses:
+        writer.writerow(addr)
     
-    data = []
-    new_count = 0
-    cached_count = 0
+    # Submit to Census
+    files = {
+        'addressFile': ('addresses.csv', csv_content.getvalue(), 'text/csv')
+    }
+    data = {
+        'benchmark': 'Public_AR_Current',
+        'vintage': 'Current_Current'
+    }
     
-    # Filter to US resorts only
-    us_resorts = [r for r in resorts if r["state"] in US_STATES]
-    print(f"  Processing {len(us_resorts)} US resorts (skipping {len(resorts) - len(us_resorts)} non-US)")
-    
-    for idx, resort in enumerate(us_resorts, start=1):
-        name = resort["name"]
-        state = resort["state"]
-        cache_key = f"{name}|{state}"
+    try:
+        response = requests.post(
+            CENSUS_BATCH_URL,
+            files=files,
+            data=data,
+            timeout=300  # 5 min timeout for large batches
+        )
+        response.raise_for_status()
         
-        was_cached = cache_key in geocoder.cache
-        lat, lon = geocoder.geocode(name, state)
-        
-        if was_cached:
-            cached_count += 1
-        else:
-            new_count += 1
-            status = f"OK ({lat:.4f}, {lon:.4f})" if lat else "FAILED"
-            print(f"  [{idx:02d}/{len(us_resorts)}] {name}, {state}... {status}")
-        
-        data.append({
-            "id": f"{name}|{state}",
-            "name": name,
-            "state": state,
-            "lat": lat,
-            "lon": lon,
-            "passNetwork": resort["passNetwork"],
-            "region": resort["region"],
-        })
+        # Parse CSV response
+        # Format: id, input_address, match_status, match_type, matched_address, "lon,lat", tiger_id, side
+        reader = csv.reader(StringIO(response.text))
+        for row in reader:
+            if len(row) >= 1:
+                fid = row[0]
+                match_status = row[2] if len(row) > 2 else ""
+                
+                if match_status in ("Match", "Exact"):
+                    # Coordinates are in column 5 as "lon,lat" string
+                    try:
+                        coords_str = row[5] if len(row) > 5 else ""
+                        if "," in coords_str:
+                            lon_str, lat_str = coords_str.split(",")
+                            lon = float(lon_str.strip())
+                            lat = float(lat_str.strip())
+                            results[fid] = {"lat": lat, "lon": lon}
+                        else:
+                            results[fid] = {"failed": True}
+                    except (ValueError, IndexError):
+                        results[fid] = {"failed": True}
+                else:
+                    results[fid] = {"failed": True}
+                    
+    except Exception as e:
+        print(f"\n   ❌ Batch geocode error: {e}")
+        # Mark all as failed
+        for addr in addresses:
+            results[addr[0]] = {"failed": True}
     
-    geocoder.save()
-    print(f"  Summary: {cached_count} cached, {new_count} newly geocoded")
-    
-    return pd.DataFrame(data)
+    return results
 
 
-def download_dialysis_data() -> pd.DataFrame:
-    """Download dialysis facility data from CMS."""
-    print("\n[2/3] Downloading CMS dialysis facility data...")
+def main():
+    """Main execution flow."""
+    print()
+    print("╔══════════════════════════════════════════════════════════╗")
+    print("║   💉 SkiWithCare - Dialysis Clinic Fetcher (BATCH MODE)  ║")
+    print("╚══════════════════════════════════════════════════════════╝")
+    print()
+    
+    # Ensure output directory exists
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    
+    # Load resorts
+    resorts = load_json(RESORTS_JSON, [])
+    if not resorts:
+        print("❌ ERROR: No resorts. Run build_resorts.py first.")
+        return
+    print(f"✓ Loaded {len(resorts)} resorts")
+    
+    # Load cache
+    cache = load_json(CACHE_FILE, {})
+    print(f"✓ Loaded {len(cache):,} cached geocodes")
+    
+    # Download dialysis data
+    print()
+    print("━" * 60)
+    print("📥 Step 1/3: Downloading dialysis facility data from CMS...")
+    print("━" * 60)
+    
+    for i in range(10):
+        spinner("Fetching metadata...", i)
+        time.sleep(0.1)
     
     csv_url = get_cms_csv_url()
-    print(f"  URL: {csv_url[:70]}...")
+    
+    for i in range(20):
+        spinner("Downloading facility data...", i)
+        time.sleep(0.1)
     
     try:
         resp = requests.get(csv_url, timeout=120)
         resp.raise_for_status()
-        df = pd.read_csv(StringIO(resp.text))
-        print(f"  Total facilities: {len(df):,}")
-        return df
+        print(f"\r   ✓ Downloaded {len(resp.content) // 1024:,} KB              ")
     except requests.RequestException as e:
-        print(f"  [ERROR] Download failed: {e}")
-        return pd.DataFrame()
-
-
-def geocode_clinics(df_facilities: pd.DataFrame) -> pd.DataFrame:
-    """Geocode dialysis facilities and return DataFrame with coordinates."""
-    print("\n[3/3] Geocoding dialysis facilities via US Census Geocoder...")
+        print(f"\r   ❌ ERROR: {e}")
+        return
     
-    geocoder = FacilityGeocoder()
-    print(f"  Loaded {len(geocoder.cache):,} cached geocodes")
+    # Parse CSV
+    reader = csv.DictReader(StringIO(resp.text))
+    rows = list(reader)
+    print(f"   ✓ {len(rows):,} total dialysis facilities")
     
-    lats = []
-    lons = []
-    providers = []
-    
-    total = len(df_facilities)
-    geocoded_count = 0
-    cached_count = 0
-    failed_count = 0
-    
-    for idx, (_, row) in enumerate(df_facilities.iterrows(), start=1):
+    # Find addresses needing geocode
+    need_geocode = []
+    for row in rows:
         ccn = str(row.get("CMS Certification Number (CCN)", ""))
+        if ccn and ccn not in cache:
+            need_geocode.append((
+                ccn,
+                row.get("Address Line 1", ""),
+                row.get("City/Town", ""),
+                row.get("State", ""),
+                str(row.get("ZIP Code", ""))
+            ))
+    
+    cached_count = len(rows) - len(need_geocode)
+    
+    print()
+    print("━" * 60)
+    print("📍 Step 2/3: Batch geocoding addresses...")
+    print("━" * 60)
+    print(f"   Already cached: {cached_count:,}")
+    print(f"   Need geocoding: {len(need_geocode):,}")
+    
+    if need_geocode:
+        print()
+        start_time = time.time()
+        total_batches = (len(need_geocode) + BATCH_SIZE - 1) // BATCH_SIZE
+        new_geocodes = 0
+        new_failed = 0
         
-        # Get cached or geocode
-        was_cached = ccn in geocoder.cache
-        lat, lon = geocoder.geocode(
-            ccn,
-            str(row.get("Address Line 1", "")),
-            str(row.get("City/Town", "")),
-            str(row.get("State", "")),
-            str(row.get("ZIP Code", ""))
-        )
+        for batch_num in range(total_batches):
+            start_idx = batch_num * BATCH_SIZE
+            end_idx = min(start_idx + BATCH_SIZE, len(need_geocode))
+            batch = need_geocode[start_idx:end_idx]
+            
+            progress_bar(
+                batch_num + 1, 
+                total_batches, 
+                prefix="   ",
+                suffix=f"Batch {batch_num + 1}/{total_batches} ({len(batch)} addresses)"
+            )
+            
+            results = batch_geocode(batch)
+            
+            for fid, coords in results.items():
+                cache[fid] = coords
+                if coords.get("lat"):
+                    new_geocodes += 1
+                else:
+                    new_failed += 1
+            
+            # Save cache after each batch
+            save_json(CACHE_FILE, cache)
         
-        lats.append(lat)
-        lons.append(lon)
-        
-        # Classify provider chain
-        chain = str(row.get("Chain Organization", ""))
-        providers.append(classify_provider(chain))
-        
-        if was_cached:
-            cached_count += 1
-        else:
-            if lat is not None:
-                geocoded_count += 1
-            else:
-                failed_count += 1
-        
-        # Progress update every 100 facilities
-        if idx % 100 == 0 or idx == total:
-            print(f"  Progress: {idx:,}/{total:,} ({geocoded_count:,} new, {cached_count:,} cached, {failed_count:,} failed)")
-            geocoder.save()
+        elapsed = time.time() - start_time
+        print()
+        print()
+        print(f"   ✓ Geocoded: {new_geocodes:,}")
+        print(f"   ✗ Failed: {new_failed:,}")
+        print(f"   ⏱ Time: {elapsed:.1f}s")
+    else:
+        print()
+        print("   ✓ All facilities already geocoded!")
     
-    geocoder.save()
-    
-    df_facilities = df_facilities.copy()
-    df_facilities["lat"] = lats
-    df_facilities["lon"] = lons
-    df_facilities["provider"] = providers
-    
-    return df_facilities
-
-
-def generate_resorts_json(df_resorts: pd.DataFrame) -> None:
-    """Generate resorts.json from DataFrame."""
-    print(f"\n[OUTPUT] Generating {RESORTS_JSON}...")
-    
-    valid = df_resorts.dropna(subset=["lat", "lon"]).copy()
-    
-    resorts = []
-    for _, row in valid.sort_values("name").iterrows():
-        resorts.append({
-            "id": row["id"],
-            "name": row["name"],
-            "state": row["state"],
-            "lat": round(float(row["lat"]), 6),
-            "lon": round(float(row["lon"]), 6),
-            "passNetwork": row["passNetwork"],
-            "region": row["region"],
-        })
-    
-    with open(RESORTS_JSON, 'w') as f:
-        json.dump(resorts, f, indent=2)
-    
-    # Count by pass network
-    epic_count = sum(1 for r in resorts if r["passNetwork"] == "epic")
-    ikon_count = sum(1 for r in resorts if r["passNetwork"] == "ikon")
-    
-    print(f"  Total resorts: {len(resorts)} ({epic_count} Epic, {ikon_count} Ikon)")
-    print(f"  Saved to: {RESORTS_JSON}")
-
-
-def generate_clinics_json(df_resorts: pd.DataFrame, df_clinics: pd.DataFrame) -> None:
-    """Generate clinics.json with all clinics within MAX_CLINIC_DISTANCE of any resort."""
-    print(f"\n[OUTPUT] Generating {CLINICS_JSON} (clinics within {MAX_CLINIC_DISTANCE} mi of any resort)...")
-    
-    valid_resorts = df_resorts.dropna(subset=["lat", "lon"])
-    valid_clinics = df_clinics.dropna(subset=["lat", "lon"])
+    # Build output
+    print()
+    print("━" * 60)
+    print(f"🏔 Step 3/3: Finding clinics within {MAX_CLINIC_DISTANCE} mi of resorts...")
+    print("━" * 60)
     
     clinics = []
+    processed = 0
     
-    for _, clinic in valid_clinics.iterrows():
-        clinic_lat = float(clinic["lat"])
-        clinic_lon = float(clinic["lon"])
+    for row in rows:
+        ccn = str(row.get("CMS Certification Number (CCN)", ""))
+        c = cache.get(ccn, {})
+        
+        lat, lon = c.get("lat"), c.get("lon")
+        if not lat or not lon:
+            continue
         
         # Find nearest resort
-        min_dist = float('inf')
-        nearest_resort = None
+        min_dist = float("inf")
+        nearest = None
+        for r in resorts:
+            d = haversine_miles(lat, lon, r["lat"], r["lon"])
+            if d < min_dist:
+                min_dist = d
+                nearest = r["name"]
         
-        for _, resort in valid_resorts.iterrows():
-            dist = haversine_miles(
-                clinic_lat, clinic_lon,
-                float(resort["lat"]), float(resort["lon"])
-            )
-            if dist < min_dist:
-                min_dist = dist
-                nearest_resort = resort["name"]
+        if min_dist > MAX_CLINIC_DISTANCE:
+            continue
         
-        # Only include if within threshold
-        if min_dist <= MAX_CLINIC_DISTANCE:
-            clinics.append({
-                "ccn": str(clinic.get("CMS Certification Number (CCN)", "")),
-                "facility": clinic.get("Facility Name", ""),
-                "provider": clinic.get("provider", "other"),
-                "address": clinic.get("Address Line 1", ""),
-                "city": clinic.get("City/Town", ""),
-                "state": clinic.get("State", ""),
-                "zip": str(clinic.get("ZIP Code", "")),
-                "lat": round(clinic_lat, 6),
-                "lon": round(clinic_lon, 6),
-                "nearestResort": nearest_resort,
-                "nearestResortDist": round(min_dist, 2)
-            })
+        # Classify provider
+        chain = str(row.get("Chain Organization", ""))
+        provider = classify_provider(chain)
+        
+        clinics.append({
+            "ccn": ccn,
+            "facility": row.get("Facility Name", ""),
+            "provider": provider,
+            "address": row.get("Address Line 1", ""),
+            "city": row.get("City/Town", ""),
+            "state": row.get("State", ""),
+            "zip": str(row.get("ZIP Code", "")),
+            "lat": round(lat, 6),
+            "lon": round(lon, 6),
+            "nearestResort": nearest,
+            "nearestResortDist": round(min_dist, 2)
+        })
+        
+        processed += 1
+        if processed % 50 == 0:
+            spinner(f"Processing... {processed} matched", processed // 10)
     
-    # Sort by state, city, facility
     clinics.sort(key=lambda c: (c["state"], c["city"], c["facility"]))
+    save_json(CLINICS_JSON, clinics)
     
-    with open(CLINICS_JSON, 'w') as f:
-        json.dump(clinics, f, indent=2)
-    
-    # Count by provider
+    # Summary
     provider_counts = {}
     for c in clinics:
         p = c["provider"]
         provider_counts[p] = provider_counts.get(p, 0) + 1
     
-    print(f"  Total clinics: {len(clinics):,} (of {len(valid_clinics):,} total)")
-    for provider, count in sorted(provider_counts.items()):
-        print(f"    - {provider}: {count:,}")
-    print(f"  Saved to: {CLINICS_JSON}")
-
-
-def main():
-    """Main execution flow."""
-    print("=" * 70)
-    print("SkiWithCare Data Generator")
-    print("Epic Pass + Ikon Pass Resorts | All Dialysis Providers")
-    print("=" * 70)
+    states = len(set(c["state"] for c in clinics))
     
-    # Ensure output directory exists
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    print(f"\r   ✓ Found {len(clinics):,} clinics near ski resorts         ")
+    print()
+    print("╔══════════════════════════════════════════════════════════╗")
+    print("║                      ✨ COMPLETE ✨                       ║")
+    print("╠══════════════════════════════════════════════════════════╣")
+    print(f"║  💉 Clinics:         {len(clinics):>5,}                            ║")
+    print(f"║  📍 States:          {states:>5}                            ║")
+    print(f"║  💾 Cache entries:   {len(cache):>5,}                            ║")
+    print("╠══════════════════════════════════════════════════════════╣")
     
-    # Step 1: Geocode resorts
-    all_resorts = get_all_resorts()
-    df_resorts = geocode_resorts(all_resorts)
+    for provider, count in sorted(provider_counts.items(), key=lambda x: -x[1]):
+        print(f"║     {provider:<14} {count:>5,}                            ║")
     
-    # Report failures
-    failed = df_resorts[df_resorts["lat"].isna()]
-    if not failed.empty:
-        print("\n  [WARNING] Resorts that failed to geocode:")
-        for _, row in failed.iterrows():
-            print(f"    - {row['name']}, {row['state']}")
-    
-    # Step 2: Download dialysis data
-    df_facilities = download_dialysis_data()
-    if df_facilities.empty:
-        print("\n[ERROR] No dialysis data available, cannot continue.")
-        return
-    
-    # Step 3: Geocode clinics
-    df_clinics = geocode_clinics(df_facilities)
-    
-    # Step 4: Generate output files
-    print("\n[4/4] Generating output files...")
-    generate_resorts_json(df_resorts)
-    generate_clinics_json(df_resorts, df_clinics)
-    
-    # Summary
-    valid_resorts = df_resorts.dropna(subset=["lat", "lon"])
-    print("\n" + "=" * 70)
-    print("SUCCESS! Data generation complete.")
-    print(f"  - {RESORTS_JSON} ({len(valid_resorts)} resorts)")
-    print(f"  - {CLINICS_JSON} (dialysis clinics within {MAX_CLINIC_DISTANCE} mi)")
-    print("=" * 70)
+    print("╚══════════════════════════════════════════════════════════╝")
+    print()
 
 
 if __name__ == "__main__":
     main()
-
