@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useSettingsStore, type ColorTheme, type DarkMode, type DistanceUnit } from "@/stores/settingsStore";
 import { useSelectionStore, type ViewMode } from "@/stores/selectionStore";
 import { Button } from "@/components/ui/Button";
@@ -87,7 +88,10 @@ export function SettingsDrawer() {
     setMode(view); // Also update current mode
   };
 
-  return (
+  const portalRoot = document.getElementById("portal-root");
+  if (!portalRoot) return null;
+
+  return createPortal(
     <>
       {/* Backdrop */}
       <div
@@ -273,7 +277,8 @@ export function SettingsDrawer() {
           </section>
         </div>
       </aside>
-    </>
+    </>,
+    portalRoot
   );
 }
 
