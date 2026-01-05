@@ -40,6 +40,7 @@ function App() {
   } = useSelectionStore();
   const { userLocation } = useLocationStore();
   const mapRef = useRef<LeafletMap | null>(null);
+  const prevExpandedIdRef = useRef<string | null>(null);
 
   // Load data
   const { resorts, clinics, hospitals, isLoading, error } = useData();
@@ -218,7 +219,12 @@ function App() {
   ]);
 
   // Fit map bounds to show expanded item and all related items
+  // Only runs when expandedId actually changes, not on every expandedData reference change
   useEffect(() => {
+    // Skip if expandedId hasn't changed (prevents focus hijacking on re-renders)
+    if (expandedId === prevExpandedIdRef.current) return;
+    prevExpandedIdRef.current = expandedId;
+
     if (!expandedData || !mapRef.current) return;
 
     const { item, allRelatedItems } = expandedData;
@@ -242,7 +248,7 @@ function App() {
       maxZoom: 10,
       duration: 0.6,
     });
-  }, [expandedData]);
+  }, [expandedId, expandedData]);
 
   // Render card list based on mode
   const renderCards = () => {
