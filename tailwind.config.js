@@ -55,11 +55,16 @@ export default {
       animation: {
         "pulse-ring": "pulse-ring 2s ease-out infinite",
         spin: "spin 0.8s linear infinite",
+        "slide-up": "slide-up 0.3s ease-out",
       },
       keyframes: {
         "pulse-ring": {
           "0%": { transform: "translate(-50%, -50%) scale(0.5)", opacity: "1" },
           "100%": { transform: "translate(-50%, -50%) scale(2)", opacity: "0" },
+        },
+        "slide-up": {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
         },
       },
     },

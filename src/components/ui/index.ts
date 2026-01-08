@@ -12,4 +12,5 @@ export * from "./ReportForm";
 export * from "./DirectionsButton";
 export * from "./ShareButton";
 export * from "./Skeleton";
+export * from "./InstallPrompt";
 

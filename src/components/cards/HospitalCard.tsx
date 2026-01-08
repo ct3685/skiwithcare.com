@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Hospital, ResortWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge, ReportForm } from "@/components/ui";
+import { Badge, DistanceBadge, ReportForm, DirectionsButton, ShareButton } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
 import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
@@ -186,6 +186,34 @@ export function HospitalCard({
               </div>
             </div>
           )}
+
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            <DirectionsButton
+              destLat={hospital.lat}
+              destLon={hospital.lon}
+              destName={hospital.name}
+              facilityType="hospital"
+              className="flex-1"
+            />
+            {hospital.phone && (
+              <a
+                href={`tel:${hospital.phone.replace(/[^0-9+]/g, "")}`}
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1 px-3 py-2.5 text-sm font-semibold rounded-lg
+                  bg-green-600 hover:bg-green-500 text-white transition-colors"
+              >
+                📞 Call
+              </a>
+            )}
+            <ShareButton
+              title={hospital.name}
+              text={`${hospital.city}, ${hospital.state} - Emergency Room`}
+              lat={hospital.lat}
+              lon={hospital.lon}
+              facilityType="hospital"
+            />
+          </div>
 
           {/* Report Link */}
           <div className="pt-2 border-t border-border/50 text-right">

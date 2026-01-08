@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { PassNetwork } from "@/types";
 
 /**
@@ -40,8 +41,10 @@ const DEFAULT_FILTERS = {
   careTypes: new Set<CareType>(["dialysis", "hospital"]),
 };
 
-export const useFilterStore = create<FilterState>()((set) => ({
-  ...DEFAULT_FILTERS,
+export const useFilterStore = create<FilterState>()(
+  persist(
+    (set) => ({
+      ...DEFAULT_FILTERS,
 
   setSearchQuery: (searchQuery) => set({ searchQuery }),
 
@@ -88,5 +91,33 @@ export const useFilterStore = create<FilterState>()((set) => ({
       passNetworks: new Set(DEFAULT_FILTERS.passNetworks),
       careTypes: new Set(DEFAULT_FILTERS.careTypes),
     }),
-}));
+    }),
+    {
+      name: "skiwithcare-filters",
+      storage: createJSONStorage(() => localStorage),
+      // Only persist these fields (not search query)
+      partialize: (state) => ({
+        selectedState: state.selectedState,
+        maxDistance: state.maxDistance,
+        passNetworks: Array.from(state.passNetworks),
+        careTypes: Array.from(state.careTypes),
+      }),
+      // Transform Sets back when loading from storage
+      merge: (persisted, current) => {
+        const stored = persisted as Record<string, unknown>;
+        return {
+          ...current,
+          selectedState: stored?.selectedState as string | null ?? current.selectedState,
+          maxDistance: stored?.maxDistance as number ?? current.maxDistance,
+          passNetworks: new Set(
+            (stored?.passNetworks as PassNetwork[]) ?? Array.from(current.passNetworks)
+          ),
+          careTypes: new Set(
+            (stored?.careTypes as CareType[]) ?? Array.from(current.careTypes)
+          ),
+        };
+      },
+    }
+  )
+);
 

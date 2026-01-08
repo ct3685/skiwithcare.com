@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Clinic, ResortWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge, ProviderBadge, ReportForm } from "@/components/ui";
+import { Badge, DistanceBadge, ProviderBadge, ReportForm, DirectionsButton, ShareButton } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
 import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
@@ -158,6 +158,24 @@ export function ClinicCard({
               </div>
             </div>
           )}
+
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            <DirectionsButton
+              destLat={clinic.lat}
+              destLon={clinic.lon}
+              destName={clinic.facility}
+              facilityType="clinic"
+              className="flex-1"
+            />
+            <ShareButton
+              title={clinic.facility}
+              text={`${clinic.city}, ${clinic.state} - Dialysis Clinic`}
+              lat={clinic.lat}
+              lon={clinic.lon}
+              facilityType="clinic"
+            />
+          </div>
 
           {/* Report Link */}
           <div className="pt-2 border-t border-border/50 text-right">

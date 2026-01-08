@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Resort, ClinicWithDistance, HospitalWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge, PassBadge, ReportForm } from "@/components/ui";
+import { Badge, DistanceBadge, PassBadge, ReportForm, DirectionsButton, ShareButton } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
 import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
@@ -314,6 +314,24 @@ export function ResortCard({
               </div>
             </div>
           )}
+
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            <DirectionsButton
+              destLat={resort.lat}
+              destLon={resort.lon}
+              destName={resort.name}
+              facilityType="resort"
+              className="flex-1"
+            />
+            <ShareButton
+              title={resort.name}
+              text={`${resort.state} - Ski Resort`}
+              lat={resort.lat}
+              lon={resort.lon}
+              facilityType="resort"
+            />
+          </div>
 
           {/* Verification Info & Report Link */}
           <div className="pt-2 border-t border-border/50 flex items-center justify-between">
