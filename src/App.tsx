@@ -19,7 +19,7 @@ import {
   UrgentCareClusterGroup,
 } from "@/components/map";
 import { ResortCard, ClinicCard, HospitalCard, UrgentCareCard } from "@/components/cards";
-import { SkeletonCardList, InstallPrompt } from "@/components/ui";
+import { SkeletonCardList, InstallPrompt, SkipLink } from "@/components/ui";
 import { useData, useFilteredData } from "@/hooks";
 import {
   getNearestClinics,
@@ -393,6 +393,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary overflow-hidden">
+      {/* Skip Link for keyboard navigation */}
+      <SkipLink />
+
       {/* Emergency Disclaimer Banner */}
       <EmergencyBanner />
 
@@ -403,7 +406,7 @@ function App() {
       <Header />
 
       {/* Main Content */}
-      <main className="flex h-[calc(100vh-66px)]">
+      <main id="main-content" className="flex h-[calc(100vh-66px)]" tabIndex={-1}>
         {/* Sidebar */}
         <Sidebar
           states={states}
