@@ -1,13 +1,13 @@
 import { useState } from "react";
-import type { Clinic, ResortWithDistance } from "@/types";
+import type { Facility, ResortWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge, ProviderBadge, ReportForm } from "@/components/ui";
+import { Badge, DistanceBadge, ReportForm } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
 import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
-interface ClinicCardProps {
-  clinic: Clinic;
+interface UrgentCareCardProps {
+  facility: Facility;
   userDistance?: number;
   nearestResorts?: ResortWithDistance[];
   onDirectionsClick?: (
@@ -21,28 +21,28 @@ interface ClinicCardProps {
   ) => void;
 }
 
-export function ClinicCard({
-  clinic,
+export function UrgentCareCard({
+  facility,
   userDistance,
   nearestResorts = [],
   onDirectionsClick,
-}: ClinicCardProps) {
+}: UrgentCareCardProps) {
   const { expandedId, highlightedConnectionIndex, toggleExpand, setHighlightedConnection } = useSelectionStore();
   const { distanceUnit } = useSettingsStore();
   const [showReportForm, setShowReportForm] = useState(false);
 
-  const isExpanded = expandedId === clinic.ccn;
+  const isExpanded = expandedId === facility.id;
 
   const handleClick = () => {
-    toggleExpand(clinic.ccn);
+    toggleExpand(facility.id);
     if (!isExpanded) {
-      trackItemSelect("clinic", clinic.facility, clinic.state);
+      trackItemSelect("urgent_care", facility.name, facility.state);
     }
   };
 
   const handleReportClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    trackReportOpen("clinic", clinic.facility);
+    trackReportOpen("urgent_care", facility.name);
     setShowReportForm(true);
   };
 
@@ -53,11 +53,11 @@ export function ClinicCard({
     e.stopPropagation();
     if (onDirectionsClick) {
       onDirectionsClick(
-        clinic.lat,
-        clinic.lon,
+        facility.lat,
+        facility.lon,
         resort.lat,
         resort.lon,
-        clinic.facility,
+        facility.name,
         resort.name,
         resort.distance
       );
@@ -74,21 +74,21 @@ export function ClinicCard({
 
   return (
     <div
-      data-clinic-id={clinic.ccn}
+      data-urgentcare-id={facility.id}
       onClick={handleClick}
       className={`
         p-4 rounded-lg
         bg-bg-card border border-border
         cursor-pointer
         transition-all duration-200
-        hover:border-accent-clinic
-        ${isExpanded ? "border-accent-clinic ring-1 ring-accent-clinic/20" : ""}
+        hover:border-orange-500
+        ${isExpanded ? "border-orange-500 ring-1 ring-orange-500/20" : ""}
       `}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-start gap-2 min-w-0">
-          <span className="font-semibold text-text-primary">🏥 {clinic.facility}</span>
+          <span className="font-semibold text-text-primary">🩹 {facility.name}</span>
           <span
             className={`text-xs transition-transform duration-200 flex-shrink-0 mt-0.5 ${
               isExpanded ? "rotate-180" : ""
@@ -98,29 +98,72 @@ export function ClinicCard({
           </span>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <ProviderBadge provider={clinic.provider} />
-          <Badge>{clinic.state}</Badge>
+          <Badge variant="warning">Urgent Care</Badge>
+          <Badge>{facility.state}</Badge>
         </div>
       </div>
 
       {/* Meta */}
       <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
         {userDistance !== undefined && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent-clinic/20 border border-accent-clinic/30 text-accent-clinic text-xs font-semibold">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-semibold">
             📍 {formatDistance(userDistance, distanceUnit)} away
           </span>
         )}
-        <span className="text-text-muted">
-          📍 {clinic.city}, {clinic.state}
-        </span>
-        {clinic.nearestResortDist !== undefined && (
-          <DistanceBadge miles={clinic.nearestResortDist} icon="🏔️" />
+        {facility.city && (
+          <span className="text-text-muted">
+            📍 {facility.city}, {facility.state}
+          </span>
+        )}
+        {facility.open24Hours && (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/20 border border-green-500/30 text-green-400 text-xs font-semibold">
+            24/7
+          </span>
+        )}
+        {facility.nearestResortDist !== undefined && (
+          <DistanceBadge miles={facility.nearestResortDist} icon="🏔️" />
         )}
       </div>
 
       {/* Expanded Content */}
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-border space-y-4">
+          {/* Contact Info */}
+          <div className="space-y-2 text-sm">
+            {facility.address && (
+              <p className="text-text-secondary">
+                📍 {facility.address}, {facility.city}, {facility.state} {facility.zip}
+              </p>
+            )}
+            {facility.phone && (
+              <p>
+                📞{" "}
+                <a
+                  href={`tel:${facility.phone.replace(/[^0-9+]/g, "")}`}
+                  className="text-orange-400 hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {facility.phone}
+                </a>
+              </p>
+            )}
+            {facility.website && (
+              <p>
+                🌐{" "}
+                <a
+                  href={facility.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-400 hover:underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Website
+                </a>
+              </p>
+            )}
+          </div>
+
+          {/* Nearest Resorts */}
           {nearestResorts.length > 0 && (
             <div>
               <p className="text-xs text-text-muted mb-2 font-medium">
@@ -149,7 +192,7 @@ export function ClinicCard({
                       <div className="text-xs text-text-muted">{resort.state}</div>
                     </div>
                     <span className={`text-sm font-semibold ml-2 ${
-                      highlightedConnectionIndex === i ? "text-amber-400" : "text-accent-primary"
+                      highlightedConnectionIndex === i ? "text-amber-400" : "text-orange-400"
                     }`}>
                       {formatDistance(resort.distance, distanceUnit)} →
                     </span>
@@ -159,8 +202,29 @@ export function ClinicCard({
             </div>
           )}
 
-          {/* Report Link */}
-          <div className="pt-2 border-t border-border/50 text-right">
+          {/* Verification & Report */}
+          <div className="pt-2 border-t border-border/50 flex items-center justify-between">
+            {facility.lastVerified ? (
+              <p className="text-xs text-text-muted">
+                ✓ Last verified: {facility.lastVerified}
+                {facility.sourceUrl && (
+                  <>
+                    {" "}•{" "}
+                    <a
+                      href={facility.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-accent-primary hover:underline"
+                    >
+                      Source
+                    </a>
+                  </>
+                )}
+              </p>
+            ) : (
+              <span />
+            )}
             <button
               onClick={handleReportClick}
               className="text-xs text-text-muted hover:text-accent-primary transition-colors"
@@ -176,13 +240,12 @@ export function ClinicCard({
         isOpen={showReportForm}
         onClose={() => setShowReportForm(false)}
         itemType="clinic"
-        itemName={clinic.facility}
-        itemId={clinic.ccn}
+        itemName={facility.name}
+        itemId={facility.id}
         onSubmit={(report) => {
-          trackReportSubmit("clinic", clinic.facility, report.category);
+          trackReportSubmit("urgent_care", facility.name, report.category);
         }}
       />
     </div>
   );
 }
-

@@ -42,6 +42,7 @@ export default {
         DEFAULT: "var(--shadow)",
         "glow-pink": "var(--glow-pink)",
         "glow-cyan": "var(--glow-cyan)",
+        "glow-orange": "var(--glow-orange)",
       },
       animation: {
         "pulse-ring": "pulse-ring 2s ease-out infinite",

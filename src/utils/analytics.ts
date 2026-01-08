@@ -226,6 +226,78 @@ export function trackSidebarToggle(state: "collapsed" | "expanded", mode: string
   });
 }
 
+// ============ Emergency Care Events ============
+
+/**
+ * Track emergency guide open
+ */
+export function trackEmergencyGuideOpen(): void {
+  trackEvent("emergency_guide_open", {
+    event_category: "engagement",
+  });
+}
+
+/**
+ * Track emergency guide option selected
+ */
+export function trackEmergencyGuideSelect(option: string): void {
+  trackEvent("emergency_guide_select", {
+    event_category: "engagement",
+    option,
+  });
+}
+
+/**
+ * Track ski patrol phone click
+ */
+export function trackSkiPatrolCall(resortName: string, resortState: string): void {
+  trackEvent("ski_patrol_call", {
+    event_category: "engagement",
+    resort_name: resortName,
+    resort_state: resortState,
+  });
+}
+
+/**
+ * Track 911 call click (from emergency banner or guide)
+ */
+export function track911Call(source: string): void {
+  trackEvent("911_call", {
+    event_category: "engagement",
+    source,
+  });
+}
+
+/**
+ * Track report issue form open
+ */
+export function trackReportOpen(
+  itemType: string,
+  itemName: string
+): void {
+  trackEvent("report_open", {
+    event_category: "engagement",
+    item_type: itemType,
+    item_name: itemName,
+  });
+}
+
+/**
+ * Track report issue submission
+ */
+export function trackReportSubmit(
+  itemType: string,
+  itemName: string,
+  category: string
+): void {
+  trackEvent("report_submit", {
+    event_category: "engagement",
+    item_type: itemType,
+    item_name: itemName,
+    report_category: category,
+  });
+}
+
 // ============ Error Events ============
 
 /**

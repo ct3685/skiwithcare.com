@@ -1,4 +1,5 @@
 import { useEffect, useCallback, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -33,7 +34,8 @@ export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) 
 
   if (!isOpen) return null;
 
-  return (
+  // Use portal to render at document body level (avoids overflow:hidden clipping)
+  return createPortal(
     <div
       className={`
         fixed inset-0 z-50
@@ -51,6 +53,7 @@ export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) 
           rounded-xl
           p-6
           w-[90%] max-w-md
+          max-h-[90vh] overflow-y-auto
           shadow-2xl
           transform transition-transform duration-300
           ${isOpen ? "translate-y-0" : "translate-y-4"}
@@ -77,7 +80,8 @@ export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) 
           <div className="mt-6 flex justify-end gap-3">{footer}</div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

@@ -60,6 +60,7 @@ vi.mock("@/hooks", () => ({
     resorts: mockResorts,
     clinics: [],
     hospitals: [],
+    urgentCare: [],
     isLoading: false,
     error: null,
   }),
@@ -67,6 +68,7 @@ vi.mock("@/hooks", () => ({
     resorts: mockResorts,
     clinics: [],
     hospitals: [],
+    urgentCare: [],
     sortOrigin: "map",
   }),
 }));

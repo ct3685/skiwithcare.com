@@ -1,8 +1,9 @@
 // Re-export all types for convenient importing
-// Usage: import { Resort, Clinic, Hospital } from '@/types'
+// Usage: import { Resort, Facility, Hospital } from '@/types'
 
 export * from "./resort";
-export * from "./clinic";
-export * from "./hospital";
+export * from "./facility";
+export * from "./clinic"; // Legacy - will be replaced by Facility
+export * from "./hospital"; // Legacy - will be migrated to Facility
 export * from "./location";
 

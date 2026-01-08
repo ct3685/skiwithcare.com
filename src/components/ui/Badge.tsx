@@ -75,7 +75,7 @@ export function DistanceBadge({
  * Pass network badge
  */
 interface PassBadgeProps {
-  pass: "epic" | "ikon" | "both" | "independent";
+  pass?: "epic" | "ikon" | "both" | "independent";
   className?: string;
 }
 
@@ -87,10 +87,12 @@ const passColors: Record<string, string> = {
 };
 
 export function PassBadge({ pass, className = "" }: PassBadgeProps) {
+  // Default to independent if not specified
+  const network = pass || "independent";
   const label =
-    pass === "both"
+    network === "both"
       ? "Epic + Ikon"
-      : pass.charAt(0).toUpperCase() + pass.slice(1);
+      : network.charAt(0).toUpperCase() + network.slice(1);
 
   return (
     <span
@@ -99,7 +101,7 @@ export function PassBadge({ pass, className = "" }: PassBadgeProps) {
         px-2 py-0.5
         text-xs font-medium
         rounded-md
-        ${passColors[pass]}
+        ${passColors[network]}
         ${className}
       `}
     >

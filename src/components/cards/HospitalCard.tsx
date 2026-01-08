@@ -1,9 +1,10 @@
+import { useState } from "react";
 import type { Hospital, ResortWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge } from "@/components/ui/Badge";
+import { Badge, DistanceBadge, ReportForm } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
-import { trackItemSelect } from "@/utils/analytics";
+import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
 interface HospitalCardProps {
   hospital: Hospital;
@@ -51,6 +52,7 @@ export function HospitalCard({
 }: HospitalCardProps) {
   const { expandedId, highlightedConnectionIndex, toggleExpand, setHighlightedConnection } = useSelectionStore();
   const { distanceUnit } = useSettingsStore();
+  const [showReportForm, setShowReportForm] = useState(false);
 
   const isExpanded = expandedId === hospital.id;
 
@@ -59,6 +61,12 @@ export function HospitalCard({
     if (!isExpanded) {
       trackItemSelect("hospital", hospital.name, hospital.state);
     }
+  };
+
+  const handleReportClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    trackReportOpen("hospital", hospital.name);
+    setShowReportForm(true);
   };
 
   const handleResortClick = (
@@ -139,43 +147,69 @@ export function HospitalCard({
       </div>
 
       {/* Expanded Content */}
-      {isExpanded && nearestResorts.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-border">
-          <p className="text-xs text-text-muted mb-2 font-medium">
-            Nearest Resorts:
-          </p>
-          <div className="space-y-2">
-            {nearestResorts.slice(0, 5).map((resort, i) => (
-              <div
-                key={resort.id}
-                onClick={(e) => handleResortClick(e, resort)}
-                onMouseEnter={() => handleResortHover(i)}
-                onMouseLeave={handleResortLeave}
-                className={`
-                  flex items-center justify-between p-2 rounded-lg 
-                  transition-all duration-200 cursor-pointer
-                  ${highlightedConnectionIndex === i 
-                    ? "bg-amber-500/20 border border-amber-500/40" 
-                    : "bg-bg-tertiary hover:bg-bg-secondary border border-transparent"
-                  }
-                `}
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-text-primary truncate">
-                    {i + 1}. {resort.name}
+      {isExpanded && (
+        <div className="mt-4 pt-4 border-t border-border space-y-4">
+          {nearestResorts.length > 0 && (
+            <div>
+              <p className="text-xs text-text-muted mb-2 font-medium">
+                Nearest Resorts:
+              </p>
+              <div className="space-y-2">
+                {nearestResorts.slice(0, 5).map((resort, i) => (
+                  <div
+                    key={resort.id}
+                    onClick={(e) => handleResortClick(e, resort)}
+                    onMouseEnter={() => handleResortHover(i)}
+                    onMouseLeave={handleResortLeave}
+                    className={`
+                      flex items-center justify-between p-2 rounded-lg 
+                      transition-all duration-200 cursor-pointer
+                      ${highlightedConnectionIndex === i 
+                        ? "bg-amber-500/20 border border-amber-500/40" 
+                        : "bg-bg-tertiary hover:bg-bg-secondary border border-transparent"
+                      }
+                    `}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-text-primary truncate">
+                        {i + 1}. {resort.name}
+                      </div>
+                      <div className="text-xs text-text-muted">{resort.state}</div>
+                    </div>
+                    <span className={`text-sm font-semibold ml-2 ${
+                      highlightedConnectionIndex === i ? "text-amber-400" : "text-accent-primary"
+                    }`}>
+                      {formatDistance(resort.distance, distanceUnit)} →
+                    </span>
                   </div>
-                  <div className="text-xs text-text-muted">{resort.state}</div>
-                </div>
-                <span className={`text-sm font-semibold ml-2 ${
-                  highlightedConnectionIndex === i ? "text-amber-400" : "text-accent-primary"
-                }`}>
-                  {formatDistance(resort.distance, distanceUnit)} →
-                </span>
+                ))}
               </div>
-            ))}
+            </div>
+          )}
+
+          {/* Report Link */}
+          <div className="pt-2 border-t border-border/50 text-right">
+            <button
+              onClick={handleReportClick}
+              className="text-xs text-text-muted hover:text-accent-primary transition-colors"
+            >
+              Report an issue
+            </button>
           </div>
         </div>
       )}
+
+      {/* Report Form Modal */}
+      <ReportForm
+        isOpen={showReportForm}
+        onClose={() => setShowReportForm(false)}
+        itemType="hospital"
+        itemName={hospital.name}
+        itemId={hospital.id}
+        onSubmit={(report) => {
+          trackReportSubmit("hospital", hospital.name, report.category);
+        }}
+      />
     </div>
   );
 }

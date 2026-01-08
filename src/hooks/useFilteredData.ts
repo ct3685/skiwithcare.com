@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { Resort, Clinic, Hospital, Coordinates } from "@/types";
+import type { Resort, Clinic, Hospital, Facility, Coordinates } from "@/types";
 import { useFilterStore } from "@/stores/filterStore";
 import { useLocationStore } from "@/stores/locationStore";
 import { haversine } from "@/utils/haversine";
@@ -8,6 +8,7 @@ interface FilteredData {
   resorts: (Resort & { distance?: number })[];
   clinics: (Clinic & { distance?: number })[];
   hospitals: (Hospital & { distance?: number })[];
+  urgentCare: (Facility & { distance?: number })[];
   /** Location used for distance calculations (user location or map center) */
   sortOrigin: { type: "user" | "map"; coords: Coordinates } | null;
 }
@@ -22,7 +23,8 @@ interface FilteredData {
 export function useFilteredData(
   resorts: Resort[],
   clinics: Clinic[],
-  hospitals: Hospital[]
+  hospitals: Hospital[],
+  urgentCare: Facility[] = []
 ): FilteredData {
   const { searchQuery, selectedState, maxDistance, passNetworks, careTypes } =
     useFilterStore();
@@ -69,13 +71,15 @@ export function useFilteredData(
 
     if (passNetworks.size > 0) {
       filteredResorts = filteredResorts.filter((r) => {
-        // If resort has no passNetwork, treat as "epic" (legacy data)
-        const network = r.passNetwork || "epic";
+        // Independent resorts (no passNetwork) are always shown
+        if (!r.passNetwork) {
+          return true;
+        }
         // "both" should match if either epic or ikon is selected
-        if (network === "both") {
+        if (r.passNetwork === "both") {
           return passNetworks.has("epic") || passNetworks.has("ikon");
         }
-        return passNetworks.has(network);
+        return passNetworks.has(r.passNetwork);
       });
     }
 
@@ -154,16 +158,46 @@ export function useFilteredData(
       filteredHospitals.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
 
+    // Filter urgent care facilities
+    // Note: urgent_care has its own view mode, so no careTypes filter needed
+    let filteredUrgentCare = withDistance(urgentCare);
+
+    if (searchLower) {
+      filteredUrgentCare = filteredUrgentCare.filter(
+        (f) =>
+          f.name.toLowerCase().includes(searchLower) ||
+          f.city.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (selectedState) {
+      filteredUrgentCare = filteredUrgentCare.filter(
+        (f) => f.state === selectedState
+      );
+    }
+
+    if (userLocation && maxDistance < 200) {
+      filteredUrgentCare = filteredUrgentCare.filter(
+        (f) => f.distance !== undefined && f.distance <= maxDistance
+      );
+    }
+
+    if (sortOrigin) {
+      filteredUrgentCare.sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
+    }
+
     return {
       resorts: filteredResorts,
       clinics: filteredClinics,
       hospitals: filteredHospitals,
+      urgentCare: filteredUrgentCare,
       sortOrigin,
     };
   }, [
     resorts,
     clinics,
     hospitals,
+    urgentCare,
     searchQuery,
     selectedState,
     maxDistance,

@@ -3,7 +3,7 @@ import { create } from "zustand";
 /**
  * View mode - what type of items to display
  */
-export type ViewMode = "resorts" | "clinics" | "hospitals";
+export type ViewMode = "resorts" | "clinics" | "hospitals" | "urgent_care";
 
 /**
  * Selection state for current view and selected items

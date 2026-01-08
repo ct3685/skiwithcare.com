@@ -1,57 +1,283 @@
 [
   {
+    "id": "49 Degrees North|WA",
+    "name": "49 Degrees North",
+    "state": "WA",
+    "lat": 48.3047,
+    "lon": -117.5611,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
     "id": "Afton Alps|MN",
     "name": "Afton Alps",
     "state": "MN",
-    "lat": 44.853188,
-    "lon": -92.784803,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 44.8553,
+    "lon": -92.7842,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Alpine Valley|MI",
+    "name": "Alpine Valley",
+    "state": "MI",
+    "lat": 42.7603,
+    "lon": -83.5406,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Alpine Valley|WI",
+    "name": "Alpine Valley",
+    "state": "WI",
+    "lat": 42.6625,
+    "lon": -88.4619,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Alpine Valley|OH",
     "name": "Alpine Valley",
     "state": "OH",
-    "lat": 41.528392,
-    "lon": -81.261449,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 41.4678,
+    "lon": -81.0553,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Alta|UT",
     "name": "Alta",
     "state": "UT",
-    "lat": 40.590404,
-    "lon": -111.635216,
+    "lat": 40.5884,
+    "lon": -111.6386,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "801-359-1078",
+    "skiPatrolLocation": "Albion or Wildcat base",
+    "resortPhone": "801-359-1078",
+    "website": "https://www.alta.com",
+    "sourceUrl": "https://www.alta.com/mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Alyeska|AK",
+    "name": "Alyeska",
+    "state": "AK",
+    "lat": 60.9697,
+    "lon": -149.0997,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Andes Tower Hills|MN",
+    "name": "Andes Tower Hills",
+    "state": "MN",
+    "lat": 45.6667,
+    "lon": -95.3167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Angel Fire|NM",
+    "name": "Angel Fire",
+    "state": "NM",
+    "lat": 36.3906,
+    "lon": -105.2844,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Anthony Lakes|OR",
+    "name": "Anthony Lakes",
+    "state": "OR",
+    "lat": 44.9594,
+    "lon": -118.2322,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Appalachian Ski Mountain|NC",
+    "name": "Appalachian Ski Mountain",
+    "state": "NC",
+    "lat": 36.0903,
+    "lon": -81.6722,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Arapahoe Basin|CO",
+    "name": "Arapahoe Basin",
+    "state": "CO",
+    "lat": 39.6426,
+    "lon": -105.8719,
+    "region": "rockies",
+    "size": "regional",
+    "skiPatrolPhone": "970-468-0718",
+    "skiPatrolLocation": "Main base area",
+    "resortPhone": "888-272-7246",
+    "website": "https://www.arapahoebasin.com",
+    "sourceUrl": "https://www.arapahoebasin.com/the-mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Arctic Valley|AK",
+    "name": "Arctic Valley",
+    "state": "AK",
+    "lat": 61.2464,
+    "lon": -149.5383,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Aspen Highlands|CO",
+    "name": "Aspen Highlands",
+    "state": "CO",
+    "lat": 39.1822,
+    "lon": -106.8556,
+    "region": "rockies",
+    "size": "major",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Aspen Mountain|CO",
+    "name": "Aspen Mountain",
+    "state": "CO",
+    "lat": 39.1869,
+    "lon": -106.8178,
+    "region": "rockies",
+    "size": "major",
+    "passNetwork": "ikon",
+    "skiPatrolPhone": "970-920-0770",
+    "skiPatrolLocation": "Silver Queen Gondola base",
+    "resortPhone": "800-525-6200",
+    "website": "https://www.aspensnowmass.com",
+    "sourceUrl": "https://www.aspensnowmass.com/our-mountains/safety",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Aspen Snowmass|CO",
     "name": "Aspen Snowmass",
     "state": "CO",
-    "lat": 39.185718,
-    "lon": -106.944852,
+    "lat": 39.2084,
+    "lon": -106.949,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "970-925-1220",
+    "skiPatrolLocation": "Any lift or base area",
+    "resortPhone": "800-525-6200",
+    "website": "https://www.aspensnowmass.com",
+    "sourceUrl": "https://www.aspensnowmass.com/our-mountains/safety",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Attitash|NH",
     "name": "Attitash",
     "state": "NH",
-    "lat": 44.07421,
-    "lon": -71.244665,
+    "lat": 44.0836,
+    "lon": -71.2294,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "northeast"
+    "skiPatrolPhone": "603-374-2368",
+    "skiPatrolLocation": "Base lodge",
+    "resortPhone": "603-374-2368",
+    "website": "https://www.attitash.com",
+    "sourceUrl": "https://www.attitash.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Badger Pass|CA",
+    "name": "Badger Pass",
+    "state": "CA",
+    "lat": 37.6625,
+    "lon": -119.6636,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Baker Mountain|ME",
+    "name": "Baker Mountain",
+    "state": "ME",
+    "lat": 45.0833,
+    "lon": -68.4833,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Bear Creek|PA",
+    "name": "Bear Creek",
+    "state": "PA",
+    "lat": 41.0606,
+    "lon": -75.7142,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Bear Valley|CA",
+    "name": "Bear Valley",
+    "state": "CA",
+    "lat": 38.4697,
+    "lon": -120.0408,
+    "region": "west",
+    "size": "regional"
   },
   {
     "id": "Beaver Creek|CO",
     "name": "Beaver Creek",
     "state": "CO",
-    "lat": 39.604879,
-    "lon": -106.515002,
+    "lat": 39.6042,
+    "lon": -106.5165,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-754-5360",
+    "skiPatrolLocation": "Village base or mid-mountain",
+    "resortPhone": "970-754-4636",
+    "website": "https://www.beavercreek.com",
+    "sourceUrl": "https://www.beavercreek.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Beaver Mountain|UT",
+    "name": "Beaver Mountain",
+    "state": "UT",
+    "lat": 41.9681,
+    "lon": -111.5453,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Beech Mountain|NC",
+    "name": "Beech Mountain",
+    "state": "NC",
+    "lat": 36.1853,
+    "lon": -81.8822,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Belleayre|NY",
+    "name": "Belleayre",
+    "state": "NY",
+    "lat": 42.1328,
+    "lon": -74.5011,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Berkshire East|MA",
+    "name": "Berkshire East",
+    "state": "MA",
+    "lat": 42.6278,
+    "lon": -72.8856,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Big Bear Mountain Resort|CA",
@@ -59,565 +285,3132 @@
     "state": "CA",
     "lat": 34.2364,
     "lon": -116.8906,
+    "region": "west",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "west"
+    "skiPatrolPhone": "909-866-5766",
+    "skiPatrolLocation": "Bear Mountain or Snow Summit base",
+    "resortPhone": "844-462-2327",
+    "website": "https://www.bigbearmountainresort.com",
+    "sourceUrl": "https://www.bigbearmountainresort.com/mountain-info/safety",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Big Boulder|PA",
     "name": "Big Boulder",
     "state": "PA",
-    "lat": 41.046652,
-    "lon": -75.599762,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 41.1028,
+    "lon": -75.5611,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Big Powderhorn|MI",
+    "name": "Big Powderhorn",
+    "state": "MI",
+    "lat": 46.4889,
+    "lon": -90.0919,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Big Sky|MT",
     "name": "Big Sky",
     "state": "MT",
-    "lat": 45.258964,
-    "lon": -111.308725,
+    "lat": 45.2858,
+    "lon": -111.4019,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "406-995-5848",
+    "skiPatrolLocation": "Mountain Village base or any lift",
+    "resortPhone": "800-548-4486",
+    "website": "https://www.bigskyresort.com",
+    "sourceUrl": "https://www.bigskyresort.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Bigrock|ME",
+    "name": "Bigrock",
+    "state": "ME",
+    "lat": 46.6617,
+    "lon": -68.0775,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Bittersweet|MI",
+    "name": "Bittersweet",
+    "state": "MI",
+    "lat": 42.0906,
+    "lon": -86.1561,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Black Mountain|NH",
+    "name": "Black Mountain",
+    "state": "NH",
+    "lat": 44.0517,
+    "lon": -71.1247,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Black Mountain of Maine|ME",
+    "name": "Black Mountain of Maine",
+    "state": "ME",
+    "lat": 44.4172,
+    "lon": -70.6944,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Blackjack|MI",
+    "name": "Blackjack",
+    "state": "MI",
+    "lat": 46.4708,
+    "lon": -89.9861,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Blacktail Mountain|MT",
+    "name": "Blacktail Mountain",
+    "state": "MT",
+    "lat": 48.0125,
+    "lon": -114.3653,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Blue Hills|MA",
+    "name": "Blue Hills",
+    "state": "MA",
+    "lat": 42.2125,
+    "lon": -71.1125,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Blue Knob|PA",
+    "name": "Blue Knob",
+    "state": "PA",
+    "lat": 40.2878,
+    "lon": -78.5567,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Blue Mountain|PA",
     "name": "Blue Mountain",
     "state": "PA",
-    "lat": 40.9498,
-    "lon": -75.5157,
-    "passNetwork": "independent",
-    "region": "northeast"
+    "lat": 40.8231,
+    "lon": -75.9419,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Bluewood|WA",
+    "name": "Bluewood",
+    "state": "WA",
+    "lat": 46.0828,
+    "lon": -117.8517,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Bogus Basin|ID",
+    "name": "Bogus Basin",
+    "state": "ID",
+    "lat": 43.7647,
+    "lon": -116.1028,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Bolton Valley|VT",
+    "name": "Bolton Valley",
+    "state": "VT",
+    "lat": 44.4217,
+    "lon": -72.85,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Boreal|CA",
+    "name": "Boreal",
+    "state": "CA",
+    "lat": 39.3328,
+    "lon": -120.3486,
+    "region": "west",
+    "size": "regional"
   },
   {
     "id": "Boston Mills|OH",
     "name": "Boston Mills",
     "state": "OH",
-    "lat": 41.263692,
-    "lon": -81.564326,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 41.2628,
+    "lon": -81.5464,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Bousquet|MA",
+    "name": "Bousquet",
+    "state": "MA",
+    "lat": 42.4414,
+    "lon": -73.2503,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Boyce Park|PA",
+    "name": "Boyce Park",
+    "state": "PA",
+    "lat": 40.4333,
+    "lon": -79.7333,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Boyne Highlands|MI",
     "name": "Boyne Highlands",
     "state": "MI",
-    "lat": 45.47703,
-    "lon": -84.945421,
-    "passNetwork": "ikon",
-    "region": "midwest"
+    "lat": 45.4675,
+    "lon": -84.915,
+    "region": "midwest",
+    "size": "major",
+    "passNetwork": "ikon"
   },
   {
     "id": "Boyne Mountain|MI",
     "name": "Boyne Mountain",
     "state": "MI",
-    "lat": 45.15862,
-    "lon": -84.938936,
-    "passNetwork": "ikon",
-    "region": "midwest"
+    "lat": 45.1653,
+    "lon": -84.9253,
+    "region": "midwest",
+    "size": "major",
+    "passNetwork": "ikon"
   },
   {
     "id": "Brandywine|OH",
     "name": "Brandywine",
     "state": "OH",
-    "lat": 40.865613,
-    "lon": -82.939075,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 41.2367,
+    "lon": -81.5081,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Brantling|NY",
+    "name": "Brantling",
+    "state": "NY",
+    "lat": 43.0333,
+    "lon": -77.2833,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Breckenridge|CO",
     "name": "Breckenridge",
     "state": "CO",
-    "lat": 39.482912,
-    "lon": -106.046549,
+    "lat": 39.4817,
+    "lon": -106.0384,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-453-5000",
+    "skiPatrolLocation": "Peak 8 base or any lift tower",
+    "resortPhone": "970-453-5000",
+    "website": "https://www.breckenridge.com",
+    "sourceUrl": "https://www.breckenridge.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Bretton Woods|NH",
+    "name": "Bretton Woods",
+    "state": "NH",
+    "lat": 44.2531,
+    "lon": -71.4622,
+    "region": "northeast",
+    "size": "regional",
+    "skiPatrolPhone": "603-278-3320",
+    "skiPatrolLocation": "Base lodge",
+    "resortPhone": "603-278-3320",
+    "website": "https://www.brettonwoods.com",
+    "sourceUrl": "https://www.brettonwoods.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Brian Head|UT",
+    "name": "Brian Head",
+    "state": "UT",
+    "lat": 37.7022,
+    "lon": -112.8497,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Bridger Bowl|MT",
+    "name": "Bridger Bowl",
+    "state": "MT",
+    "lat": 45.8175,
+    "lon": -110.8972,
+    "region": "rockies",
+    "size": "regional"
   },
   {
     "id": "Brighton|UT",
     "name": "Brighton",
     "state": "UT",
-    "lat": 40.601822,
-    "lon": -111.583314,
+    "lat": 40.598,
+    "lon": -111.5833,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "801-532-4731",
+    "skiPatrolLocation": "Main base lodge",
+    "resortPhone": "801-532-4731",
+    "website": "https://www.brightonresort.com",
+    "sourceUrl": "https://brightonresort.com/mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Bristol Mountain|NY",
+    "name": "Bristol Mountain",
+    "state": "NY",
+    "lat": 42.7353,
+    "lon": -77.4097,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Bromley|VT",
+    "name": "Bromley",
+    "state": "VT",
+    "lat": 43.215,
+    "lon": -72.9369,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Brundage Mountain|ID",
+    "name": "Brundage Mountain",
+    "state": "ID",
+    "lat": 44.9414,
+    "lon": -116.1539,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Bryce Resort|VA",
+    "name": "Bryce Resort",
+    "state": "VA",
+    "lat": 38.8361,
+    "lon": -78.7569,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Buck Hill|MN",
+    "name": "Buck Hill",
+    "state": "MN",
+    "lat": 44.7333,
+    "lon": -93.2833,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Buena Vista|MN",
+    "name": "Buena Vista",
+    "state": "MN",
+    "lat": 46.0833,
+    "lon": -95.2333,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Burke Mountain|VT",
+    "name": "Burke Mountain",
+    "state": "VT",
+    "lat": 44.5853,
+    "lon": -71.8969,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Buttermilk|CO",
+    "name": "Buttermilk",
+    "state": "CO",
+    "lat": 39.2069,
+    "lon": -106.8686,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Caberfae Peaks|MI",
+    "name": "Caberfae Peaks",
+    "state": "MI",
+    "lat": 44.2533,
+    "lon": -85.6372,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Camden Snow Bowl|ME",
+    "name": "Camden Snow Bowl",
+    "state": "ME",
+    "lat": 44.2167,
+    "lon": -69.0639,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Camelback|PA",
+    "name": "Camelback",
+    "state": "PA",
+    "lat": 41.0522,
+    "lon": -75.3583,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Campgaw Mountain|NJ",
+    "name": "Campgaw Mountain",
+    "state": "NJ",
+    "lat": 41.0597,
+    "lon": -74.1731,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Canaan Valley|WV",
+    "name": "Canaan Valley",
+    "state": "WV",
+    "lat": 39.0022,
+    "lon": -79.4481,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Cannon Mountain|NH",
+    "name": "Cannon Mountain",
+    "state": "NH",
+    "lat": 44.1567,
+    "lon": -71.6986,
+    "region": "northeast",
+    "size": "major",
+    "skiPatrolPhone": "603-823-8800",
+    "skiPatrolLocation": "Tramway base",
+    "resortPhone": "603-823-8800",
+    "website": "https://www.cannonmt.com",
+    "sourceUrl": "https://www.cannonmt.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Cannonsburg|MI",
+    "name": "Cannonsburg",
+    "state": "MI",
+    "lat": 43.0433,
+    "lon": -85.4875,
+    "region": "midwest",
+    "size": "major"
+  },
+  {
+    "id": "Cascade Mountain|WI",
+    "name": "Cascade Mountain",
+    "state": "WI",
+    "lat": 43.5436,
+    "lon": -89.6108,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Cataloochee|NC",
+    "name": "Cataloochee",
+    "state": "NC",
+    "lat": 35.5833,
+    "lon": -83.0833,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Catamount|NY",
+    "name": "Catamount",
+    "state": "NY",
+    "lat": 42.1711,
+    "lon": -73.4914,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Catamount|MA",
+    "name": "Catamount",
+    "state": "MA",
+    "lat": 42.1711,
+    "lon": -73.4914,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Chapman Hill|CO",
+    "name": "Chapman Hill",
+    "state": "CO",
+    "lat": 37.2758,
+    "lon": -107.8806,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Cherry Peak|UT",
+    "name": "Cherry Peak",
+    "state": "UT",
+    "lat": 41.9289,
+    "lon": -111.7569,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "China Peak|CA",
+    "name": "China Peak",
+    "state": "CA",
+    "lat": 37.2342,
+    "lon": -119.1572,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Christmas Mountain|WI",
+    "name": "Christmas Mountain",
+    "state": "WI",
+    "lat": 43.5833,
+    "lon": -89.7833,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Clear Fork|OH",
+    "name": "Clear Fork",
+    "state": "OH",
+    "lat": 40.6333,
+    "lon": -82.5667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Cochran's|VT",
+    "name": "Cochran's",
+    "state": "VT",
+    "lat": 44.3375,
+    "lon": -72.9419,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Coffee Mill|MN",
+    "name": "Coffee Mill",
+    "state": "MN",
+    "lat": 44.4,
+    "lon": -92.0167,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Copper Mountain|CO",
     "name": "Copper Mountain",
     "state": "CO",
-    "lat": 39.478088,
-    "lon": -106.162889,
+    "lat": 39.5022,
+    "lon": -106.1497,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "970-968-2882",
+    "skiPatrolLocation": "Center Village base",
+    "resortPhone": "866-841-2481",
+    "website": "https://www.coppercolorado.com",
+    "sourceUrl": "https://www.coppercolorado.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Cranmore|NH",
+    "name": "Cranmore",
+    "state": "NH",
+    "lat": 44.0536,
+    "lon": -71.1097,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Crested Butte|CO",
     "name": "Crested Butte",
     "state": "CO",
-    "lat": 38.86982,
-    "lon": -106.984043,
+    "lat": 38.8986,
+    "lon": -106.9653,
+    "region": "rockies",
+    "size": "regional",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-349-2323",
+    "skiPatrolLocation": "Red Lady Express base",
+    "resortPhone": "970-349-2222",
+    "website": "https://www.skicb.com",
+    "sourceUrl": "https://www.skicb.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
   },
   {
-    "id": "Crotched|NH",
-    "name": "Crotched",
+    "id": "Crotched Mountain|NH",
+    "name": "Crotched Mountain",
     "state": "NH",
-    "lat": 42.998291,
-    "lon": -71.873907,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 42.9892,
+    "lon": -71.8731,
+    "region": "northeast",
+    "size": "regional",
+    "passNetwork": "epic"
   },
   {
     "id": "Crystal Mountain|WA",
     "name": "Crystal Mountain",
     "state": "WA",
-    "lat": 46.932736,
-    "lon": -121.487729,
+    "lat": 46.9286,
+    "lon": -121.5044,
+    "region": "pacific-northwest",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "pacific-northwest"
+    "skiPatrolPhone": "360-663-3050",
+    "skiPatrolLocation": "Base area or any lift",
+    "resortPhone": "360-663-3050",
+    "website": "https://www.crystalmountainresort.com",
+    "sourceUrl": "https://www.crystalmountainresort.com/mountain-info/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Crystal Mountain|MI",
+    "name": "Crystal Mountain",
+    "state": "MI",
+    "lat": 44.5242,
+    "lon": -85.9914,
+    "region": "midwest",
+    "size": "major",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Dartmouth Skiway|NH",
+    "name": "Dartmouth Skiway",
+    "state": "NH",
+    "lat": 43.7736,
+    "lon": -72.0814,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Deer Mountain|SD",
+    "name": "Deer Mountain",
+    "state": "SD",
+    "lat": 44.3333,
+    "lon": -103.95,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Deer Valley|UT",
     "name": "Deer Valley",
     "state": "UT",
-    "lat": 40.638231,
-    "lon": -111.477062,
+    "lat": 40.6375,
+    "lon": -111.4783,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "435-645-6632",
+    "skiPatrolLocation": "Snow Park Lodge base",
+    "resortPhone": "435-649-1000",
+    "website": "https://www.deervalley.com",
+    "sourceUrl": "https://www.deervalley.com/plan-your-trip/safety",
+    "lastVerified": "2026-01-06"
   },
   {
-    "id": "Eldora Mountain Resort|CO",
-    "name": "Eldora Mountain Resort",
+    "id": "Detroit Mountain|MN",
+    "name": "Detroit Mountain",
+    "state": "MN",
+    "lat": 46.85,
+    "lon": -95.8667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Devil's Head|WI",
+    "name": "Devil's Head",
+    "state": "WI",
+    "lat": 43.4333,
+    "lon": -89.7,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Diamond Peak|CA",
+    "name": "Diamond Peak",
+    "state": "CA",
+    "lat": 39.2536,
+    "lon": -119.9208,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Discovery|MT",
+    "name": "Discovery",
+    "state": "MT",
+    "lat": 46.2472,
+    "lon": -113.2378,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Dodge Ridge|CA",
+    "name": "Dodge Ridge",
+    "state": "CA",
+    "lat": 38.19,
+    "lon": -119.9556,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Dry Hill|NY",
+    "name": "Dry Hill",
+    "state": "NY",
+    "lat": 43.75,
+    "lon": -75.5167,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Eagle Point|UT",
+    "name": "Eagle Point",
+    "state": "UT",
+    "lat": 38.3203,
+    "lon": -112.3839,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Eaglecrest|AK",
+    "name": "Eaglecrest",
+    "state": "AK",
+    "lat": 58.2775,
+    "lon": -134.5167,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Echo Mountain|CO",
+    "name": "Echo Mountain",
+    "state": "CO",
+    "lat": 39.6847,
+    "lon": -105.5172,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Echo Valley|WA",
+    "name": "Echo Valley",
+    "state": "WA",
+    "lat": 47.4839,
+    "lon": -120.0731,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Eldora|CO",
+    "name": "Eldora",
     "state": "CO",
     "lat": 39.9372,
-    "lon": -105.5827,
-    "passNetwork": "ikon",
-    "region": "rockies"
+    "lon": -105.5828,
+    "region": "rockies",
+    "size": "regional",
+    "passNetwork": "ikon"
   },
   {
-    "id": "Heavenly|CA/NV",
+    "id": "Elk Mountain|PA",
+    "name": "Elk Mountain",
+    "state": "PA",
+    "lat": 41.7083,
+    "lon": -75.5722,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Ferguson Ridge|OR",
+    "name": "Ferguson Ridge",
+    "state": "OR",
+    "lat": 45.2489,
+    "lon": -117.235,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Four Seasons|NY",
+    "name": "Four Seasons",
+    "state": "NY",
+    "lat": 43.3833,
+    "lon": -75.6833,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Giants Ridge|MN",
+    "name": "Giants Ridge",
+    "state": "MN",
+    "lat": 47.5667,
+    "lon": -92.3667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Gore Mountain|NY",
+    "name": "Gore Mountain",
+    "state": "NY",
+    "lat": 43.6744,
+    "lon": -74.0017,
+    "region": "northeast",
+    "size": "major",
+    "skiPatrolPhone": "518-251-2411",
+    "skiPatrolLocation": "Base lodge",
+    "resortPhone": "518-251-2411",
+    "website": "https://www.goremountain.com",
+    "sourceUrl": "https://www.goremountain.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Grand Targhee|WY",
+    "name": "Grand Targhee",
+    "state": "WY",
+    "lat": 43.79,
+    "lon": -110.9586,
+    "region": "rockies",
+    "size": "regional",
+    "skiPatrolPhone": "307-353-2300",
+    "skiPatrolLocation": "Main base",
+    "resortPhone": "800-827-4433",
+    "website": "https://www.grandtarghee.com",
+    "sourceUrl": "https://www.grandtarghee.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Granite Peak|WI",
+    "name": "Granite Peak",
+    "state": "WI",
+    "lat": 44.9319,
+    "lon": -89.6847,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Great Divide|MT",
+    "name": "Great Divide",
+    "state": "MT",
+    "lat": 46.7472,
+    "lon": -112.3161,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Greek Peak|NY",
+    "name": "Greek Peak",
+    "state": "NY",
+    "lat": 42.5086,
+    "lon": -76.1453,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Gunstock|NH",
+    "name": "Gunstock",
+    "state": "NH",
+    "lat": 43.5497,
+    "lon": -71.3656,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Heavenly|CA",
     "name": "Heavenly",
-    "state": "CA/NV",
-    "lat": 38.940452,
-    "lon": -119.897421,
+    "state": "CA",
+    "lat": 38.9353,
+    "lon": -119.94,
+    "region": "west",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "west"
+    "skiPatrolPhone": "775-586-7000",
+    "skiPatrolLocation": "Gondola base or California base",
+    "resortPhone": "775-586-7000",
+    "website": "https://www.skiheavenly.com",
+    "sourceUrl": "https://www.skiheavenly.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Hermon Mountain|ME",
+    "name": "Hermon Mountain",
+    "state": "ME",
+    "lat": 44.7958,
+    "lon": -68.915,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Hesperus|CO",
+    "name": "Hesperus",
+    "state": "CO",
+    "lat": 37.2983,
+    "lon": -108.055,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Hidden Valley|PA",
+    "name": "Hidden Valley",
+    "state": "PA",
+    "lat": 40.0508,
+    "lon": -79.2442,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Hidden Valley|MO",
     "name": "Hidden Valley",
     "state": "MO",
-    "lat": 38.535899,
-    "lon": -90.653808,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 38.5167,
+    "lon": -90.65,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
-    "id": "Hidden Valley Resort|PA",
-    "name": "Hidden Valley Resort",
-    "state": "PA",
-    "lat": 40.059028,
-    "lon": -79.25288,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "id": "Hilltop|AK",
+    "name": "Hilltop",
+    "state": "AK",
+    "lat": 61.14,
+    "lon": -149.73,
+    "region": "pacific-northwest",
+    "size": "local"
   },
   {
-    "id": "Hunter|NY",
-    "name": "Hunter",
+    "id": "Hogadon Basin|WY",
+    "name": "Hogadon Basin",
+    "state": "WY",
+    "lat": 42.7472,
+    "lon": -106.3275,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Holiday Valley|NY",
+    "name": "Holiday Valley",
     "state": "NY",
-    "lat": 42.213699,
-    "lon": -74.218754,
-    "passNetwork": "independent",
-    "region": "northeast"
+    "lat": 42.2672,
+    "lon": -78.6708,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Homewood|CA",
+    "name": "Homewood",
+    "state": "CA",
+    "lat": 39.0858,
+    "lon": -120.1606,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Hoodoo|OR",
+    "name": "Hoodoo",
+    "state": "OR",
+    "lat": 44.4083,
+    "lon": -121.8722,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Huff Hills|ND",
+    "name": "Huff Hills",
+    "state": "ND",
+    "lat": 46.6333,
+    "lon": -100.6667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Hunt Hollow|NY",
+    "name": "Hunt Hollow",
+    "state": "NY",
+    "lat": 42.6267,
+    "lon": -77.4983,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Hunter Mountain|NY",
+    "name": "Hunter Mountain",
+    "state": "NY",
+    "lat": 42.2019,
+    "lon": -74.2258,
+    "region": "northeast",
+    "size": "major",
+    "passNetwork": "epic",
+    "skiPatrolPhone": "518-263-4223",
+    "skiPatrolLocation": "Base lodge",
+    "resortPhone": "518-263-4223",
+    "website": "https://www.huntermtn.com",
+    "sourceUrl": "https://www.huntermtn.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Hurricane Ridge|WA",
+    "name": "Hurricane Ridge",
+    "state": "WA",
+    "lat": 47.97,
+    "lon": -123.4983,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Indianhead|MI",
+    "name": "Indianhead",
+    "state": "MI",
+    "lat": 46.4419,
+    "lon": -89.9419,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Jack Frost|PA",
     "name": "Jack Frost",
     "state": "PA",
-    "lat": 40.108035,
-    "lon": -75.163741,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 41.0639,
+    "lon": -75.5236,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Jackson Hole|WY",
     "name": "Jackson Hole",
     "state": "WY",
-    "lat": 43.684017,
-    "lon": -110.443663,
+    "lat": 43.5875,
+    "lon": -110.8278,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "307-733-2292",
+    "skiPatrolLocation": "Tram base or Bridger Gondola",
+    "resortPhone": "888-333-7766",
+    "website": "https://www.jacksonhole.com",
+    "sourceUrl": "https://www.jacksonhole.com/mountain-safety.html",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Jay Peak|VT",
+    "name": "Jay Peak",
+    "state": "VT",
+    "lat": 44.9261,
+    "lon": -72.5053,
+    "region": "northeast",
+    "size": "regional",
+    "skiPatrolPhone": "802-988-2611",
+    "skiPatrolLocation": "Tram or Flyer base",
+    "resortPhone": "802-988-2611",
+    "website": "https://jaypeakresort.com",
+    "sourceUrl": "https://jaypeakresort.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Jiminy Peak|MA",
+    "name": "Jiminy Peak",
+    "state": "MA",
+    "lat": 42.5539,
+    "lon": -73.2722,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "June Mountain|CA",
     "name": "June Mountain",
     "state": "CA",
-    "lat": 37.739932,
-    "lon": -119.070144,
-    "passNetwork": "ikon",
-    "region": "west"
+    "lat": 37.7675,
+    "lon": -119.0894,
+    "region": "west",
+    "size": "regional",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Kelly Canyon|ID",
+    "name": "Kelly Canyon",
+    "state": "ID",
+    "lat": 43.5983,
+    "lon": -111.65,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Kendall Mountain|CO",
+    "name": "Kendall Mountain",
+    "state": "CO",
+    "lat": 37.8117,
+    "lon": -107.66,
+    "region": "rockies",
+    "size": "regional"
   },
   {
     "id": "Keystone|CO",
     "name": "Keystone",
     "state": "CO",
-    "lat": 39.596564,
-    "lon": -105.934034,
+    "lat": 39.6069,
+    "lon": -105.9498,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-496-4111",
+    "skiPatrolLocation": "River Run base area",
+    "resortPhone": "970-496-4111",
+    "website": "https://www.keystoneresort.com",
+    "sourceUrl": "https://www.keystoneresort.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Killington|VT",
     "name": "Killington",
     "state": "VT",
-    "lat": 43.67433,
-    "lon": -72.778445,
+    "lat": 43.6045,
+    "lon": -72.8201,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "802-422-6237",
+    "skiPatrolLocation": "K-1 base or Snowshed",
+    "resortPhone": "800-621-6867",
+    "website": "https://www.killington.com",
+    "sourceUrl": "https://www.killington.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "King Pine|NH",
+    "name": "King Pine",
+    "state": "NH",
+    "lat": 43.8206,
+    "lon": -71.1397,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Kirkwood|CA",
     "name": "Kirkwood",
     "state": "CA",
-    "lat": 38.702686,
-    "lon": -120.072685,
+    "lat": 38.685,
+    "lon": -120.0653,
+    "region": "west",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "west"
+    "skiPatrolPhone": "209-258-6000",
+    "skiPatrolLocation": "Main base",
+    "resortPhone": "209-258-6000",
+    "website": "https://www.kirkwood.com",
+    "sourceUrl": "https://www.kirkwood.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Kissing Bridge|NY",
+    "name": "Kissing Bridge",
+    "state": "NY",
+    "lat": 42.6036,
+    "lon": -78.7167,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Labrador Mountain|NY",
+    "name": "Labrador Mountain",
+    "state": "NY",
+    "lat": 42.78,
+    "lon": -76.0469,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Laurel Mountain|PA",
     "name": "Laurel Mountain",
     "state": "PA",
-    "lat": 40.211184,
-    "lon": -79.185031,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 40.1708,
+    "lon": -79.1653,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Lee Canyon|NV",
+    "name": "Lee Canyon",
+    "state": "NV",
+    "lat": 36.3089,
+    "lon": -115.6817,
+    "region": "west",
+    "size": "local"
   },
   {
     "id": "Liberty Mountain|PA",
     "name": "Liberty Mountain",
     "state": "PA",
-    "lat": 39.760637,
-    "lon": -77.368534,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 39.7583,
+    "lon": -77.375,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Little Switzerland|WI",
+    "name": "Little Switzerland",
+    "state": "WI",
+    "lat": 42.6083,
+    "lon": -88.0833,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Lookout Pass|MT",
+    "name": "Lookout Pass",
+    "state": "MT",
+    "lat": 47.4544,
+    "lon": -115.7092,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Lookout Pass|ID",
+    "name": "Lookout Pass",
+    "state": "ID",
+    "lat": 47.4544,
+    "lon": -115.7092,
+    "region": "rockies",
+    "size": "local"
   },
   {
     "id": "Loon Mountain|NH",
     "name": "Loon Mountain",
     "state": "NH",
-    "lat": 44.034872,
-    "lon": -71.620687,
+    "lat": 44.0364,
+    "lon": -71.6214,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "603-745-8111",
+    "skiPatrolLocation": "Octagon Lodge base",
+    "resortPhone": "603-745-8111",
+    "website": "https://www.loonmtn.com",
+    "sourceUrl": "https://www.loonmtn.com/mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Lost Trail|MT",
+    "name": "Lost Trail",
+    "state": "MT",
+    "lat": 45.6928,
+    "lon": -113.9497,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Lost Valley|ME",
+    "name": "Lost Valley",
+    "state": "ME",
+    "lat": 44.1042,
+    "lon": -70.2214,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Loup Loup|WA",
+    "name": "Loup Loup",
+    "state": "WA",
+    "lat": 48.3908,
+    "lon": -119.9069,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Loveland|CO",
+    "name": "Loveland",
+    "state": "CO",
+    "lat": 39.68,
+    "lon": -105.8978,
+    "region": "rockies",
+    "size": "regional",
+    "skiPatrolLocation": "Basin or Valley base",
+    "resortPhone": "303-571-5580",
+    "website": "https://skiloveland.com",
+    "sourceUrl": "https://skiloveland.com/the-mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Lutsen Mountains|MN",
+    "name": "Lutsen Mountains",
+    "state": "MN",
+    "lat": 47.6611,
+    "lon": -90.7097,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Lyndon Outing Club|VT",
+    "name": "Lyndon Outing Club",
+    "state": "VT",
+    "lat": 44.5203,
+    "lon": -72.0194,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Mad River Glen|VT",
+    "name": "Mad River Glen",
+    "state": "VT",
+    "lat": 44.2042,
+    "lon": -72.915,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Mad River Mountain|OH",
     "name": "Mad River Mountain",
     "state": "OH",
-    "lat": 40.317239,
-    "lon": -83.675258,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 40.3167,
+    "lon": -83.6833,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Magic Mountain|ID",
+    "name": "Magic Mountain",
+    "state": "ID",
+    "lat": 42.2106,
+    "lon": -114.285,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Magic Mountain|VT",
+    "name": "Magic Mountain",
+    "state": "VT",
+    "lat": 43.2011,
+    "lon": -72.7767,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Mammoth Mountain|CA",
     "name": "Mammoth Mountain",
     "state": "CA",
-    "lat": 37.630769,
-    "lon": -119.032634,
+    "lat": 37.6308,
+    "lon": -119.0326,
+    "region": "west",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "west"
+    "skiPatrolPhone": "760-934-2571",
+    "skiPatrolLocation": "Main Lodge or Canyon Lodge",
+    "resortPhone": "800-626-6684",
+    "website": "https://www.mammothmountain.com",
+    "sourceUrl": "https://www.mammothmountain.com/mountain-info/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Mansfield|OH",
+    "name": "Mansfield",
+    "state": "OH",
+    "lat": 40.6167,
+    "lon": -82.5333,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Maple Ski Ridge|NY",
+    "name": "Maple Ski Ridge",
+    "state": "NY",
+    "lat": 42.8444,
+    "lon": -74.0403,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Marquette Mountain|MI",
+    "name": "Marquette Mountain",
+    "state": "MI",
+    "lat": 46.5167,
+    "lon": -87.45,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Massanutten|VA",
+    "name": "Massanutten",
+    "state": "VA",
+    "lat": 38.4083,
+    "lon": -78.7361,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Maverick Mountain|MT",
+    "name": "Maverick Mountain",
+    "state": "MT",
+    "lat": 45.4625,
+    "lon": -113.15,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "McCauley Mountain|NY",
+    "name": "McCauley Mountain",
+    "state": "NY",
+    "lat": 43.6833,
+    "lon": -74.95,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "McIntyre Ski Area|NH",
+    "name": "McIntyre Ski Area",
+    "state": "NH",
+    "lat": 43.1258,
+    "lon": -70.9169,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Middlebury Snow Bowl|VT",
+    "name": "Middlebury Snow Bowl",
+    "state": "VT",
+    "lat": 43.9422,
+    "lon": -72.9353,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Mission Ridge|WA",
+    "name": "Mission Ridge",
+    "state": "WA",
+    "lat": 47.2922,
+    "lon": -120.3972,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Mohawk Mountain|CT",
+    "name": "Mohawk Mountain",
+    "state": "CT",
+    "lat": 41.8403,
+    "lon": -73.3158,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Monarch Mountain|CO",
+    "name": "Monarch Mountain",
+    "state": "CO",
+    "lat": 38.5122,
+    "lon": -106.3322,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Mont Ripley|MI",
+    "name": "Mont Ripley",
+    "state": "MI",
+    "lat": 47.1167,
+    "lon": -88.5667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Montage Mountain|PA",
+    "name": "Montage Mountain",
+    "state": "PA",
+    "lat": 41.3536,
+    "lon": -75.6025,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Moonlight Basin|MT",
+    "name": "Moonlight Basin",
+    "state": "MT",
+    "lat": 45.2833,
+    "lon": -111.45,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Mount Frontenac|MN",
+    "name": "Mount Frontenac",
+    "state": "MN",
+    "lat": 44.5167,
+    "lon": -92.35,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Mount Greylock|MA",
+    "name": "Mount Greylock",
+    "state": "MA",
+    "lat": 42.6375,
+    "lon": -73.1667,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Mount Kato|MN",
+    "name": "Mount Kato",
+    "state": "MN",
+    "lat": 44.1333,
+    "lon": -94.0167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Mount Peter|NY",
+    "name": "Mount Peter",
+    "state": "NY",
+    "lat": 41.2125,
+    "lon": -74.3122,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Mount Snow|VT",
     "name": "Mount Snow",
     "state": "VT",
-    "lat": 42.959253,
-    "lon": -72.923761,
+    "lat": 42.9603,
+    "lon": -72.9206,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "northeast"
+    "skiPatrolPhone": "802-464-4152",
+    "skiPatrolLocation": "Main base lodge",
+    "resortPhone": "802-464-4040",
+    "website": "https://www.mountsnow.com",
+    "sourceUrl": "https://www.mountsnow.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Mount Southington|CT",
+    "name": "Mount Southington",
+    "state": "CT",
+    "lat": 41.5608,
+    "lon": -72.8792,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Mount Sunapee|NH",
     "name": "Mount Sunapee",
     "state": "NH",
-    "lat": 43.340631,
-    "lon": -72.070918,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 43.3264,
+    "lon": -72.0869,
+    "region": "northeast",
+    "size": "regional",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Mountain Creek|NJ",
+    "name": "Mountain Creek",
+    "state": "NJ",
+    "lat": 41.2014,
+    "lon": -74.5119,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Mountain High|CA",
+    "name": "Mountain High",
+    "state": "CA",
+    "lat": 34.3722,
+    "lon": -117.6911,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Mt Abram|ME",
+    "name": "Mt Abram",
+    "state": "ME",
+    "lat": 44.3756,
+    "lon": -70.6522,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Mt Ashland|OR",
+    "name": "Mt Ashland",
+    "state": "OR",
+    "lat": 42.0786,
+    "lon": -122.7164,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Mt Bachelor|OR",
+    "name": "Mt Bachelor",
+    "state": "OR",
+    "lat": 43.9792,
+    "lon": -121.6889,
+    "region": "pacific-northwest",
+    "size": "local",
+    "skiPatrolPhone": "541-382-2442",
+    "skiPatrolLocation": "West Village or Sunrise base",
+    "resortPhone": "541-382-2442",
+    "website": "https://www.mtbachelor.com",
+    "sourceUrl": "https://www.mtbachelor.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Mt Baker|WA",
+    "name": "Mt Baker",
+    "state": "WA",
+    "lat": 48.8575,
+    "lon": -121.665,
+    "region": "pacific-northwest",
+    "size": "major"
   },
   {
     "id": "Mt Brighton|MI",
     "name": "Mt Brighton",
     "state": "MI",
-    "lat": 42.54101,
-    "lon": -83.810807,
-    "passNetwork": "both",
-    "region": "midwest"
+    "lat": 42.5467,
+    "lon": -83.8219,
+    "region": "midwest",
+    "size": "major",
+    "passNetwork": "both"
+  },
+  {
+    "id": "Mt Crescent|IA",
+    "name": "Mt Crescent",
+    "state": "IA",
+    "lat": 41.2833,
+    "lon": -95.8333,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Mt Holly|MI",
+    "name": "Mt Holly",
+    "state": "MI",
+    "lat": 42.7983,
+    "lon": -83.5364,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Mt Hood Meadows|OR",
+    "name": "Mt Hood Meadows",
+    "state": "OR",
+    "lat": 45.3314,
+    "lon": -121.6647,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Mt Hood Skibowl|OR",
+    "name": "Mt Hood Skibowl",
+    "state": "OR",
+    "lat": 45.3022,
+    "lon": -121.7558,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Mt Lemmon|AZ",
+    "name": "Mt Lemmon",
+    "state": "AZ",
+    "lat": 32.4431,
+    "lon": -110.7833,
+    "region": "west",
+    "size": "local"
+  },
+  {
+    "id": "Mt Rose|NV",
+    "name": "Mt Rose",
+    "state": "NV",
+    "lat": 39.3147,
+    "lon": -119.8853,
+    "region": "west",
+    "size": "local"
+  },
+  {
+    "id": "Mt Shasta Ski Park|CA",
+    "name": "Mt Shasta Ski Park",
+    "state": "CA",
+    "lat": 41.3175,
+    "lon": -122.2028,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Nashoba Valley|MA",
+    "name": "Nashoba Valley",
+    "state": "MA",
+    "lat": 42.5258,
+    "lon": -71.4458,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Nordic Valley|UT",
+    "name": "Nordic Valley",
+    "state": "UT",
+    "lat": 41.3103,
+    "lon": -111.8647,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Northeast Slopes|VT",
+    "name": "Northeast Slopes",
+    "state": "VT",
+    "lat": 44.5333,
+    "lon": -72.0833,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Northstar|CA",
     "name": "Northstar",
     "state": "CA",
     "lat": 39.2746,
-    "lon": -120.1207,
+    "lon": -120.121,
+    "region": "west",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "west"
+    "skiPatrolPhone": "530-562-1010",
+    "skiPatrolLocation": "Village base",
+    "resortPhone": "530-562-1010",
+    "website": "https://www.northstarcalifornia.com",
+    "sourceUrl": "https://www.northstarcalifornia.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Norway Mountain|MI",
+    "name": "Norway Mountain",
+    "state": "MI",
+    "lat": 45.8667,
+    "lon": -87.8833,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Nub's Nob|MI",
+    "name": "Nub's Nob",
+    "state": "MI",
+    "lat": 45.4692,
+    "lon": -84.9089,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Oak Mountain|NY",
+    "name": "Oak Mountain",
+    "state": "NY",
+    "lat": 43.15,
+    "lon": -74.3667,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Ober Gatlinburg|TN",
+    "name": "Ober Gatlinburg",
+    "state": "TN",
+    "lat": 35.7097,
+    "lon": -83.5219,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Oglebay Resort|WV",
+    "name": "Oglebay Resort",
+    "state": "WV",
+    "lat": 40.0833,
+    "lon": -80.6833,
+    "region": "southeast",
+    "size": "local"
   },
   {
     "id": "Okemo|VT",
     "name": "Okemo",
     "state": "VT",
-    "lat": 43.395853,
-    "lon": -72.75348,
+    "lat": 43.4017,
+    "lon": -72.7172,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "northeast"
+    "skiPatrolPhone": "802-228-1600",
+    "skiPatrolLocation": "Clock Tower base",
+    "resortPhone": "802-228-1600",
+    "website": "https://www.okemo.com",
+    "sourceUrl": "https://www.okemo.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Pajarito Mountain|NM",
+    "name": "Pajarito Mountain",
+    "state": "NM",
+    "lat": 35.8867,
+    "lon": -106.3919,
+    "region": "rockies",
+    "size": "local"
   },
   {
     "id": "Palisades Tahoe|CA",
     "name": "Palisades Tahoe",
     "state": "CA",
-    "lat": 39.1969,
+    "lat": 39.197,
     "lon": -120.2358,
+    "region": "west",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "west"
+    "skiPatrolPhone": "530-452-7171",
+    "skiPatrolLocation": "Village base or Alpine base",
+    "resortPhone": "800-403-0206",
+    "website": "https://www.palisadestahoe.com",
+    "sourceUrl": "https://www.palisadestahoe.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Paoli Peaks|IN",
     "name": "Paoli Peaks",
     "state": "IN",
-    "lat": 38.555882,
-    "lon": -86.51218,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 38.5617,
+    "lon": -86.4678,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Park City|UT",
     "name": "Park City",
     "state": "UT",
-    "lat": 40.646092,
-    "lon": -111.497996,
+    "lat": 40.6514,
+    "lon": -111.508,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "435-649-8111",
+    "skiPatrolLocation": "Any lift or base village",
+    "resortPhone": "435-649-8111",
+    "website": "https://www.parkcitymountain.com",
+    "sourceUrl": "https://www.parkcitymountain.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Pats Peak|NH",
+    "name": "Pats Peak",
+    "state": "NH",
+    "lat": 43.1581,
+    "lon": -71.7753,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Pebble Creek|ID",
+    "name": "Pebble Creek",
+    "state": "ID",
+    "lat": 42.7717,
+    "lon": -112.0839,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Peek'n Peak|NY",
+    "name": "Peek'n Peak",
+    "state": "NY",
+    "lat": 42.0611,
+    "lon": -79.7264,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Perfect North Slopes|IN",
+    "name": "Perfect North Slopes",
+    "state": "IN",
+    "lat": 39.15,
+    "lon": -84.9167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Pico Mountain|VT",
+    "name": "Pico Mountain",
+    "state": "VT",
+    "lat": 43.6617,
+    "lon": -72.8436,
+    "region": "northeast",
+    "size": "regional",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Pine Knob|MI",
+    "name": "Pine Knob",
+    "state": "MI",
+    "lat": 42.7539,
+    "lon": -83.4142,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Plattekill|NY",
+    "name": "Plattekill",
+    "state": "NY",
+    "lat": 42.2936,
+    "lon": -74.6508,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Pomerelle|ID",
+    "name": "Pomerelle",
+    "state": "ID",
+    "lat": 42.0753,
+    "lon": -113.6006,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Porcupine Mountains|MI",
+    "name": "Porcupine Mountains",
+    "state": "MI",
+    "lat": 46.7833,
+    "lon": -89.7167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Powder Mountain|UT",
+    "name": "Powder Mountain",
+    "state": "UT",
+    "lat": 41.3789,
+    "lon": -111.7808,
+    "region": "rockies",
+    "size": "major"
+  },
+  {
+    "id": "Powder Ridge|CT",
+    "name": "Powder Ridge",
+    "state": "CT",
+    "lat": 41.5172,
+    "lon": -72.6992,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Powder Ridge|MN",
+    "name": "Powder Ridge",
+    "state": "MN",
+    "lat": 45.5833,
+    "lon": -94.2167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Powderhorn|CO",
+    "name": "Powderhorn",
+    "state": "CO",
+    "lat": 39.0692,
+    "lon": -108.1506,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Purgatory|CO",
+    "name": "Purgatory",
+    "state": "CO",
+    "lat": 37.6301,
+    "lon": -107.814,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Ragged Mountain|NH",
+    "name": "Ragged Mountain",
+    "state": "NH",
+    "lat": 43.4656,
+    "lon": -71.8411,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Red Lodge Mountain|MT",
+    "name": "Red Lodge Mountain",
+    "state": "MT",
+    "lat": 45.1861,
+    "lon": -109.3447,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Red River|NM",
+    "name": "Red River",
+    "state": "NM",
+    "lat": 36.7108,
+    "lon": -105.4094,
+    "region": "rockies",
+    "size": "local"
   },
   {
     "id": "Roundtop|PA",
     "name": "Roundtop",
     "state": "PA",
-    "lat": 40.093129,
-    "lon": -79.666985,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 40.1072,
+    "lon": -76.9353,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Saddleback|ME",
+    "name": "Saddleback",
+    "state": "ME",
+    "lat": 44.9372,
+    "lon": -70.5108,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Sandia Peak|NM",
+    "name": "Sandia Peak",
+    "state": "NM",
+    "lat": 35.2094,
+    "lon": -106.4158,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Sapphire Valley|NC",
+    "name": "Sapphire Valley",
+    "state": "NC",
+    "lat": 35.1167,
+    "lon": -82.9833,
+    "region": "southeast",
+    "size": "local"
   },
   {
     "id": "Schweitzer|ID",
     "name": "Schweitzer",
     "state": "ID",
-    "lat": 48.3787,
-    "lon": -116.613079,
+    "lat": 48.3675,
+    "lon": -116.6228,
+    "region": "rockies",
+    "size": "local",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "208-263-9555",
+    "skiPatrolLocation": "Village base",
+    "resortPhone": "208-263-9555",
+    "website": "https://www.schweitzer.com",
+    "sourceUrl": "https://www.schweitzer.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Seven Oaks|IA",
+    "name": "Seven Oaks",
+    "state": "IA",
+    "lat": 42.0667,
+    "lon": -93.6,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Seven Springs|PA",
     "name": "Seven Springs",
     "state": "PA",
-    "lat": 40.02313,
-    "lon": -79.297255,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 40.0225,
+    "lon": -79.2978,
+    "region": "northeast",
+    "size": "major",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Shanty Creek|MI",
+    "name": "Shanty Creek",
+    "state": "MI",
+    "lat": 44.9086,
+    "lon": -85.1631,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Shawnee Mountain|PA",
+    "name": "Shawnee Mountain",
+    "state": "PA",
+    "lat": 41.0106,
+    "lon": -75.0686,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Shawnee Peak|ME",
+    "name": "Shawnee Peak",
+    "state": "ME",
+    "lat": 44.0678,
+    "lon": -70.8414,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Showdown|MT",
+    "name": "Showdown",
+    "state": "MT",
+    "lat": 46.8408,
+    "lon": -110.7136,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Sierra at Tahoe|CA",
+    "name": "Sierra at Tahoe",
+    "state": "CA",
+    "lat": 38.8022,
+    "lon": -120.08,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Silver Mountain|ID",
+    "name": "Silver Mountain",
+    "state": "ID",
+    "lat": 47.5347,
+    "lon": -116.1158,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Sipapu|NM",
+    "name": "Sipapu",
+    "state": "NM",
+    "lat": 36.0875,
+    "lon": -105.5067,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Ski Apache|NM",
+    "name": "Ski Apache",
+    "state": "NM",
+    "lat": 33.4017,
+    "lon": -105.7886,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Ski Big Bear|PA",
+    "name": "Ski Big Bear",
+    "state": "PA",
+    "lat": 41.2167,
+    "lon": -75.0833,
+    "region": "northeast",
+    "size": "major",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Ski Bluewood|WA",
+    "name": "Ski Bluewood",
+    "state": "WA",
+    "lat": 46.0828,
+    "lon": -117.8517,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Ski Brule|MI",
+    "name": "Ski Brule",
+    "state": "MI",
+    "lat": 46.0667,
+    "lon": -88.55,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Ski Butternut|MA",
+    "name": "Ski Butternut",
+    "state": "MA",
+    "lat": 42.1764,
+    "lon": -73.3017,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Ski Cooper|CO",
+    "name": "Ski Cooper",
+    "state": "CO",
+    "lat": 39.3614,
+    "lon": -106.2992,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Ski Granby Ranch|CO",
+    "name": "Ski Granby Ranch",
+    "state": "CO",
+    "lat": 40.0456,
+    "lon": -105.9144,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Ski Santa Fe|NM",
+    "name": "Ski Santa Fe",
+    "state": "NM",
+    "lat": 35.7958,
+    "lon": -105.8036,
+    "region": "rockies",
+    "size": "major"
+  },
+  {
+    "id": "Ski Sundown|CT",
+    "name": "Ski Sundown",
+    "state": "CT",
+    "lat": 41.9361,
+    "lon": -72.9536,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Ski World|IN",
+    "name": "Ski World",
+    "state": "IN",
+    "lat": 38.5833,
+    "lon": -86.2167,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Sky Valley|GA",
+    "name": "Sky Valley",
+    "state": "GA",
+    "lat": 35.0333,
+    "lon": -83.3333,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Sleeping Giant|WY",
+    "name": "Sleeping Giant",
+    "state": "WY",
+    "lat": 44.4908,
+    "lon": -109.9625,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Smugglers Notch|VT",
+    "name": "Smugglers Notch",
+    "state": "VT",
+    "lat": 44.5878,
+    "lon": -72.7872,
+    "region": "northeast",
+    "size": "regional"
   },
   {
     "id": "Snow Creek|MO",
     "name": "Snow Creek",
     "state": "MO",
-    "lat": 39.465625,
-    "lon": -94.968822,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 39.4667,
+    "lon": -94.6167,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Snow King|WY",
+    "name": "Snow King",
+    "state": "WY",
+    "lat": 43.4733,
+    "lon": -110.7583,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Snow Ridge|NY",
+    "name": "Snow Ridge",
+    "state": "NY",
+    "lat": 43.5861,
+    "lon": -75.4078,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Snow Trails|OH",
+    "name": "Snow Trails",
+    "state": "OH",
+    "lat": 40.675,
+    "lon": -82.5167,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Snow Valley|CA",
     "name": "Snow Valley",
     "state": "CA",
-    "lat": 34.2247,
+    "lat": 34.2253,
     "lon": -117.0372,
-    "passNetwork": "ikon",
-    "region": "west"
+    "region": "west",
+    "size": "regional",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Snowbasin|UT",
+    "name": "Snowbasin",
+    "state": "UT",
+    "lat": 41.216,
+    "lon": -111.8569,
+    "region": "rockies",
+    "size": "major",
+    "skiPatrolPhone": "801-620-1100",
+    "skiPatrolLocation": "Earl's Lodge or Needles base",
+    "resortPhone": "801-620-1000",
+    "website": "https://www.snowbasin.com",
+    "sourceUrl": "https://www.snowbasin.com/the-mountain/safety/",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Snowbird|UT",
     "name": "Snowbird",
     "state": "UT",
-    "lat": 40.580755,
-    "lon": -111.657296,
+    "lat": 40.583,
+    "lon": -111.6538,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "801-933-2147",
+    "skiPatrolLocation": "Entry 1 or Snowbird Center",
+    "resortPhone": "801-933-2222",
+    "website": "https://www.snowbird.com",
+    "sourceUrl": "https://www.snowbird.com/mountain-info/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Snowbowl|AZ",
+    "name": "Snowbowl",
+    "state": "AZ",
+    "lat": 35.3314,
+    "lon": -111.7108,
+    "region": "west",
+    "size": "local"
   },
   {
     "id": "Snowshoe|WV",
     "name": "Snowshoe",
     "state": "WV",
-    "lat": 38.412824,
-    "lon": -79.996442,
+    "lat": 38.4128,
+    "lon": -79.9942,
+    "region": "southeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "southeast"
+    "skiPatrolPhone": "304-572-5252",
+    "skiPatrolLocation": "Village or Silvercreek base",
+    "resortPhone": "877-441-4386",
+    "website": "https://www.snowshoemtn.com",
+    "sourceUrl": "https://www.snowshoemtn.com/mountain-info/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Snowy Range|WY",
+    "name": "Snowy Range",
+    "state": "WY",
+    "lat": 41.3475,
+    "lon": -106.1717,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Soda Springs|CA",
+    "name": "Soda Springs",
+    "state": "CA",
+    "lat": 39.3197,
+    "lon": -120.3806,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Soldier Mountain|ID",
+    "name": "Soldier Mountain",
+    "state": "ID",
+    "lat": 43.4583,
+    "lon": -114.8167,
+    "region": "rockies",
+    "size": "local"
   },
   {
     "id": "Solitude|UT",
     "name": "Solitude",
     "state": "UT",
-    "lat": 40.620246,
-    "lon": -111.591904,
+    "lat": 40.6199,
+    "lon": -111.5919,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "801-536-5777",
+    "skiPatrolLocation": "Village base area",
+    "resortPhone": "801-534-1400",
+    "website": "https://www.solitudemountain.com",
+    "sourceUrl": "https://www.solitudemountain.com/mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Song Mountain|NY",
+    "name": "Song Mountain",
+    "state": "NY",
+    "lat": 42.8131,
+    "lon": -76.0817,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Spirit Mountain|MN",
+    "name": "Spirit Mountain",
+    "state": "MN",
+    "lat": 46.7186,
+    "lon": -92.2178,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Spout Springs|OR",
+    "name": "Spout Springs",
+    "state": "OR",
+    "lat": 45.5653,
+    "lon": -118.2047,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Spring Mountain|PA",
+    "name": "Spring Mountain",
+    "state": "PA",
+    "lat": 40.28,
+    "lon": -75.4433,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Steamboat|CO",
     "name": "Steamboat",
     "state": "CO",
-    "lat": 40.4848,
-    "lon": -106.831735,
+    "lat": 40.4572,
+    "lon": -106.8045,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "970-871-5475",
+    "skiPatrolLocation": "Gondola base or any lift station",
+    "resortPhone": "970-879-6111",
+    "website": "https://www.steamboat.com",
+    "sourceUrl": "https://www.steamboat.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Stevens Pass|WA",
     "name": "Stevens Pass",
     "state": "WA",
-    "lat": 47.745635,
-    "lon": -121.089171,
+    "lat": 47.7453,
+    "lon": -121.0892,
+    "region": "pacific-northwest",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "pacific-northwest"
+    "skiPatrolPhone": "206-812-4510",
+    "skiPatrolLocation": "Main lodge",
+    "resortPhone": "206-812-4510",
+    "website": "https://www.stevenspass.com",
+    "sourceUrl": "https://www.stevenspass.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Stowe|VT",
     "name": "Stowe",
     "state": "VT",
-    "lat": 44.464377,
-    "lon": -72.68562,
+    "lat": 44.5303,
+    "lon": -72.7814,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "northeast"
+    "skiPatrolPhone": "802-253-3000",
+    "skiPatrolLocation": "Spruce Peak or Mount Mansfield base",
+    "resortPhone": "802-253-3000",
+    "website": "https://www.stowe.com",
+    "sourceUrl": "https://www.stowe.com/the-mountain/safety.aspx",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Stratton|VT",
     "name": "Stratton",
     "state": "VT",
-    "lat": 43.042856,
-    "lon": -72.910933,
+    "lat": 43.1136,
+    "lon": -72.9078,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "802-297-4211",
+    "skiPatrolLocation": "Village base",
+    "resortPhone": "800-787-2886",
+    "website": "https://www.stratton.com",
+    "sourceUrl": "https://www.stratton.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Sugar Bowl|CA",
+    "name": "Sugar Bowl",
+    "state": "CA",
+    "lat": 39.3047,
+    "lon": -120.3347,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Sugar Mountain|NC",
+    "name": "Sugar Mountain",
+    "state": "NC",
+    "lat": 36.1197,
+    "lon": -81.8694,
+    "region": "southeast",
+    "size": "local"
   },
   {
     "id": "Sugarbush|VT",
     "name": "Sugarbush",
     "state": "VT",
-    "lat": 44.151521,
-    "lon": -72.908467,
+    "lat": 44.1358,
+    "lon": -72.9022,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "802-583-6300",
+    "skiPatrolLocation": "Lincoln Peak or Mt Ellen base",
+    "resortPhone": "800-537-8427",
+    "website": "https://www.sugarbush.com",
+    "sourceUrl": "https://www.sugarbush.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Sugarloaf|ME",
     "name": "Sugarloaf",
     "state": "ME",
-    "lat": 45.049526,
-    "lon": -70.314957,
+    "lat": 45.0314,
+    "lon": -70.3131,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "207-237-2000",
+    "skiPatrolLocation": "Superquad or Gondola base",
+    "resortPhone": "207-237-2000",
+    "website": "https://www.sugarloaf.com",
+    "sourceUrl": "https://www.sugarloaf.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
   },
   {
-    "id": "Summit at Snoqualmie|WA",
-    "name": "Summit at Snoqualmie",
-    "state": "WA",
-    "lat": 47.4207,
-    "lon": -121.4137,
-    "passNetwork": "ikon",
-    "region": "pacific-northwest"
+    "id": "Suicide Six|VT",
+    "name": "Suicide Six",
+    "state": "VT",
+    "lat": 43.655,
+    "lon": -72.5186,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Sun Valley|ID",
+    "name": "Sun Valley",
+    "state": "ID",
+    "lat": 43.6969,
+    "lon": -114.3514,
+    "region": "rockies",
+    "size": "major",
+    "skiPatrolPhone": "208-622-2231",
+    "skiPatrolLocation": "River Run or Warm Springs base",
+    "resortPhone": "800-786-8259",
+    "website": "https://www.sunvalley.com",
+    "sourceUrl": "https://www.sunvalley.com/ski-ride/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Sundance|UT",
+    "name": "Sundance",
+    "state": "UT",
+    "lat": 40.3933,
+    "lon": -111.5881,
+    "region": "rockies",
+    "size": "major"
   },
   {
     "id": "Sunday River|ME",
     "name": "Sunday River",
     "state": "ME",
-    "lat": 44.471828,
-    "lon": -70.86729,
+    "lat": 44.4728,
+    "lon": -70.8567,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "northeast"
+    "skiPatrolPhone": "207-824-3000",
+    "skiPatrolLocation": "South Ridge or North Peak base",
+    "resortPhone": "207-824-3000",
+    "website": "https://www.sundayriver.com",
+    "sourceUrl": "https://www.sundayriver.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Sundown Mountain|IA",
+    "name": "Sundown Mountain",
+    "state": "IA",
+    "lat": 42.5167,
+    "lon": -90.85,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Sunlight Mountain|CO",
+    "name": "Sunlight Mountain",
+    "state": "CO",
+    "lat": 39.4,
+    "lon": -107.3394,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Sunrise Park|AZ",
+    "name": "Sunrise Park",
+    "state": "AZ",
+    "lat": 33.9706,
+    "lon": -109.5525,
+    "region": "west",
+    "size": "local"
+  },
+  {
+    "id": "Swain|NY",
+    "name": "Swain",
+    "state": "NY",
+    "lat": 42.4803,
+    "lon": -77.8597,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Swiss Valley|MI",
+    "name": "Swiss Valley",
+    "state": "MI",
+    "lat": 41.8758,
+    "lon": -86.2742,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Tahoe Donner|CA",
+    "name": "Tahoe Donner",
+    "state": "CA",
+    "lat": 39.3522,
+    "lon": -120.2836,
+    "region": "west",
+    "size": "regional"
+  },
+  {
+    "id": "Tamarack|ID",
+    "name": "Tamarack",
+    "state": "ID",
+    "lat": 44.6817,
+    "lon": -116.1119,
+    "region": "rockies",
+    "size": "local"
+  },
+  {
+    "id": "Tanglwood|PA",
+    "name": "Tanglwood",
+    "state": "PA",
+    "lat": 40.0833,
+    "lon": -79.0333,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Taos Ski Valley|NM",
     "name": "Taos Ski Valley",
     "state": "NM",
-    "lat": 36.596,
-    "lon": -105.4545,
+    "lat": 36.5958,
+    "lon": -105.4544,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "575-776-2916",
+    "skiPatrolLocation": "Village base",
+    "resortPhone": "866-968-7386",
+    "website": "https://www.skitaos.com",
+    "sourceUrl": "https://www.skitaos.com/mountain-information/safety",
+    "lastVerified": "2026-01-06"
   },
   {
-    "id": "Telluride Ski Resort|CO",
-    "name": "Telluride Ski Resort",
+    "id": "Telluride|CO",
+    "name": "Telluride",
     "state": "CO",
-    "lat": 37.936187,
-    "lon": -107.845128,
+    "lat": 37.9375,
+    "lon": -107.8123,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-728-7533",
+    "skiPatrolLocation": "Mountain Village gondola base",
+    "resortPhone": "970-728-6900",
+    "website": "https://www.tellurideskiresort.com",
+    "sourceUrl": "https://www.tellurideskiresort.com/the-mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Tenney Mountain|NH",
+    "name": "Tenney Mountain",
+    "state": "NH",
+    "lat": 43.7736,
+    "lon": -71.7386,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Terry Peak|SD",
+    "name": "Terry Peak",
+    "state": "SD",
+    "lat": 44.3667,
+    "lon": -103.8667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Teton Pass|MT",
+    "name": "Teton Pass",
+    "state": "MT",
+    "lat": 47.9322,
+    "lon": -112.5333,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "The Homestead|VA",
+    "name": "The Homestead",
+    "state": "VA",
+    "lat": 37.9833,
+    "lon": -79.8333,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "The Rock|WI",
+    "name": "The Rock",
+    "state": "WI",
+    "lat": 43.3389,
+    "lon": -89.0806,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "The Summit at Snoqualmie|WA",
+    "name": "The Summit at Snoqualmie",
+    "state": "WA",
+    "lat": 47.4206,
+    "lon": -121.4136,
+    "region": "pacific-northwest",
+    "size": "local",
+    "passNetwork": "ikon"
+  },
+  {
+    "id": "Thunder Ridge|NY",
+    "name": "Thunder Ridge",
+    "state": "NY",
+    "lat": 41.4383,
+    "lon": -73.5717,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Timber Ridge|MI",
+    "name": "Timber Ridge",
+    "state": "MI",
+    "lat": 42.3756,
+    "lon": -85.3803,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Timberline|OR",
+    "name": "Timberline",
+    "state": "OR",
+    "lat": 45.3308,
+    "lon": -121.7111,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Timberline|WV",
+    "name": "Timberline",
+    "state": "WV",
+    "lat": 39.0028,
+    "lon": -79.4333,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Titcomb Mountain|ME",
+    "name": "Titcomb Mountain",
+    "state": "ME",
+    "lat": 44.65,
+    "lon": -70.2167,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "Titus Mountain|NY",
+    "name": "Titus Mountain",
+    "state": "NY",
+    "lat": 44.8833,
+    "lon": -74.25,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Toggenburg|NY",
+    "name": "Toggenburg",
+    "state": "NY",
+    "lat": 42.85,
+    "lon": -75.9667,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Treetops|MI",
+    "name": "Treetops",
+    "state": "MI",
+    "lat": 45.1375,
+    "lon": -84.6436,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Trollhaugen|WI",
+    "name": "Trollhaugen",
+    "state": "WI",
+    "lat": 45.2833,
+    "lon": -92.5667,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Turner Mountain|MT",
+    "name": "Turner Mountain",
+    "state": "MT",
+    "lat": 48.8525,
+    "lon": -115.6422,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Tussey Mountain|PA",
+    "name": "Tussey Mountain",
+    "state": "PA",
+    "lat": 40.7422,
+    "lon": -77.7644,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Tyrol Basin|WI",
+    "name": "Tyrol Basin",
+    "state": "WI",
+    "lat": 43.1053,
+    "lon": -89.7756,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Vail|CO",
     "name": "Vail",
     "state": "CO",
-    "lat": 39.643803,
-    "lon": -106.388823,
+    "lat": 39.6403,
+    "lon": -106.3742,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "rockies"
+    "skiPatrolPhone": "970-479-2288",
+    "skiPatrolLocation": "Top of Gondola One or any lift station",
+    "resortPhone": "970-754-8245",
+    "website": "https://www.vail.com",
+    "sourceUrl": "https://www.vail.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Wachusett|MA",
+    "name": "Wachusett",
+    "state": "MA",
+    "lat": 42.5008,
+    "lon": -71.8856,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Warner Canyon|OR",
+    "name": "Warner Canyon",
+    "state": "OR",
+    "lat": 42.2561,
+    "lon": -120.2153,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Waterville Valley|NH",
+    "name": "Waterville Valley",
+    "state": "NH",
+    "lat": 43.965,
+    "lon": -71.5281,
+    "region": "northeast",
+    "size": "major"
+  },
+  {
+    "id": "Welch Village|MN",
+    "name": "Welch Village",
+    "state": "MN",
+    "lat": 44.5667,
+    "lon": -92.7333,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "West Mountain|NY",
+    "name": "West Mountain",
+    "state": "NY",
+    "lat": 43.2867,
+    "lon": -73.8006,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Whaleback|NH",
+    "name": "Whaleback",
+    "state": "NH",
+    "lat": 43.55,
+    "lon": -72.15,
+    "region": "northeast",
+    "size": "regional"
+  },
+  {
+    "id": "White Pass|WA",
+    "name": "White Pass",
+    "state": "WA",
+    "lat": 46.6378,
+    "lon": -121.3903,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "White Pine|WY",
+    "name": "White Pine",
+    "state": "WY",
+    "lat": 42.9322,
+    "lon": -109.7542,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Whitecap Mountains|WI",
+    "name": "Whitecap Mountains",
+    "state": "WI",
+    "lat": 46.375,
+    "lon": -90.2083,
+    "region": "midwest",
+    "size": "local"
+  },
+  {
+    "id": "Whiteface|NY",
+    "name": "Whiteface",
+    "state": "NY",
+    "lat": 44.3658,
+    "lon": -73.9028,
+    "region": "northeast",
+    "size": "major",
+    "skiPatrolPhone": "518-946-2223",
+    "skiPatrolLocation": "Main base lodge",
+    "resortPhone": "518-946-2223",
+    "website": "https://www.whiteface.com",
+    "sourceUrl": "https://www.whiteface.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Whiteface Lake Placid|NY",
+    "name": "Whiteface Lake Placid",
+    "state": "NY",
+    "lat": 44.3658,
+    "lon": -73.9028,
+    "region": "northeast",
+    "size": "major"
+  },
+  {
+    "id": "Whitefish Mountain|MT",
+    "name": "Whitefish Mountain",
+    "state": "MT",
+    "lat": 48.4897,
+    "lon": -114.3553,
+    "region": "rockies",
+    "size": "regional",
+    "skiPatrolPhone": "406-862-2900",
+    "skiPatrolLocation": "Summit House or Base Lodge",
+    "resortPhone": "406-862-2900",
+    "website": "https://skiwhitefish.com",
+    "sourceUrl": "https://skiwhitefish.com/mountain/safety/",
+    "lastVerified": "2026-01-06"
   },
   {
     "id": "Whitetail|PA",
     "name": "Whitetail",
     "state": "PA",
-    "lat": 39.756046,
-    "lon": -77.920545,
-    "passNetwork": "epic",
-    "region": "northeast"
+    "lat": 39.7367,
+    "lon": -77.9339,
+    "region": "northeast",
+    "size": "local",
+    "passNetwork": "epic"
+  },
+  {
+    "id": "Wild Mountain|MN",
+    "name": "Wild Mountain",
+    "state": "MN",
+    "lat": 45.5167,
+    "lon": -92.7333,
+    "region": "midwest",
+    "size": "local"
   },
   {
     "id": "Wildcat|NH",
     "name": "Wildcat",
     "state": "NH",
-    "lat": 43.138592,
-    "lon": -70.939403,
+    "lat": 44.2636,
+    "lon": -71.2394,
+    "region": "northeast",
+    "size": "major",
     "passNetwork": "epic",
-    "region": "northeast"
+    "skiPatrolPhone": "603-466-3326",
+    "skiPatrolLocation": "Base lodge",
+    "resortPhone": "603-466-3326",
+    "website": "https://www.skiwildcat.com",
+    "sourceUrl": "https://www.skiwildcat.com/the-mountain/mountain-safety.aspx",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Willamette Pass|OR",
+    "name": "Willamette Pass",
+    "state": "OR",
+    "lat": 43.5967,
+    "lon": -122.0392,
+    "region": "pacific-northwest",
+    "size": "local"
+  },
+  {
+    "id": "Willard Mountain|NY",
+    "name": "Willard Mountain",
+    "state": "NY",
+    "lat": 43.0778,
+    "lon": -73.4903,
+    "region": "northeast",
+    "size": "local"
   },
   {
     "id": "Wilmot Mountain|WI",
     "name": "Wilmot Mountain",
     "state": "WI",
-    "lat": 42.499847,
-    "lon": -88.190427,
-    "passNetwork": "epic",
-    "region": "midwest"
+    "lat": 42.5092,
+    "lon": -88.1764,
+    "region": "midwest",
+    "size": "local",
+    "passNetwork": "epic"
   },
   {
     "id": "Windham Mountain|NY",
     "name": "Windham Mountain",
     "state": "NY",
-    "lat": 42.2967,
-    "lon": -74.2556,
-    "passNetwork": "ikon",
-    "region": "northeast"
+    "lat": 42.2958,
+    "lon": -74.2558,
+    "region": "northeast",
+    "size": "major",
+    "passNetwork": "ikon"
   },
   {
     "id": "Winter Park|CO",
     "name": "Winter Park",
     "state": "CO",
-    "lat": 39.918042,
-    "lon": -105.785563,
+    "lat": 39.8868,
+    "lon": -105.7625,
+    "region": "rockies",
+    "size": "major",
     "passNetwork": "ikon",
-    "region": "rockies"
+    "skiPatrolPhone": "970-726-1564",
+    "skiPatrolLocation": "Winter Park base or Mary Jane base",
+    "resortPhone": "970-726-5514",
+    "website": "https://www.winterparkresort.com",
+    "sourceUrl": "https://www.winterparkresort.com/the-mountain/safety",
+    "lastVerified": "2026-01-06"
+  },
+  {
+    "id": "Wintergreen|VA",
+    "name": "Wintergreen",
+    "state": "VA",
+    "lat": 37.9417,
+    "lon": -78.9008,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Winterplace|WV",
+    "name": "Winterplace",
+    "state": "WV",
+    "lat": 37.5917,
+    "lon": -81.0875,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Wisp|MD",
+    "name": "Wisp",
+    "state": "MD",
+    "lat": 39.5569,
+    "lon": -79.3647,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Wolf Creek|CO",
+    "name": "Wolf Creek",
+    "state": "CO",
+    "lat": 37.4728,
+    "lon": -106.7935,
+    "region": "rockies",
+    "size": "regional"
+  },
+  {
+    "id": "Wolf Ridge|NC",
+    "name": "Wolf Ridge",
+    "state": "NC",
+    "lat": 35.55,
+    "lon": -83.0833,
+    "region": "southeast",
+    "size": "local"
+  },
+  {
+    "id": "Woods Valley|NY",
+    "name": "Woods Valley",
+    "state": "NY",
+    "lat": 43.25,
+    "lon": -75.3167,
+    "region": "northeast",
+    "size": "local"
+  },
+  {
+    "id": "Woodward Park City|UT",
+    "name": "Woodward Park City",
+    "state": "UT",
+    "lat": 40.7372,
+    "lon": -111.5239,
+    "region": "rockies",
+    "size": "major",
+    "passNetwork": "epic"
   }
 ]

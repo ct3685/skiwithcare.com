@@ -4,12 +4,13 @@ import type { Map as LeafletMap } from "leaflet";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useSelectionStore } from "@/stores/selectionStore";
 import { useLocationStore } from "@/stores/locationStore";
-import { Header, Sidebar, SettingsDrawer } from "@/components/layout";
+import { Header, Sidebar, SettingsDrawer, EmergencyBanner } from "@/components/layout";
 import {
   MapView,
   ResortMarker,
   ClinicMarker,
   HospitalMarker,
+  UrgentCareMarker,
   UserLocationMarker,
   ConnectionLines,
   ConnectionLegend,
@@ -17,7 +18,7 @@ import {
   SecondaryResortMarker,
   SecondaryHospitalMarker,
 } from "@/components/map";
-import { ResortCard, ClinicCard, HospitalCard } from "@/components/cards";
+import { ResortCard, ClinicCard, HospitalCard, UrgentCareCard } from "@/components/cards";
 import { Spinner } from "@/components/ui";
 import { useData, useFilteredData } from "@/hooks";
 import {
@@ -43,8 +44,8 @@ function App() {
   const prevExpandedIdRef = useRef<string | null>(null);
 
   // Load data
-  const { resorts, clinics, hospitals, isLoading, error } = useData();
-  const filtered = useFilteredData(resorts, clinics, hospitals);
+  const { resorts, clinics, hospitals, urgentCare, isLoading, error } = useData();
+  const filtered = useFilteredData(resorts, clinics, hospitals, urgentCare);
 
   // Extract unique states for filter dropdown
   const states = useMemo(() => {
@@ -52,8 +53,9 @@ function App() {
     resorts.forEach((r) => allStates.add(r.state));
     clinics.forEach((c) => allStates.add(c.state));
     hospitals.forEach((h) => allStates.add(h.state));
+    urgentCare.forEach((f) => allStates.add(f.state));
     return Array.from(allStates).sort();
-  }, [resorts, clinics, hospitals]);
+  }, [resorts, clinics, hospitals, urgentCare]);
 
   // Apply theme classes to document
   useEffect(() => {
@@ -328,6 +330,28 @@ function App() {
           />
         ));
 
+      case "urgent_care":
+        if (filtered.urgentCare.length === 0) {
+          return (
+            <div className="text-center py-12 text-text-muted">
+              <p className="text-2xl mb-2">🩹</p>
+              <p>No urgent care facilities found</p>
+            </div>
+          );
+        }
+        return filtered.urgentCare.map((facility) => (
+          <UrgentCareCard
+            key={facility.id}
+            facility={facility}
+            userDistance={facility.distance}
+            nearestResorts={getNearestResorts(
+              { lat: facility.lat, lon: facility.lon } as Clinic,
+              resorts
+            )}
+            onDirectionsClick={handleDirections}
+          />
+        ));
+
       default:
         return null;
     }
@@ -335,6 +359,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary overflow-hidden">
+      {/* Emergency Disclaimer Banner */}
+      <EmergencyBanner />
+
       {/* Settings Drawer */}
       <SettingsDrawer />
 
@@ -351,7 +378,9 @@ function App() {
               ? filtered.resorts.length
               : mode === "clinics"
               ? filtered.clinics.length
-              : filtered.hospitals.length
+              : mode === "hospitals"
+              ? filtered.hospitals.length
+              : filtered.urgentCare.length
           }
           sortOrigin={filtered.sortOrigin}
         >
@@ -487,6 +516,18 @@ function App() {
                   key={`secondary-resort-${resort.id}`}
                   resort={resort}
                   rank={index}
+                />
+              ))}
+
+            {/* Urgent Care Markers */}
+            {mode === "urgent_care" &&
+              filtered.urgentCare.map((uc) => (
+                <UrgentCareMarker
+                  key={uc.id}
+                  urgentCare={uc}
+                  isSelected={selectedId === uc.id}
+                  userLocation={userLocation}
+                  onClick={() => handleMapSelect(uc.id, uc.lat, uc.lon)}
                 />
               ))}
           </MapView>

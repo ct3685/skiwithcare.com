@@ -2,4 +2,5 @@
 export * from "./ResortCard";
 export * from "./ClinicCard";
 export * from "./HospitalCard";
+export * from "./UrgentCareCard";
 

@@ -12,7 +12,16 @@ export type Region =
   | "northeast"
   | "midwest"
   | "southeast"
-  | "pacific-northwest";
+  | "pacific-northwest"
+  | "other";
+
+/**
+ * Resort Size Category
+ * - major: Large destination resorts (Vail, Park City, etc.)
+ * - regional: Mid-size resorts serving regional visitors
+ * - local: Small local hills and ski areas
+ */
+export type ResortSize = "major" | "regional" | "local";
 
 /**
  * Ski Resort
@@ -28,10 +37,34 @@ export interface Resort {
   lat: number;
   /** Longitude */
   lon: number;
-  /** Pass network affiliation */
-  passNetwork: PassNetwork;
+  /** Pass network affiliation (optional - many resorts are independent) */
+  passNetwork?: PassNetwork;
   /** Geographic region */
   region: Region;
+
+  // Size and categorization
+  /** Resort size category */
+  size?: ResortSize;
+
+  // Emergency contact information
+  /** Ski patrol direct phone number */
+  skiPatrolPhone?: string;
+  /** Ski patrol location description (e.g., "Base of Chair 1") */
+  skiPatrolLocation?: string;
+  /** Main resort phone number (fallback for patrol) */
+  resortPhone?: string;
+  /** Resort website URL */
+  website?: string;
+
+  // On-mountain medical
+  /** ID of on-mountain clinic facility (if any) */
+  onMountainClinicId?: string;
+
+  // Trust signals
+  /** ISO date string of last data verification */
+  lastVerified?: string;
+  /** URL to official source for this data */
+  sourceUrl?: string;
 }
 
 /**

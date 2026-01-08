@@ -1,6 +1,6 @@
 import { Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import type { Resort, Clinic, Hospital, UserLocation } from "@/types";
+import type { Resort, Clinic, Hospital, UserLocation, Facility } from "@/types";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatDistance } from "@/utils/formatters";
 import { haversine } from "@/utils/haversine";
@@ -52,6 +52,17 @@ const hospitalSelectedIcon = createDivIcon(
   [32, 32]
 );
 
+// Urgent Care marker icon (orange/amber to differentiate)
+const urgentCareIcon = createDivIcon(
+  `<div class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-amber-400 border-2 border-white shadow-lg text-xs">🩹</div>`,
+  [24, 24]
+);
+
+const urgentCareSelectedIcon = createDivIcon(
+  `<div class="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-amber-400 border-2 border-white shadow-glow-orange text-sm">🩹</div>`,
+  [32, 32]
+);
+
 // User location marker icon
 const userLocationIcon = createDivIcon(
   `<div class="user-location-marker relative">
@@ -74,6 +85,11 @@ const secondaryClinicIcon = createDivIcon(
 
 const secondaryHospitalIcon = createDivIcon(
   `<div class="flex items-center justify-center w-5 h-5 rounded-full bg-accent-danger/80 border border-white shadow-md text-[10px] text-white font-bold">+</div>`,
+  [20, 20]
+);
+
+const secondaryUrgentCareIcon = createDivIcon(
+  `<div class="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-orange-500/80 to-amber-400/80 border border-white shadow-md text-[10px]">🩹</div>`,
   [20, 20]
 );
 
@@ -290,6 +306,81 @@ export function HospitalMarker({
   );
 }
 
+interface UrgentCareMarkerProps {
+  urgentCare: Facility;
+  isSelected?: boolean;
+  userLocation?: UserLocation | null;
+  onClick?: () => void;
+}
+
+export function UrgentCareMarker({
+  urgentCare,
+  isSelected = false,
+  userLocation,
+  onClick,
+}: UrgentCareMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+  const map = useMap();
+
+  const userDist = userLocation
+    ? formatDistance(
+        haversine(
+          { lat: userLocation.lat, lon: userLocation.lon },
+          { lat: urgentCare.lat, lon: urgentCare.lon }
+        ),
+        distanceUnit
+      )
+    : null;
+
+  const handleViewDetails = () => {
+    map.closePopup();
+    onClick?.();
+    setTimeout(() => {
+      const card = document.querySelector(`[data-urgentcare-id="${urgentCare.id}"]`);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+  };
+
+  return (
+    <Marker
+      position={[urgentCare.lat, urgentCare.lon]}
+      icon={isSelected ? urgentCareSelectedIcon : urgentCareIcon}
+      eventHandlers={{ click: onClick }}
+    >
+      <Popup>
+        <div className="min-w-[200px]">
+          <div className="font-bold text-base mb-1">🩹 {urgentCare.name}</div>
+          <div className="text-sm text-gray-600 mb-1">
+            {urgentCare.address && (
+              <>
+                {urgentCare.address}
+                <br />
+              </>
+            )}
+            {urgentCare.city}, {urgentCare.state} {urgentCare.zip}
+          </div>
+          {userDist && (
+            <div className="text-sm text-blue-600 mb-2">
+              📍 {userDist} from you
+            </div>
+          )}
+          {urgentCare.nearestResort && (
+            <div className="text-sm text-green-600 mb-2">
+              ⛷️ Near {urgentCare.nearestResort}
+            </div>
+          )}
+          <button
+            onClick={handleViewDetails}
+            className="w-full px-3 py-1.5 bg-orange-500 text-white text-sm font-medium rounded hover:bg-orange-600 transition-colors"
+          >
+            View Details →
+          </button>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
 // ============ Secondary Marker Components (for showing related items) ============
 
 interface SecondaryResortMarkerProps {
@@ -388,6 +479,41 @@ export function SecondaryHospitalMarker({
           </div>
           <div className="text-xs text-red-600 font-medium">
             {formatDistance(hospital.distance, distanceUnit)} away
+          </div>
+        </div>
+      </Popup>
+    </Marker>
+  );
+}
+
+interface SecondaryUrgentCareMarkerProps {
+  urgentCare: Facility & { distance: number };
+  rank: number;
+  onClick?: () => void;
+}
+
+export function SecondaryUrgentCareMarker({
+  urgentCare,
+  rank,
+  onClick,
+}: SecondaryUrgentCareMarkerProps) {
+  const { distanceUnit } = useSettingsStore();
+
+  return (
+    <Marker
+      position={[urgentCare.lat, urgentCare.lon]}
+      icon={secondaryUrgentCareIcon}
+      eventHandlers={{ click: onClick }}
+      zIndexOffset={100 - rank}
+    >
+      <Popup>
+        <div className="min-w-[180px]">
+          <div className="font-bold text-sm mb-1">🩹 {urgentCare.name}</div>
+          <div className="text-xs text-gray-600 mb-1">
+            {urgentCare.city}, {urgentCare.state}
+          </div>
+          <div className="text-xs text-orange-600 font-medium">
+            {formatDistance(urgentCare.distance, distanceUnit)} away
           </div>
         </div>
       </Popup>

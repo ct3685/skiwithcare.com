@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import type { Resort, Clinic, Hospital } from "@/types";
+import type { Resort, Clinic, Hospital, Facility } from "@/types";
 
 interface DataState {
   resorts: Resort[];
   clinics: Clinic[];
   hospitals: Hospital[];
+  urgentCare: Facility[];
   isLoading: boolean;
   error: string | null;
 }
@@ -17,6 +18,7 @@ export function useData(): DataState {
     resorts: [],
     clinics: [],
     hospitals: [],
+    urgentCare: [],
     isLoading: true,
     error: null,
   });
@@ -44,8 +46,9 @@ export function useData(): DataState {
         const resorts: Resort[] = rawResorts.map((r: Partial<Resort>) => ({
           ...r,
           id: r.id || `${r.name}|${r.state}`,
-          passNetwork: r.passNetwork || "epic",
-          region: r.region || "rockies",
+          // passNetwork is now optional - don't default to "epic"
+          // Only set if present in data (epic/ikon/both) - independent resorts have no passNetwork
+          region: r.region || "other",
         }));
 
         // Normalize clinic data (add missing provider for legacy DaVita-only data)
@@ -66,10 +69,22 @@ export function useData(): DataState {
           console.log("Hospitals data not available yet");
         }
 
+        // Try to load urgent care facilities
+        let urgentCare: Facility[] = [];
+        try {
+          const urgentCareRes = await fetch("/urgent_care.json");
+          if (urgentCareRes.ok) {
+            urgentCare = await urgentCareRes.json();
+          }
+        } catch {
+          console.log("Urgent care data not available yet");
+        }
+
         setState({
           resorts,
           clinics,
           hospitals,
+          urgentCare,
           isLoading: false,
           error: null,
         });

@@ -8,8 +8,9 @@ import {
 
 const modes: { id: ViewMode; label: string; icon: string }[] = [
   { id: "resorts", label: "Resorts", icon: "🏔️" },
-  { id: "clinics", label: "Clinics", icon: "🏥" },
-  { id: "hospitals", label: "Hospitals", icon: "🚑" },
+  { id: "urgent_care", label: "Urgent", icon: "🩹" },
+  { id: "hospitals", label: "ER", icon: "🚑" },
+  { id: "clinics", label: "Dialysis", icon: "🏥" },
 ];
 
 export function Header() {
