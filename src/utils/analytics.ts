@@ -129,7 +129,7 @@ export function trackLocationClear(mode: string): void {
 }
 
 /**
- * Track directions click
+ * Track directions click (detailed - from card connections)
  */
 export function trackDirectionsClick(
   fromName: string,
@@ -143,6 +143,20 @@ export function trackDirectionsClick(
     to_name: toName,
     distance_miles: distanceMiles,
     mode,
+  });
+}
+
+/**
+ * Track directions button click (simple - direct to facility)
+ */
+export function trackDirectionsButtonClick(
+  facilityType: string,
+  facilityName: string
+): void {
+  trackEvent("directions_button_click", {
+    event_category: "engagement",
+    facility_type: facilityType,
+    facility_name: facilityName,
   });
 }
 

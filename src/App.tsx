@@ -19,7 +19,7 @@ import {
   UrgentCareClusterGroup,
 } from "@/components/map";
 import { ResortCard, ClinicCard, HospitalCard, UrgentCareCard } from "@/components/cards";
-import { Spinner } from "@/components/ui";
+import { SkeletonCardList } from "@/components/ui";
 import { useData, useFilteredData } from "@/hooks";
 import {
   getNearestClinics,
@@ -293,11 +293,7 @@ function App() {
   // Render card list based on mode
   const renderCards = () => {
     if (isLoading) {
-      return (
-        <div className="flex items-center justify-center py-12">
-          <Spinner size="lg" />
-        </div>
-      );
+      return <SkeletonCardList count={8} />;
     }
 
     if (error) {

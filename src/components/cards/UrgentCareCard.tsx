@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Facility, ResortWithDistance } from "@/types";
 import { useSelectionStore } from "@/stores";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { Badge, DistanceBadge, ReportForm } from "@/components/ui";
+import { Badge, DistanceBadge, ReportForm, DirectionsButton, ShareButton } from "@/components/ui";
 import { formatDistance } from "@/utils/formatters";
 import { trackItemSelect, trackReportOpen, trackReportSubmit } from "@/utils/analytics";
 
@@ -161,6 +161,24 @@ export function UrgentCareCard({
                 </a>
               </p>
             )}
+          </div>
+
+          {/* Quick Actions */}
+          <div className="flex gap-2">
+            <DirectionsButton
+              destLat={facility.lat}
+              destLon={facility.lon}
+              destName={facility.name}
+              facilityType="urgent_care"
+              className="flex-1"
+            />
+            <ShareButton
+              title={facility.name}
+              text={`${facility.city}, ${facility.state} - Urgent Care`}
+              lat={facility.lat}
+              lon={facility.lon}
+              facilityType="urgent_care"
+            />
           </div>
 
           {/* Nearest Resorts */}
