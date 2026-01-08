@@ -122,3 +122,39 @@ button, a, input, select {
   );
 }
 
+/* ============ MarkerCluster Styles ============ */
+
+/* Base cluster styles */
+.marker-cluster {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.marker-cluster:hover {
+  transform: scale(1.1);
+}
+
+/* Override default markercluster styles */
+.leaflet-cluster-anim .leaflet-marker-icon,
+.leaflet-cluster-anim .leaflet-marker-shadow {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+}
+
+/* Spiderfy legs */
+.leaflet-cluster-spider-leg {
+  stroke: var(--accent-primary, #ec4899);
+  stroke-width: 2;
+  stroke-opacity: 0.6;
+}
+
+/* Default markercluster overrides to prevent conflicts */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background: none !important;
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background: none !important;
+}

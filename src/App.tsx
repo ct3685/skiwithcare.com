@@ -7,16 +7,16 @@ import { useLocationStore } from "@/stores/locationStore";
 import { Header, Sidebar, SettingsDrawer, EmergencyBanner } from "@/components/layout";
 import {
   MapView,
-  ResortMarker,
-  ClinicMarker,
-  HospitalMarker,
-  UrgentCareMarker,
   UserLocationMarker,
   ConnectionLines,
   ConnectionLegend,
   SecondaryClinicMarker,
   SecondaryResortMarker,
   SecondaryHospitalMarker,
+  ResortClusterGroup,
+  ClinicClusterGroup,
+  HospitalClusterGroup,
+  UrgentCareClusterGroup,
 } from "@/components/map";
 import { ResortCard, ClinicCard, HospitalCard, UrgentCareCard } from "@/components/cards";
 import { Spinner } from "@/components/ui";
@@ -430,19 +430,15 @@ function App() {
               />
             )}
 
-            {/* Resort Markers */}
-            {mode === "resorts" &&
-              filtered.resorts.map((resort) => (
-                <ResortMarker
-                  key={resort.id}
-                  resort={resort}
-                  isSelected={selectedId === resort.id}
-                  userLocation={userLocation}
-                  onClick={() =>
-                    handleMapSelect(resort.id, resort.lat, resort.lon)
-                  }
-                />
-              ))}
+            {/* Resort Markers (Clustered) */}
+            {mode === "resorts" && (
+              <ResortClusterGroup
+                resorts={filtered.resorts}
+                selectedId={selectedId}
+                userLocation={userLocation}
+                onSelect={handleMapSelect}
+              />
+            )}
 
             {/* Secondary Clinic Markers (when a resort is expanded) */}
             {mode === "resorts" &&
@@ -468,19 +464,15 @@ function App() {
                 />
               ))}
 
-            {/* Clinic Markers */}
-            {mode === "clinics" &&
-              filtered.clinics.map((clinic) => (
-                <ClinicMarker
-                  key={clinic.ccn}
-                  clinic={clinic}
-                  isSelected={selectedId === clinic.ccn}
-                  userLocation={userLocation}
-                  onClick={() =>
-                    handleMapSelect(clinic.ccn, clinic.lat, clinic.lon)
-                  }
-                />
-              ))}
+            {/* Clinic Markers (Clustered) */}
+            {mode === "clinics" && (
+              <ClinicClusterGroup
+                clinics={filtered.clinics}
+                selectedId={selectedId}
+                userLocation={userLocation}
+                onSelect={handleMapSelect}
+              />
+            )}
 
             {/* Secondary Resort Markers (when a clinic is expanded) */}
             {mode === "clinics" &&
@@ -494,18 +486,15 @@ function App() {
                 />
               ))}
 
-            {/* Hospital Markers */}
-            {mode === "hospitals" &&
-              filtered.hospitals.map((hospital) => (
-                <HospitalMarker
-                  key={hospital.id}
-                  hospital={hospital}
-                  isSelected={selectedId === hospital.id}
-                  onClick={() =>
-                    handleMapSelect(hospital.id, hospital.lat, hospital.lon)
-                  }
-                />
-              ))}
+            {/* Hospital Markers (Clustered) */}
+            {mode === "hospitals" && (
+              <HospitalClusterGroup
+                hospitals={filtered.hospitals}
+                selectedId={selectedId}
+                userLocation={userLocation}
+                onSelect={handleMapSelect}
+              />
+            )}
 
             {/* Secondary Resort Markers (when a hospital is expanded) */}
             {mode === "hospitals" &&
@@ -519,17 +508,15 @@ function App() {
                 />
               ))}
 
-            {/* Urgent Care Markers */}
-            {mode === "urgent_care" &&
-              filtered.urgentCare.map((uc) => (
-                <UrgentCareMarker
-                  key={uc.id}
-                  urgentCare={uc}
-                  isSelected={selectedId === uc.id}
-                  userLocation={userLocation}
-                  onClick={() => handleMapSelect(uc.id, uc.lat, uc.lon)}
-                />
-              ))}
+            {/* Urgent Care Markers (Clustered) */}
+            {mode === "urgent_care" && (
+              <UrgentCareClusterGroup
+                urgentCare={filtered.urgentCare}
+                selectedId={selectedId}
+                userLocation={userLocation}
+                onSelect={handleMapSelect}
+              />
+            )}
           </MapView>
         </div>
       </main>
