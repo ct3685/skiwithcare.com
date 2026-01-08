@@ -74,7 +74,7 @@ export function UrgentCareCard({
 
   return (
     <div
-      data-urgentcare-id={facility.id}
+      data-urgent-care-id={facility.id}
       onClick={handleClick}
       className={`
         p-4 rounded-lg

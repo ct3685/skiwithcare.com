@@ -229,8 +229,8 @@ describe("UrgentCareCard", () => {
     it("has correct data attribute for scrolling", () => {
       render(<UrgentCareCard facility={mockFacility} />);
 
-      const card = screen.getByText(/Mountain Urgent Care/).closest("[data-urgentcare-id]");
-      expect(card).toHaveAttribute("data-urgentcare-id", "osm-123");
+      const card = screen.getByText(/Mountain Urgent Care/).closest("[data-urgent-care-id]");
+      expect(card).toHaveAttribute("data-urgent-care-id", "osm-123");
     });
   });
 });

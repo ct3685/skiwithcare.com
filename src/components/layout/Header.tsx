@@ -62,16 +62,17 @@ export function Header() {
         </button>
 
         {/* Mode Toggle */}
-        <div className="flex bg-bg-tertiary border border-border rounded-full p-1 gap-1">
+        <div className="flex bg-bg-tertiary border border-border rounded-full p-0.5 sm:p-1 gap-0.5 sm:gap-1 overflow-x-auto">
           {modes.map(({ id, label, icon }) => (
             <button
               key={id}
               onClick={() => handleModeChange(id)}
               className={`
-                px-3 py-2 rounded-full
-                text-sm font-semibold
-                flex items-center gap-1.5
+                px-2 sm:px-3 py-1.5 sm:py-2 rounded-full
+                text-xs sm:text-sm font-semibold
+                flex items-center gap-1 sm:gap-1.5
                 transition-all duration-300
+                whitespace-nowrap flex-shrink-0
                 ${
                   mode === id
                     ? "bg-gradient-to-r from-accent-primary to-accent-tertiary text-white shadow-glow-pink"
@@ -79,8 +80,8 @@ export function Header() {
                 }
               `}
             >
-              <span className="hidden sm:inline">{icon}</span>
-              <span>{label}</span>
+              <span>{icon}</span>
+              <span className="hidden xs:inline sm:inline">{label}</span>
             </button>
           ))}
         </div>

@@ -38,6 +38,7 @@
     "url": "https://github.com/ct3685/skiwithcare"
   },
   "dependencies": {
+    "@tanstack/react-virtual": "^3.13.18",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "react": "^19.2.3",
