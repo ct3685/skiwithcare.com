@@ -5,6 +5,39 @@ All notable changes to SkiWithCare will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-01-08 - Emergency Care Pivot
+
+### Added
+- **Urgent Care Mode** - Browse 1,200+ urgent care facilities near ski resorts
+- **Emergency Guide** - "Where Should I Go?" triage decision support modal
+- **Emergency Banner** - Sticky 911 call button with dismiss functionality
+- **Emergency FAB** - Floating 911 button on mobile devices
+- **Ski Patrol Contacts** - 54 resorts enriched with ski patrol phone numbers
+- **335 US Ski Resorts** - Expanded from ~100 to 335 resorts covering all states
+- **DirectionsButton** - One-tap directions using native maps (Apple/Google)
+- **ShareButton** - Web Share API with clipboard fallback
+- **PWA Support** - Service worker for offline access, install prompt
+- **Report Form** - User feedback for incorrect facility information
+- **Filter Persistence** - Remember user's filter preferences in localStorage
+- **Skeleton Loaders** - Better perceived performance during data loading
+- **Accessibility** - Skip link, focus styles, reduced motion support
+- **FreshnessIndicator** - Show data verification status
+- **VirtualizedList** - Performance for large facility lists
+- **E2E Tests** - Playwright tests for urgent care flow
+
+### Changed
+- App focus expanded from dialysis-only to general emergency care
+- Updated meta tags for emergency care SEO
+- Header mode buttons show emoji-only on mobile
+- Added xs (480px) Tailwind breakpoint for mobile
+
+### Data
+- Urgent care data from OpenStreetMap (17 states, 1,238 facilities)
+- Ski patrol data from resort websites
+- All US ski resorts from curated list + geocoding
+
+---
+
 ## [Unreleased] - React Rebuild
 
 ### Added
