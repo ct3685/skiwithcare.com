@@ -6,6 +6,7 @@
   "description": "Care Near the Slopes — Find dialysis clinics near ski resorts",
   "scripts": {
     "dev": "vite",
+    "kill": "kill -9 $(lsof -t -i:5173) 2>/dev/null || echo 'Nothing running on port 5173'",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
