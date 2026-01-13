@@ -24,6 +24,7 @@ export function VirtualizedList<T>({
 }: VirtualizedListProps<T>) {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual API is intentionally designed this way
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
@@ -68,16 +69,5 @@ export function VirtualizedList<T>({
   );
 }
 
-/**
- * Hook to get virtualized list stats for display
- */
-export function useVirtualizedStats(
-  totalCount: number,
-  visibleCount: number
-): { showingCount: number; totalCount: number; isVirtualized: boolean } {
-  return {
-    showingCount: visibleCount,
-    totalCount,
-    isVirtualized: visibleCount < totalCount,
-  };
-}
+// Utility function moved inline to avoid fast-refresh warning
+// Use { showingCount, totalCount, isVirtualized: showingCount < totalCount } pattern instead
